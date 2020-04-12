@@ -1,0 +1,30 @@
+{
+    "name": "Google Meet Attendees",
+    "description": "Keep track of attendees in Google Meet",
+    "version": "0.0.1",
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+      },
+    "content_scripts": [
+        {
+        "matches": [
+          "https://meet.google.com/*"
+        ],
+        "js": [
+          "js/inject.js"
+        ],
+        "run_at": "document_idle",
+        "all_frames": false
+      }
+    ],
+    "browser_action": {
+      "default_title": "Google Meet Attendees",
+      "default_popup": "html/popup.html"
+    },
+    "web_accessible_resources": [
+      "js/copy.simple.user.js"
+    ],
+    "manifest_version": 2
+  }
