@@ -1,14 +1,24 @@
 // ==UserScript==
-// @name        DGIT Copy all users on google meet
-// @namespace   meet copy ok?
+// @name        Google Meet Attendees
+// @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
 // @version     0.0.1
-// @author      C4illin & Daniel
-// @description No joke this is so bad
+// @author      Daniel & C4illin
+// @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
 // ==/UserScript==
 
+// TODO (ordered by difficulty (easiest first))
+/* 
+Add options menu
+Add better pop-up for random person
+Save function for classes and such
+Use more google colors var(--gm-...)
+Publish extension 
+Make the UI easier
+Get attendees in a better way
+*/
 
 //global variables
 let toggleButtonSVG = null
@@ -87,12 +97,12 @@ setInterval(() => {
     toggleButton.style.display = "flex"
     toggleButton.onclick = () => {
       let elem = document.getElementById("attendees-list")
-      if (elem.pinned) {
+      if (elem.__pinned) {
         elem.style.display = null
-        elem.pinned = false
+        elem.__pinned = false
       } else {
         elem.style.display = "block"
-        elem.pinned = true
+        elem.__pinned = true
       }
     }
     buttons.prepend(toggleButton)
@@ -148,8 +158,9 @@ setInterval(() => {
       includeYourself = e.target.checked
       localStorage.setItem("gma-include-yourself", includeYourself)
     }
-    includeYourselfLabel.innerText = "Inkluder dig själv"
-    additionalOptions.appendChild(includeYourselfCheck)
+    includeYourselfLabel.innerText = "Inkludera dig själv"
+    includeYourselfLabel.prepend(includeYourselfCheck)
+    additionalOptions.appendChild(includeYourselfLabel)
 
     const copyList = document.createElement("a")
     copyList.innerText = "Kopiera lista"
