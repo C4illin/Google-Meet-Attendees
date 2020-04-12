@@ -107,7 +107,7 @@ setInterval(() => {
     additionalOptions.appendChild(showCompareList)
 
     compare = document.createElement("div")
-    compare.style.display = "block"
+    compare.style.display = "none"
 
     const compareList = document.createElement("textarea")
     compareList.rows = 10
@@ -156,7 +156,7 @@ setInterval(() => {
 
     additionalOptions.appendChild(compare)
 
-    const s = document.createElement('style')
+    const s = document.createElement("style")
     s.innerText = `
     #update {
       display: inline-block;
