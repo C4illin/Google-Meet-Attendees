@@ -156,10 +156,17 @@ setInterval(() => {
     
     const showListI = document.createElement("a")
     showListI.id = "show_list"
-    showListI.innerText = "Visa/Göm Lista"
-    showListI.onclick = () => {
-      showElement(peopleList)
+    showListI.innerText = "Göm lista"
+    showListI.onclick = (e) => {
+      if (peopleList.style.display === "none") {
+        peopleList.style.display = "block"
+        e.target.innerText = "Göm lista"
+      } else {
+        peopleList.style.display = "none"
+        e.target.innerText = "Visa lista"
+      }
     }
+
     additionalOptions.appendChild(showListI)
 
     const settings = document.createElement("a")
@@ -260,8 +267,14 @@ setInterval(() => {
 
     const showCompareList = document.createElement("a")
     showCompareList.innerText = "Visa jämförings Lista"
-    showCompareList.onclick = () => {
-      showElement(compare)
+    showCompareList.onclick = (e) => {
+      if (compare.style.display === "none") {
+        compare.style.display = "block"
+        e.target.innerText = "Göm jämförings lista"
+      } else {
+        compare.style.display = "none"
+        e.target.innerText = "Visa jämförings lista"
+      }
     }
     additionalOptions.appendChild(showCompareList)
 
