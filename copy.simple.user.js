@@ -398,7 +398,7 @@ const getAllAttendees = () => {
   }
   let position = 2
   let checkboxes = buttons.children[2].lastChild.children
-  if (checkboxes[2].type == "textarea") {
+  if (checkboxes.length > 6) {
     position = 0
     checkboxes = buttons.children[0].lastChild.children
   }
