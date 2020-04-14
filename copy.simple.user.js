@@ -11,6 +11,7 @@
 
 // TODO (ordered by difficulty (easiest first))
 /* 
+If the input list is empty don't return a X
 Add options menu
 Add better pop-up for random person
 Save function for classes and such
@@ -27,6 +28,12 @@ let peopleCounter = null
 let compare = null
 let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
+let savedClasses = null
+if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
+  savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
+} else {
+  savedClasses = JSON.parse("{}")
+}
 let pos1, pos2, pos3, pos4 = 0
 
 const icon =
@@ -36,7 +43,6 @@ const s = document.createElement("style")
 s.innerText = `
 #attendees-list a {
   display: inline-block;
-  margin: 0 2px;
   padding: 0 5px;
   border-radius: 2rem;
   color: var(--gm-body-text-color);
@@ -99,6 +105,7 @@ s.innerText = `
   left: -100px;
   background-color: white;
   z-index: 3;
+  border: 1px #2196F3 solid;
 }
 
 #attendees-list div#settingsHeader {
@@ -108,11 +115,15 @@ s.innerText = `
   color: white;
 }
 
+div#attendees-list {
+  line-height: 36px;
+}
+
 /* Overrides some gmgv styles */
 .__gmgv-button > div {
   border-radius: 0 0 8px 8px !important;
   z-index: 1;
-  top: 41px;
+  top: 48px;
 }
 
 .__gmgv-button:hover {
@@ -290,6 +301,7 @@ setInterval(() => {
 
     compare = document.createElement("div")
     compare.style.display = "none"
+    additionalOptions.appendChild(compare)
 
     const compareList = document.createElement("textarea")
     compareList.rows = 10
@@ -307,6 +319,30 @@ setInterval(() => {
     cleanCompare.innerText = "Städa jämföringslista"
     cleanCompare.onclick = cleanCompareLists
     compare.appendChild(cleanCompare)
+
+    const classInput = document.createElement("input")
+    classInput.attributes["type"] = "password"
+    classInput.placeholder = "Klass"
+    classInput.id = "classInput"
+    compare.appendChild(classInput)
+    
+    const saveButton = document.createElement("a")
+    saveButton.innerText = "Spara lista"
+    saveButton.onclick = () => {
+      saveClass(document.getElementById("classInput").value)
+    } 
+    compare.appendChild(saveButton)
+
+    const chooseClass = document.createElement("select")
+    if (savedClasses) {
+      console.log(savedClasses)
+      Object.keys(savedClasses).forEach(function(className) {
+        let chooseClassOptions = document.createElement("option")
+        chooseClassOptions.value = className
+        chooseClass.appendChild(chooseClassOptions)
+      })
+    }
+    compare.appendChild(chooseClass) 
 
     const hereL = document.createElement("label")
     hereL.innerText = "Resultat:"
@@ -338,7 +374,7 @@ setInterval(() => {
     }
     compare.appendChild(copyCompareListForChat)
 
-    additionalOptions.appendChild(compare)
+    
   }
 }, 250)
 
@@ -369,6 +405,11 @@ const compareLists = () => {
   })
 
   compare.children[compare.childElementCount-3].value = out.join(String.fromCharCode(13, 10))
+}
+
+const saveClass = (className) => {
+  savedClasses[className] = compare.firstChild.value.split("\n")
+  localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
 }
 
 const getAllAttendees = () => {
@@ -437,7 +478,10 @@ const getAllAttendees = () => {
       people.push(item.innerText)
     }
     // console.log(people)
-    let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1) // Sorted by lastname (maybe add option?)
+
+    // Sorted by lastname (maybe add option?)
+    // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1) 
+    let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     localStorage.setItem("gmca-attendees-list", attendees)
     // console.log(attendees)
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
