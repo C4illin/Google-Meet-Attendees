@@ -41,8 +41,10 @@ s.innerText = `
   border-radius: 2rem;
   color: var(--gm-body-text-color);
   cursor: pointer;
-  line-height: 1.5rem;
   background-color: gainsboro;
+  padding: 0 9px 0 9px;
+  margin: 2px;
+  height: 34px;
 }
 
 #attendees-list p {
@@ -71,7 +73,6 @@ s.innerText = `
   position: absolute;
   background-color: gainsboro;
   padding: 0 9px 0 9px;
-  margin-left: 2px;
   line-height: 34px;
 }
 
@@ -79,8 +80,15 @@ s.innerText = `
   display: inline-block;
   position: absolute;
   text-align: center;
-  top: 15px;
   right: 5px;
+  padding: 5px;
+  height: auto;
+}
+
+#settingsButton svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* TO DO: */
@@ -104,6 +112,7 @@ s.innerText = `
 .__gmgv-button > div {
   border-radius: 0 0 8px 8px !important;
   z-index: 1;
+  top: 41px;
 }
 
 .__gmgv-button:hover {
@@ -233,6 +242,7 @@ setInterval(() => {
 
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
+    peopleList.readOnly = true
     peopleList.rows = 10
     peopleList.cols = 35
     let attendees = localStorage.getItem("gmca-attendees-list")
@@ -284,7 +294,7 @@ setInterval(() => {
     const compareList = document.createElement("textarea")
     compareList.rows = 10
     compareList.cols = 35
-    compareList.value = "Kopiera in jämföringslista"
+    compareList.placeholder = "Kopiera in jämföringslista"
     compareList.style.display = "block"
     compare.appendChild(compareList)
 
@@ -344,6 +354,7 @@ const showElement = (elem) => {
   }
 }
 
+// Add: If the input list is empty don't return a X
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = compare.firstChild.value.split("\n")
