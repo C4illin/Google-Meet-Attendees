@@ -394,6 +394,10 @@ const showElement = (elem) => {
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = compare.firstChild.value.split("\n")
+  
+  if (current.length == 0) {
+    return
+  }
 
   let out = []
   listToCompare.forEach(listItem => {
@@ -401,6 +405,11 @@ const compareLists = () => {
       out.push("✔️ " + listItem)
     } else {
       out.push("❌ " + listItem)
+    }
+  })
+  current.forEach(listItem => {
+    if (!listToCompare.includes(listItem)) {
+      out.push("❔ " + listItem)
     }
   })
 
