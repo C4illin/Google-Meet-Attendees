@@ -11,7 +11,6 @@
 
 // TODO (ordered by difficulty (easiest first))
 /* 
-If the input list is empty don't return a X
 Add options menu
 Add better pop-up for random person
 Save function for classes and such
@@ -119,7 +118,7 @@ div#attendees-list {
 }
 
 /* Overrides some gmgv styles */
-.__gmgv-button > div {
+div.__gmgv-button > div {
   border-radius: 0 0 8px 8px !important;
   z-index: 1;
   top: 48px;
@@ -385,7 +384,6 @@ const showElement = (elem) => {
   }
 }
 
-// Add: If the input list is empty don't return a X
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = compare.firstChild.value.split("\n")
