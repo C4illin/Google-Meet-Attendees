@@ -300,6 +300,7 @@ setInterval(() => {
     const compareList = document.createElement("textarea")
     compareList.rows = 10
     compareList.cols = 35
+    compareList.id = "compare-list"
     compareList.placeholder = "Kopiera in jämföringslista"
     compareList.style.display = "block"
     compare.appendChild(compareList)
@@ -328,6 +329,7 @@ setInterval(() => {
     compare.appendChild(saveButton)
 
     const chooseClass = document.createElement("select")
+    chooseClass.onchange = (hej) => {console.log(hej)}
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
