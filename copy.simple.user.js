@@ -320,7 +320,7 @@ setInterval(() => {
     compare.appendChild(cleanCompare)
 
     const classInput = document.createElement("input")
-    classInput.attributes["type"] = "password"
+    classInput.attributes["type"] = "text"
     classInput.placeholder = "Klass"
     classInput.id = "classInput"
     compare.appendChild(classInput)
