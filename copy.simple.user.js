@@ -333,20 +333,23 @@ setInterval(() => {
 
     const chooseClass = document.createElement("select")
     chooseClass.id = "chooseClass"
+    
+    const defaultClassOption = document.createElement("option")
+    defaultClassOption.innerText = "Ladda lista"
+    
     chooseClass.onchange = (selectedClass) => {
       Object.entries(savedClasses).forEach(className => {
         if (className[0] == selectedClass.target.selectedOptions[0].value){
           document.getElementById("compare-list").value = className[1].join(String.fromCharCode(13, 10))
         }
+        if (defaultClassOption.selected) {
+          document.getElementById("compare-list").value = ""
+        }
       })
-
     }
-    const defaultClassOption = document.createElement("option")
-    defaultClassOption.innerText = "Ladda lista"
-    defaultClassOption.disabled = true
-    defaultClassOption.selected = true
+
     chooseClass.appendChild(defaultClassOption)
-    
+
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
