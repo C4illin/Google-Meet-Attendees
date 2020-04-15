@@ -394,7 +394,8 @@ const compareLists = () => {
   let listToCompare = compare.firstChild.value.split("\n")
 
   let out = []
-  if (listToCompare.length != 0) {
+  if (listToCompare.length > 1 && listToCompare[0] != "") {
+    console.log(listToCompare)
     listToCompare.forEach(listItem => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
@@ -409,7 +410,7 @@ const compareLists = () => {
     }
   })
   
-  if (out.length != 0) {
+  if (out.length > 0) {
     compare.children[compare.childElementCount-3].value = out.join(String.fromCharCode(13, 10))
   }
 }
