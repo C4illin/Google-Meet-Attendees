@@ -14,6 +14,7 @@
 Add options menu
 Add better pop-up for random person
 Save function for classes and such
+Remove classname when cleaning list ex 3A
 Use more google colors var(--gm-...)
 Publish extension 
 Make the UI easier
@@ -329,7 +330,10 @@ setInterval(() => {
     compare.appendChild(saveButton)
 
     const chooseClass = document.createElement("select")
-    chooseClass.onchange = (hej) => {console.log(hej)}
+    chooseClass.onchange = (selectedClass) => {
+      console.log(selectedClass)
+      console.log(selectedClass.target.selectedOptions[0].value)
+    }
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
