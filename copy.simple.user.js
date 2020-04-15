@@ -336,8 +336,6 @@ setInterval(() => {
     const chooseClass = document.createElement("select")
     chooseClass.id = "chooseClass"
     chooseClass.onchange = (selectedClass) => {
-      
-      // compareList.value = Object.keys(selectedClass.target.selectedOptions[0].value)
       Object.entries(savedClasses).forEach(className => {
         if (className[0] == selectedClass.target.selectedOptions[0].value){
           document.getElementById("compare-list").value = className[1].join(String.fromCharCode(13, 10))
@@ -345,6 +343,10 @@ setInterval(() => {
       })
 
     }
+    const defaultClassOption = document.createElement("option")
+    defaultClassOption.innerText = "--"
+    chooseClass.appendChild(defaultClassOption)
+    
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
