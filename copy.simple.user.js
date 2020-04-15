@@ -330,9 +330,9 @@ setInterval(() => {
     const chooseClass = document.createElement("select")
     if (savedClasses) {
       console.log(savedClasses)
-      Object.keys(savedClasses).forEach(function(className) {
+      Object.keys(savedClasses).forEach(className => {
         let chooseClassOptions = document.createElement("option")
-        chooseClassOptions.value = className
+        chooseClassOptions.innerText = className
         chooseClass.appendChild(chooseClassOptions)
       })
     }
