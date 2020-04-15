@@ -394,26 +394,26 @@ const showElement = (elem) => {
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = compare.firstChild.value.split("\n")
-  
-  if (current.length == 0) {
-    return
-  }
 
   let out = []
-  listToCompare.forEach(listItem => {
-    if (current.includes(listItem)) {
-      out.push("✔️ " + listItem)
-    } else {
-      out.push("❌ " + listItem)
-    }
-  })
+  if (listToCompare.length != 0) {
+    listToCompare.forEach(listItem => {
+      if (current.includes(listItem)) {
+        out.push("✔️ " + listItem)
+      } else {
+        out.push("❌ " + listItem)
+      }
+    })
+  }
   current.forEach(listItem => {
     if (!listToCompare.includes(listItem)) {
       out.push("❔ " + listItem)
     }
   })
-
-  compare.children[compare.childElementCount-3].value = out.join(String.fromCharCode(13, 10))
+  
+  if (out.length != 0) {
+    compare.children[compare.childElementCount-3].value = out.join(String.fromCharCode(13, 10))
+  }
 }
 
 const saveClass = (className) => {
