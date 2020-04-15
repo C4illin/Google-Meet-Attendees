@@ -507,6 +507,9 @@ const getAllAttendees = () => {
     // Sorted by lastname (maybe add option?)
     // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1) 
     let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
+    if (attendees.length == 1 && attendees[0] == buttons.lastChild.firstChild.children[2].innerText) {
+      attendees = []
+    }
     localStorage.setItem("gmca-attendees-list", attendees)
     // console.log(attendees)
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
