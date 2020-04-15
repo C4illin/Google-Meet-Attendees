@@ -344,7 +344,7 @@ setInterval(() => {
 
     }
     const defaultClassOption = document.createElement("option")
-    defaultClassOption.innerText = "--"
+    defaultClassOption.innerText = "Ladda lista"
     chooseClass.appendChild(defaultClassOption)
     
     if (savedClasses) {
