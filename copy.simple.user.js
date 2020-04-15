@@ -162,7 +162,6 @@ setInterval(() => {
     toggleButtonSVG.innerHTML = icon
     toggleButton.appendChild(toggleButtonSVG)
 
-    // Add checkboxes for all our additional options
     const additionalOptions = document.createElement("div")
     additionalOptions.onclick = e => e.stopPropagation()
     toggleButton.appendChild(additionalOptions)
@@ -212,7 +211,6 @@ setInterval(() => {
       pos4 = even.clientY
 
       document.onmouseup = () => {
-        // stop moving when mouse button is released:
         document.onmouseup = null
         document.onmousemove = null
       }
