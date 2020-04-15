@@ -14,6 +14,7 @@
 Add options menu
 Add better pop-up for random person
 Save function for classes and such
+Remove classname when cleaning list ex 3A
 Use more google colors var(--gm-...)
 Publish extension 
 Make the UI easier
@@ -300,6 +301,7 @@ setInterval(() => {
     const compareList = document.createElement("textarea")
     compareList.rows = 10
     compareList.cols = 35
+    compareList.id = "compare-list"
     compareList.placeholder = "Kopiera in jämföringslista"
     compareList.style.display = "block"
     compare.appendChild(compareList)
@@ -315,7 +317,7 @@ setInterval(() => {
     compare.appendChild(cleanCompare)
 
     const classInput = document.createElement("input")
-    classInput.attributes["type"] = "password"
+    classInput.attributes["type"] = "text"
     classInput.placeholder = "Klass"
     classInput.id = "classInput"
     compare.appendChild(classInput)
@@ -333,6 +335,10 @@ setInterval(() => {
 
     const chooseClass = document.createElement("select")
     chooseClass.id = "chooseClass"
+    chooseClass.onchange = (selectedClass) => {
+      console.log(selectedClass)
+      console.log(selectedClass.target.selectedOptions[0].value)
+    }
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
