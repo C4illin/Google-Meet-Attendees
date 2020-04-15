@@ -323,11 +323,16 @@ setInterval(() => {
     const saveButton = document.createElement("a")
     saveButton.innerText = "Spara lista"
     saveButton.onclick = () => {
-      saveClass(document.getElementById("classInput").value)
+      let className = document.getElementById("classInput").value
+      saveClass(className)
+      let chooseClassOptions = document.createElement("option")
+      chooseClassOptions.innerText = className
+      document.getElementById("chooseClass").appendChild(chooseClassOptions)
     } 
     compare.appendChild(saveButton)
 
     const chooseClass = document.createElement("select")
+    chooseClass.id = "chooseClass"
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
