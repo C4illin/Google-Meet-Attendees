@@ -68,7 +68,7 @@ s.innerText = `
 }
 
 #attendees-list #update:hover, #attendees-list #show_list:hover, #attendees-list a:hover {
-  background-color: dimgrey;
+  background-color: #f1f3f4;
 }
 
 #attendees-list #show_list {
