@@ -26,6 +26,7 @@ let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
 let compare = null
+let yourName = null
 // let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
 let savedClasses = null
@@ -535,13 +536,18 @@ const getAllAttendees = () => {
     if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
       people = []
     }
-
-    document.querySelectorAll("#yDmH0d > script").forEach( (elements) => {
-      let text = elements.innerText
-      if (text.includes('ds:7')) {
-        people.push(text.split(",")[9].replace(/"/g, ""))
+    if (includeYourself) {
+      if (yourName == null) {
+        document.querySelectorAll("#yDmH0d > script").forEach( (elements) => { //Locked id may break later
+          let text = elements.innerText
+          if (text.includes('ds:7')) {
+            people.push(text.split(",")[9].replace(/"/g, ""))
+          }
+        })
+      } else {
+        people.push(yourName)
       }
-    })
+    }
 
     let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     localStorage.setItem("gmca-attendees-list", attendees)
