@@ -26,7 +26,7 @@ let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
 let compare = null
-let nameSelector = null
+// let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
