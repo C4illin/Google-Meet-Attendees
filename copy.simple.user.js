@@ -358,7 +358,19 @@ setInterval(() => {
         chooseClass.appendChild(chooseClassOptions)
       })
     }
+
     compare.appendChild(chooseClass) 
+
+    const removeClass = document.createElement("a")
+    removeClass.innerText = "Ta bort klass"
+    removeClass.onclick = () => {
+      let classElement = document.getElementById("chooseClass")
+      let className = classElement.selectedOptions[0].value
+      classElement.removeChild(classElement.selectedOptions[0])
+      removeClassName(className)
+    }
+    
+    compare.appendChild(removeClass)
 
     const hereL = document.createElement("label")
     hereL.innerText = "Resultat:"
@@ -436,6 +448,13 @@ const compareLists = () => {
 
 const saveClass = (className) => {
   savedClasses[className] = compare.firstChild.value.split("\n")
+  localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
+}
+
+const removeClassName = (className) => {
+  console.log("About to delete: "+className)
+  savedClasses[className] = null
+  delete savedClasses[className]
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
 }
 
