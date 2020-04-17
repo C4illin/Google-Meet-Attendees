@@ -71,6 +71,10 @@ s.innerText = `
   background-color: #f1f3f4;
 }
 
+#attendees-list textarea {
+  width: 270px;
+}
+
 #attendees-list #show_list {
   display: inline-flex;
   border-radius: 0 2rem 2rem 0;
