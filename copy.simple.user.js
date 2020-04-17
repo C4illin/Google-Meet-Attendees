@@ -86,7 +86,7 @@ s.innerText = `
   display: inline-block;
   position: absolute;
   text-align: center;
-  right: 5px;
+  right: 15px;
   padding: 5px;
   height: auto;
 }
@@ -128,6 +128,8 @@ div.__gmgv-button > div {
 
 div.__gmgv-button > div a {
   line-height: 36px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
   box-shadow: 
   -3px -3px 3px 0 rgba(255, 255, 255, 0.384),
   3px 3px 3px 0 rgba(0, 0, 0, .09);
