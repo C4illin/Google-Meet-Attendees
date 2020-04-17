@@ -125,6 +125,9 @@ div.__gmgv-button > div {
   top: 48px;
 }
 
+div.__gmgv-button > div a {
+  line-height: 36px;
+}
 .__gmgv-button:hover {
   z-index: 2;
   background-color: var(--gm-neutral-highlight-color);
@@ -174,14 +177,14 @@ setInterval(() => {
     
     const showListI = document.createElement("a")
     showListI.id = "show_list"
-    showListI.innerText = "Göm lista"
+    showListI.innerText = "Göm lista ↑"
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
         peopleList.style.display = "block"
-        e.target.innerText = "Göm lista"
+        e.target.innerText = "Göm lista ↑"
       } else {
         peopleList.style.display = "none"
-        e.target.innerText = "Visa lista"
+        e.target.innerText = "Visa lista ↓"
       }
     }
 
@@ -280,14 +283,14 @@ setInterval(() => {
     additionalOptions.appendChild(randomPerson)
 
     const showCompareList = document.createElement("a")
-    showCompareList.innerText = "Visa jämförings Lista"
+    showCompareList.innerText = "Visa jämförings Lista ↓"
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
-        e.target.innerText = "Göm jämförings lista"
+        e.target.innerText = "Göm jämförings lista ↑"
       } else {
         compare.style.display = "none"
-        e.target.innerText = "Visa jämförings lista"
+        e.target.innerText = "Visa jämförings lista ↓"
       }
     }
     additionalOptions.appendChild(showCompareList)
