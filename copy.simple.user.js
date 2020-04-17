@@ -13,7 +13,6 @@
 /* 
 Add options menu
 Add better pop-up for random person
-Save function for classes and such
 Remove classname when cleaning list ex 3A
 Use more google colors var(--gm-...)
 Publish extension 
@@ -119,7 +118,7 @@ div#attendees-list {
   line-height: 36px;
 }
 
-/* Overrides some gmgv styles */
+/* Overrides some gmgv styles for increased compatibility */
 div.__gmgv-button > div {
   border-radius: 0 0 8px 8px !important;
   z-index: 1;
@@ -571,7 +570,5 @@ const getAllAttendees = () => {
       }
     }, 1000)
   }, waitTime)
-  
-
   // console.log(toChange)
 }
