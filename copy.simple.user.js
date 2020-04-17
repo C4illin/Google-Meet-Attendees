@@ -391,6 +391,7 @@ setInterval(() => {
     const compareResultList = document.createElement("textarea")
     compareResultList.rows = 10
     compareResultList.cols = 35
+    compareResultList.readOnly = true
     compareResultList.value = "Klicka På jämför"
     compareResultList.style.display = "block"
     compare.appendChild(compareResultList)
