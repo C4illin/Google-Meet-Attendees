@@ -421,12 +421,14 @@ const compareLists = () => {
       }
     })
   }
-  current.forEach(listItem => {
-    if (!listToCompare.includes(listItem)) {
-      out.push("❔ " + listItem)
-    }
-  })
-  
+  if (current[0] != "") {
+    current.forEach(listItem => {
+      if (!listToCompare.includes(listItem)) {
+        out.push("❔ " + listItem)
+      }
+    })
+  }
+
   if (out.length > 0) {
     compare.children[compare.childElementCount-3].value = out.join(String.fromCharCode(13, 10))
   }
@@ -505,11 +507,12 @@ const getAllAttendees = () => {
     // console.log(people)
 
     // Sorted by lastname (maybe add option?)
-    // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1) 
-    let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
+    // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1)
     if (attendees.length == 1 && attendees[0] == buttons.lastChild.firstChild.children[2].innerText) {
       attendees = []
     }
+
+    let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     localStorage.setItem("gmca-attendees-list", attendees)
     // console.log(attendees)
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
