@@ -127,6 +127,9 @@ div.__gmgv-button > div {
 
 div.__gmgv-button > div a {
   line-height: 36px;
+  box-shadow: 
+  -3px -3px 3px 0 rgba(255, 255, 255, 0.384),
+  3px 3px 3px 0 rgba(0, 0, 0, .09);
 }
 .__gmgv-button:hover {
   z-index: 2;
