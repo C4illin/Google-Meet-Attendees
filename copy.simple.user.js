@@ -519,11 +519,11 @@ const getAllAttendees = () => {
 
   // let attendees = []
   setTimeout(() => {
+    // what it should return: nameSelector = "epqixc" but it doesn't sometimes and idk why
     let nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
     // if (!nameSelector || nameSelector == null) {
     //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
-    //   // what it should return: nameSelector = "epqixc"
-    // }
+    // } // more effiecient maybe
     let people = []
     let divList = document.getElementsByClassName(nameSelector)
     for (let item of divList) {
