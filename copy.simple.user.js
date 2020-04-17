@@ -536,6 +536,13 @@ const getAllAttendees = () => {
       people = []
     }
 
+    document.querySelectorAll("#yDmH0d > script").forEach( (elements) => {
+      let text = elements.innerText
+      if (text.includes('ds:7')) {
+        people.push(text.split(",")[9].replace(/"/g, ""))
+      }
+    })
+
     let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     localStorage.setItem("gmca-attendees-list", attendees)
     // console.log(attendees)
