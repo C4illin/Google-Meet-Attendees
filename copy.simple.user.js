@@ -541,7 +541,7 @@ const getAllAttendees = () => {
         document.querySelectorAll("#yDmH0d > script").forEach( (elements) => { //Locked id may break later
           let text = elements.innerText
           if (text.includes('ds:7')) {
-            people.push(text.split(",")[9].replace(/"/g, ""))
+            people.push(text.split(",")[9].slice(1,-1))
           }
         })
       } else {
