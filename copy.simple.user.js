@@ -125,7 +125,7 @@ div#attendees-list {
 /* Overrides some gmgv styles for increased compatibility */
 div.__gmgv-button > div {
   border-radius: 0 0 8px 8px !important;
-  z-index: 1;
+  z-index: 7;
   top: 48px;
 }
 
@@ -138,7 +138,7 @@ div.__gmgv-button > div a {
   3px 3px 3px 0 rgba(0, 0, 0, .09);
 }
 .__gmgv-button:hover {
-  z-index: 2;
+  z-index: 8;
   background-color: var(--gm-neutral-highlight-color);
 }
 `
