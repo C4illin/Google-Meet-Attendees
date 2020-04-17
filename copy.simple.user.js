@@ -424,7 +424,6 @@ const compareLists = () => {
 
   let out = []
   if (listToCompare.length > 1 && listToCompare[0] != "") {
-    console.log(listToCompare)
     listToCompare.forEach(listItem => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
@@ -476,22 +475,23 @@ const getAllAttendees = () => {
 
   let buttons = document.querySelector("[data-fps-request-screencast-cap]").parentElement.parentElement.parentElement
 
-  let gridtoggle
-  if (buttons.children[2].firstChild.innerHTML.substring(30, 31) == "1") {
-    gridtoggle = true
-  }  
-  else {
-    gridtoggle = false
-  }
+  // console.log(buttons)
+
+  
   let position = 2
   let checkboxes = buttons.children[2].lastChild.children
-  if (checkboxes.length > 6) {
+  if (checkboxes.length > 9) {
     position = 0
     checkboxes = buttons.children[0].lastChild.children
   }
   let showOnlyVideo = checkboxes[0].firstChild.checked
+
+  let gridtoggle = false
+  if (buttons.children[position].firstChild.innerHTML.substring(30, 31) == "1") {
+    gridtoggle = true
+  }
   // let includeOwnVideo = checkboxes[2].firstChild.checked
-  // console.log(gridtoggle,showOnlyVideo,includeOwnVideo)
+  // console.log(gridtoggle,showOnlyVideo)
   
   let waitTime = 0
   let toChange = [false, false]
@@ -515,9 +515,11 @@ const getAllAttendees = () => {
 
   // let attendees = []
   setTimeout(() => {
-    if (!nameSelector || nameSelector == null) {
-      nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
-    }
+    let nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
+    // if (!nameSelector || nameSelector == null) {
+    //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
+    //   // what it should return: nameSelector = "epqixc"
+    // }
     let people = []
     let divList = document.getElementsByClassName(nameSelector)
     for (let item of divList) {
@@ -527,13 +529,14 @@ const getAllAttendees = () => {
 
     // Sorted by lastname (maybe add option?)
     // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1)
-    if (attendees.length == 1 && attendees[0] == buttons.lastChild.firstChild.children[2].innerText) {
-      attendees = []
+    if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
+      people = []
     }
 
     let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     localStorage.setItem("gmca-attendees-list", attendees)
     // console.log(attendees)
+
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
     peopleCounter.innerText = attendees.length + " personer"
     // return(attendees)
