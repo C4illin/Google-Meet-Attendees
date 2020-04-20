@@ -40,6 +40,61 @@ const icon = "<path fill=\"currentColor\" d=\"M11.41 3.76c-.8.04-1.6.31-2.27.86-
 
 const s = document.createElement("style")
 s.innerText = `
+div.__gma-button > div a {
+  line-height: 36px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  box-shadow: 
+  -3px -3px 3px 0 rgba(255, 255, 255, 0.384),
+  3px 3px 3px 0 rgba(0, 0, 0, .09);
+}
+.__gma-button:hover {
+  z-index: 8;
+  background-color: var(--gm-neutral-highlight-color);
+}
+
+.__gma-button {
+  overflow: visible !important;
+}
+.__gma-button > div {
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  top: 40px;
+  padding: 12px;
+  background: white;
+  border-radius: 0 0 0 8px;
+  text-align: left;
+  cursor: auto;
+  line-height: 0;
+}
+.__gma-button:hover > div {
+  display: block;
+}
+.__gma-button > div label {
+  display: block;
+  line-height: 24px;
+  color: #999999;
+}
+.__gma-button > div label:not(.disabled) {
+  cursor: pointer;
+  color: #000000;
+}
+.__gma-button > div label small {
+  display: block;
+  line-height: 12px;
+  font-weight: 400;
+}
+.__gma-button > div hr {
+  border: 0;
+  height: 1px;
+  background: #f1f3f4;
+}
+.__gma-button > div a {
+  display: inline-block;
+  line-height: 20px;
+}
+
 #attendees-list a {
   display: inline-block;
   padding: 0 5px;
@@ -139,60 +194,7 @@ div#compare-div {
 }
 
 /* Overrides some gmgv styles for increased compatibility */
-div.__gma-button > div a {
-  line-height: 36px;
-  margin-top: 5px !important;
-  margin-bottom: 5px !important;
-  box-shadow: 
-  -3px -3px 3px 0 rgba(255, 255, 255, 0.384),
-  3px 3px 3px 0 rgba(0, 0, 0, .09);
-}
-.__gma-button:hover {
-  z-index: 8;
-  background-color: var(--gm-neutral-highlight-color);
-}
 
-.__gma-button {
-  overflow: visible !important;
-}
-.__gma-button > div {
-  box-sizing: border-box;
-  display: none;
-  position: absolute;
-  top: 40px;
-  padding: 12px;
-  background: white;
-  border-radius: 0 0 0 8px;
-  text-align: left;
-  cursor: auto;
-  line-height: 0;
-}
-.__gma-button:hover > div {
-  display: block;
-}
-.__gma-button > div label {
-  display: block;
-  line-height: 24px;
-  color: #999999;
-}
-.__gma-button > div label:not(.disabled) {
-  cursor: pointer;
-  color: #000000;
-}
-.__gma-button > div label small {
-  display: block;
-  line-height: 12px;
-  font-weight: 400;
-}
-.__gma-button > div hr {
-  border: 0;
-  height: 1px;
-  background: #f1f3f4;
-}
-.__gma-button > div a {
-  display: inline-block;
-  line-height: 20px;
-}
 `
 document.body.append(s)
 
