@@ -204,9 +204,9 @@ setInterval(() => {
     buttons.__attendent_ran = true
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
 
-    buttons.prepend(buttons.children[1].cloneNode())
+    buttons.prepend(buttons.children[3].cloneNode())
     const toggleButton = document.createElement("div")
-    toggleButton.classList = buttons.children[1].classList
+    toggleButton.classList = buttons.children[3].classList
     toggleButton.classList.add("__gma-button")
     toggleButton.style.display = "flex"
     toggleButton.onclick = () => {
