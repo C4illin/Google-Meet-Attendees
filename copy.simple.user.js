@@ -61,7 +61,7 @@ div.__gma-button > div a {
   display: none;
   position: absolute;
   top: 40px;
-  padding: 15px;
+  padding: 10px;
   background: white;
   border-radius: 0 0 0 8px;
   text-align: left;
@@ -613,7 +613,7 @@ const getAllAttendees = () => {
     for (let item of divList) {
       people.push(item.innerText)
     }
-    // console.log(people)
+    console.log(people)
 
     // Sorted by lastname (maybe add option?)
     // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1)
