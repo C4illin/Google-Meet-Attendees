@@ -120,14 +120,24 @@ s.innerText = `
 
 div#attendees-list {
   line-height: 36px;
-}
-
-/* Overrides some gmgv styles for increased compatibility */
-div.__gmgv-button > div {
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  right: -232px;
   border-radius: 0 0 8px 8px !important;
   z-index: 7;
   top: 48px;
+  width: auto;
 }
+
+div#attendees-div , div#compare-div {
+  position: relative;
+}
+
+/* Overrides some gmgv styles for increased compatibility */
+// div.__gmgv-button > div {
+  
+// }
 
 div.__gmgv-button > div a {
   line-height: 36px;
@@ -224,6 +234,7 @@ setInterval(() => {
     additionalOptions.id = "attendees-list"
 
     const seeAttendeesDiv = document.createElement("div")
+    seeAttendeesDiv.id = "attendees-div"
 
     const updateListI = document.createElement("a")
     updateListI.id = "update"
@@ -353,6 +364,7 @@ setInterval(() => {
     additionalOptions.appendChild(seeAttendeesDiv)
 
     compare = document.createElement("div")
+    compare.id = "compare-div"
     compare.style.display = "none"
     additionalOptions.appendChild(compare)
 
