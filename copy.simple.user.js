@@ -28,6 +28,7 @@ let compare = null
 let yourName = null
 // let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
+let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
   savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
@@ -309,6 +310,7 @@ setInterval(() => {
 
     settingsMenu.appendChild(settingsHeader)
 
+    // includeYourself
     const includeYourselfLabel = document.createElement("label")
     const includeYourselfCheck = document.createElement("input")
     includeYourselfCheck.type = "checkbox"
@@ -321,6 +323,18 @@ setInterval(() => {
     includeYourselfLabel.prepend(includeYourselfCheck)
     settingsMenu.appendChild(includeYourselfLabel)
 
+    const sortByLastNameLabel = document.createElement("label")
+    const sortByLastNameCheck = document.createElement("input")
+    sortByLastNameCheck.type = "checkbox"
+    sortByLastNameCheck.checked = sortByLastName
+    sortByLastNameCheck.onchange = e => {
+      sortByLastName = e.target.checked
+      localStorage.setItem("gma-sort-by-last-name", sortByLastName)
+    }
+    sortByLastNameLabel.innerText = "Sortera efter efternamn"
+    sortByLastNameLabel.prepend(sortByLastNameCheck)
+    settingsMenu.appendChild(sortByLastNameLabel)
+
     // Should be placed somewhere else
     seeAttendeesDiv.append(settingsMenu)
 
@@ -329,7 +343,7 @@ setInterval(() => {
     peopleList.readOnly = true
     peopleList.rows = 20
     peopleList.cols = 35
-    let attendees = localStorage.getItem("gmca-attendees-list")
+    let attendees = localStorage.getItem("gma-attendees-list")
     if (attendees) {
       peopleList.value = attendees.replace(/,/g, String.fromCharCode(13, 10))
       peopleCounter.innerText = (attendees.length - attendees.replace(/,/g, "").length + 1) + " personer"
@@ -345,14 +359,14 @@ setInterval(() => {
     const copyList = document.createElement("a")
     copyList.innerText = "Kopiera lista"
     copyList.onclick = () => {
-      navigator.clipboard.writeText(localStorage.getItem("gmca-attendees-list").replace(/,/g, "\n"))
+      navigator.clipboard.writeText(localStorage.getItem("gma-attendees-list").replace(/,/g, "\n"))
     }
     seeAttendeesDiv.appendChild(copyList)
 
     const randomPerson = document.createElement("a")
     randomPerson.innerText = "Slumpa person"
     randomPerson.onclick = () => {
-      let attendees = localStorage.getItem("gmca-attendees-list").split(",")
+      let attendees = localStorage.getItem("gma-attendees-list").split(",")
       setTimeout(() => { // to make it async
         alert(attendees[Math.floor(Math.random() * attendees.length)])
       }, 1)
@@ -507,7 +521,7 @@ const showElement = (elem) => {
 }
 
 const compareLists = () => {  
-  let current = localStorage.getItem("gmca-attendees-list").split(",")
+  let current = localStorage.getItem("gma-attendees-list").split(",")
   let listToCompare = compare.firstChild.value.split("\n")
 
   let out = []
@@ -633,8 +647,15 @@ const getAllAttendees = () => {
       }
     }
 
-    let attendees = removeDups(people).sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
-    localStorage.setItem("gmca-attendees-list", attendees)
+    let attendees = removeDups(people)
+
+    if (sortByLastName) {
+      attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
+    } else {
+      attendees = attendees.sort()
+    
+    
+    localStorage.setItem("gma-attendees-list", attendees)
     // console.log(attendees)
 
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
