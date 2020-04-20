@@ -61,7 +61,7 @@ div.__gma-button > div a {
   display: none;
   position: absolute;
   top: 40px;
-  padding: 12px;
+  padding: 15px;
   background: white;
   border-radius: 0 0 0 8px;
   text-align: left;
@@ -179,7 +179,7 @@ div#attendees-list {
   flex-direction: row-reverse;
   position: absolute;
   right: -232px;
-  border-radius: 0 0 8px 8px !important;
+  border-radius: 8px 0 8px 8px !important;
   z-index: 7;
   top: 48px;
   width: auto;
@@ -187,6 +187,7 @@ div#attendees-list {
 
 div#attendees-div , div#compare-div {
   position: relative;
+  width: 290px;
 }
 
 div#compare-div {
@@ -212,10 +213,10 @@ setInterval(() => {
     toggleButton.onclick = () => {
       let elem = document.getElementById("attendees-list")
       if (elem.__pinned) {
-        elem.style.display = null
+        elem.style.display = "none"
         elem.__pinned = false
       } else {
-        elem.style.display = "block"
+        elem.style.display = "flex"
         elem.__pinned = true
       }
     }
@@ -236,6 +237,10 @@ setInterval(() => {
     const seeAttendeesDiv = document.createElement("div")
     seeAttendeesDiv.id = "attendees-div"
 
+    const Title = document.createElement("h1")
+    Title.innerText = "Närvaro"
+    seeAttendeesDiv.appendChild(Title)
+
     const updateListI = document.createElement("a")
     updateListI.id = "update"
     updateListI.onclick = getAllAttendees
@@ -246,7 +251,7 @@ setInterval(() => {
     showListI.innerText = "Göm lista ↑"
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
-        peopleList.style.display = "block"
+        peopleList.style.display = "flex"
         e.target.innerText = "Göm lista ↑"
       } else {
         peopleList.style.display = "none"
@@ -316,7 +321,7 @@ setInterval(() => {
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
-    peopleList.rows = 10
+    peopleList.rows = 20
     peopleList.cols = 35
     let attendees = localStorage.getItem("gmca-attendees-list")
     if (attendees) {
@@ -367,6 +372,10 @@ setInterval(() => {
     compare.id = "compare-div"
     compare.style.display = "none"
     additionalOptions.appendChild(compare)
+
+    const compareTitle = document.createElement("h2")
+    compareTitle.innerText = "Jämför deltagare"
+    compare.appendChild(compareTitle)
 
     const compareList = document.createElement("textarea")
     compareList.rows = 10
