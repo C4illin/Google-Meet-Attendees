@@ -128,6 +128,8 @@ div.__gma-button > div a {
 
 #attendees-list textarea {
   width: 270px;
+  border: gainsboro
+  border-radius: 4px;
 }
 
 #attendees-list #show_list {
@@ -182,7 +184,6 @@ div#attendees-list {
   border-radius: 8px 0 8px 8px !important;
   z-index: 7;
   top: 48px;
-  width: auto;
 }
 
 div#attendees-div , div#compare-div {
@@ -191,7 +192,12 @@ div#attendees-div , div#compare-div {
 }
 
 div#compare-div {
-  padding-right: 15px;
+  padding: 0 5px 10px 10px;
+  border-right: 3px dashed gainsboro;
+}
+
+div#attendees-div {
+  padding-left: 15px;
 }
 
 /* Overrides some gmgv styles for increased compatibility */
