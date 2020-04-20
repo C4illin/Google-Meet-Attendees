@@ -343,7 +343,7 @@ setInterval(() => {
     peopleList.readOnly = true
     peopleList.rows = 20
     peopleList.cols = 35
-    let attendees = localStorage.getItem("gma-attendees-list")
+    let attendees = localStorage.getItem("gmca-attendees-list")
     if (attendees) {
       peopleList.value = attendees.replace(/,/g, String.fromCharCode(13, 10))
       peopleCounter.innerText = (attendees.length - attendees.replace(/,/g, "").length + 1) + " personer"
@@ -359,14 +359,14 @@ setInterval(() => {
     const copyList = document.createElement("a")
     copyList.innerText = "Kopiera lista"
     copyList.onclick = () => {
-      navigator.clipboard.writeText(localStorage.getItem("gma-attendees-list").replace(/,/g, "\n"))
+      navigator.clipboard.writeText(localStorage.getItem("gmca-attendees-list").replace(/,/g, "\n"))
     }
     seeAttendeesDiv.appendChild(copyList)
 
     const randomPerson = document.createElement("a")
     randomPerson.innerText = "Slumpa person"
     randomPerson.onclick = () => {
-      let attendees = localStorage.getItem("gma-attendees-list").split(",")
+      let attendees = localStorage.getItem("gmca-attendees-list").split(",")
       setTimeout(() => { // to make it async
         alert(attendees[Math.floor(Math.random() * attendees.length)])
       }, 1)
@@ -521,7 +521,7 @@ const showElement = (elem) => {
 }
 
 const compareLists = () => {  
-  let current = localStorage.getItem("gma-attendees-list").split(",")
+  let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = compare.firstChild.value.split("\n")
 
   let out = []
@@ -648,14 +648,13 @@ const getAllAttendees = () => {
     }
 
     let attendees = removeDups(people)
-
     if (sortByLastName) {
       attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     } else {
       attendees = attendees.sort()
+    }
     
-    
-    localStorage.setItem("gma-attendees-list", attendees)
+    localStorage.setItem("gmca-attendees-list", attendees)
     // console.log(attendees)
 
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
