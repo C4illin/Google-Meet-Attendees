@@ -135,7 +135,7 @@ div#attendees-div , div#compare-div {
 }
 
 /* Overrides some gmgv styles for increased compatibility */
-div.__gmgv-button > div a {
+div.__gma-button > div a {
   line-height: 36px;
   margin-top: 5px !important;
   margin-bottom: 5px !important;
@@ -143,12 +143,10 @@ div.__gmgv-button > div a {
   -3px -3px 3px 0 rgba(255, 255, 255, 0.384),
   3px 3px 3px 0 rgba(0, 0, 0, .09);
 }
-.__gmgv-button:hover {
+.__gma-button:hover {
   z-index: 8;
   background-color: var(--gm-neutral-highlight-color);
 }
-
-
 
 .__gma-button {
   overflow: visible !important;
