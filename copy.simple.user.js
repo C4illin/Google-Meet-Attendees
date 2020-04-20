@@ -134,6 +134,10 @@ div#attendees-div , div#compare-div {
   position: relative;
 }
 
+div#compare-div {
+  padding-right: 15px;
+}
+
 /* Overrides some gmgv styles for increased compatibility */
 div.__gma-button > div a {
   line-height: 36px;
