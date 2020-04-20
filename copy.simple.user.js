@@ -156,8 +156,6 @@ div.__gma-button > div a {
   display: none;
   position: absolute;
   top: 40px;
-  left: 0;
-  width: 300px;
   padding: 12px;
   background: white;
   border-radius: 0 0 0 8px;
