@@ -69,7 +69,7 @@ div.__gma-button > div a {
   line-height: 0;
 }
 .__gma-button:hover > div {
-  display: block;
+  display: flex;
 }
 .__gma-button > div label {
   display: block;
@@ -177,7 +177,7 @@ div.__gma-button > div a {
 
 div#attendees-list {
   line-height: 36px;
-  display: flex;
+  /* display: flex; */
   flex-direction: row-reverse;
   position: absolute;
   right: -232px;
