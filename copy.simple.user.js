@@ -135,10 +135,6 @@ div#attendees-div , div#compare-div {
 }
 
 /* Overrides some gmgv styles for increased compatibility */
-// div.__gmgv-button > div {
-  
-// }
-
 div.__gmgv-button > div a {
   line-height: 36px;
   margin-top: 5px !important;
@@ -152,10 +148,12 @@ div.__gmgv-button > div a {
   background-color: var(--gm-neutral-highlight-color);
 }
 
-.__gma-button {
+/* Fix this */
+
+#attendees-list {
   overflow: visible !important;
 }
-.__gma-button > div {
+#attendees-list > div {
   box-sizing: border-box;
   display: none;
   position: absolute;
@@ -169,29 +167,29 @@ div.__gmgv-button > div a {
   cursor: auto;
   line-height: 0;
 }
-.__gma-button:hover > div {
+#attendees-list:hover > div {
   display: block;
 }
-.__gma-button > div label {
+#attendees-list > div label {
   display: block;
   line-height: 24px;
   color: #999999;
 }
-.__gma-button > div label:not(.disabled) {
+#attendees-list > div label:not(.disabled) {
   cursor: pointer;
   color: #000000;
 }
-.__gma-button > div label small {
+#attendees-list > div label small {
   display: block;
   line-height: 12px;
   font-weight: 400;
 }
-.__gma-button > div hr {
+#attendees-list > div hr {
   border: 0;
   height: 1px;
   background: #f1f3f4;
 }
-.__gma-button > div a {
+#attendees-list > div a {
   display: inline-block;
   line-height: 20px;
 }
@@ -206,8 +204,6 @@ setInterval(() => {
 
     buttons.prepend(buttons.children[1].cloneNode())
     const toggleButton = document.createElement("div")
-    toggleButton.classList = buttons.children[1].classList
-    toggleButton.classList.add("__gma-button")
     toggleButton.style.display = "flex"
     toggleButton.onclick = () => {
       let elem = document.getElementById("attendees-list")
