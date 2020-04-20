@@ -11,9 +11,9 @@
 
 // TODO (ordered by difficulty (easiest first))
 /* 
-Add options menu
 Add better pop-up for random person
 Remove classname when cleaning list ex 3A
+Fix volume controls above menu https://i.imgur.com/IQ8BbYk.png
 Use more google colors var(--gm-...)
 Publish extension 
 Make the UI easier
@@ -285,27 +285,7 @@ setInterval(() => {
     settingsHeader.innerText = "Inställningar"
     settingsHeader.id = "settingsHeader"
     settingsHeader.onmousedown = (even) => {
-      let elmnt = document.getElementById("settingsMenu")
-      even = even || window.event
-      even.preventDefault()
-      pos3 = even.clientX
-      pos4 = even.clientY
-
-      document.onmouseup = () => {
-        document.onmouseup = null
-        document.onmousemove = null
-      }
-
-      document.onmousemove = (ev) => {
-        ev = ev || window.event
-        ev.preventDefault()
-        pos1 = pos3 - ev.clientX
-        pos2 = pos4 - ev.clientY
-        pos3 = ev.clientX
-        pos4 = ev.clientY
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px"
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px"
-      }
+      movableDiv(even, "settingsMenu")
     }
 
     settingsMenu.appendChild(settingsHeader)
@@ -507,6 +487,30 @@ setInterval(() => {
     
   }
 }, 250)
+
+const movableDiv = (even, moveID) => {
+  let elmnt = document.getElementById(moveID)
+  even = even || window.event
+  even.preventDefault()
+  pos3 = even.clientX
+  pos4 = even.clientY
+
+  document.onmouseup = () => {
+    document.onmouseup = null
+    document.onmousemove = null
+  }
+
+  document.onmousemove = (ev) => {
+    ev = ev || window.event
+    ev.preventDefault()
+    pos1 = pos3 - ev.clientX
+    pos2 = pos4 - ev.clientY
+    pos3 = ev.clientX
+    pos4 = ev.clientY
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px"
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px"
+  }
+}
 
 const cleanCompareLists = () => {
   compare.firstChild.value = compare.firstChild.value.replace(/ {2,}/g, " ").replace(/\.|[0-9]/g, "").replace(/\n{2,}|\n{1,} {1,}/g, "\n")
