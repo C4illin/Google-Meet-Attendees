@@ -219,7 +219,7 @@ setInterval(() => {
     toggleButton.onclick = () => {
       let elem = document.getElementById("attendees-list")
       if (elem.__pinned) {
-        elem.style.display = "none"
+        elem.style.display = null
         elem.__pinned = false
       } else {
         elem.style.display = "flex"
