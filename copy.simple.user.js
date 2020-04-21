@@ -531,7 +531,7 @@ const showElement = (elem) => {
 
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
-  let listToCompare = compare.firstChild.value.split("\n")
+  let listToCompare = document.getElementById("compare-list").value.split("\n")
 
   let out = []
   if (listToCompare.length > 1 && listToCompare[0] != "") {
