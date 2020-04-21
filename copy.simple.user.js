@@ -279,7 +279,7 @@ setInterval(() => {
 
     // includeYourself
     // Kanske göra till en funktion för att göra fler inställningar
-    const includeYourselfLabel = document.createElement("label")
+    const includeYourselfLabel = addElement("label",settingsMenu,null,"Inkludera dig själv")
     const includeYourselfCheck = document.createElement("input")
     includeYourselfCheck.type = "checkbox"
     includeYourselfCheck.checked = includeYourself
@@ -287,9 +287,7 @@ setInterval(() => {
       includeYourself = e.target.checked
       localStorage.setItem("gma-include-yourself", includeYourself)
     }
-    includeYourselfLabel.innerText = "Inkludera dig själv"
     includeYourselfLabel.prepend(includeYourselfCheck)
-    settingsMenu.appendChild(includeYourselfLabel)
 
     const sortByLastNameLabel = addElement("label",settingsMenu,null,"Sortera efter efternamn")
     const sortByLastNameCheck = document.createElement("input")
@@ -299,11 +297,7 @@ setInterval(() => {
       sortByLastName = e.target.checked
       localStorage.setItem("gma-sort-by-last-name", sortByLastName)
     }
-    sortByLastNameLabel.innerText = "Sortera efter efternamn"
     sortByLastNameLabel.prepend(sortByLastNameCheck)
-
-    // Should be placed somewhere else
-    // seeAttendeesDiv.append(settingsMenu)
 
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
@@ -601,7 +595,7 @@ const getAllAttendees = () => {
     for (let item of divList) {
       people.push(item.innerText)
     }
-    console.log(people)
+    // console.log(people)
 
     // Sorted by lastname (maybe add option?)
     // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1)
