@@ -568,6 +568,13 @@ const removeClassName = (className) => {
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
 }
 
+const addElement = (element, parent, id, innertext) => {
+  let elem = document.createElement(element)
+  elem.id = id
+  elem.innerText = innertext
+  parent.appendChild(elem)
+}
+
 const getAllAttendees = () => {
   /* This is the function that should be reworked
      currently it forces grid view and then take
