@@ -11,6 +11,7 @@
 
 // TODO (ordered by difficulty (easiest first))
 /* 
+When copying to chat make it ex Name L. With name and first letter of lastname. 
 Add better pop-up for random person
 Remove classname when cleaning list ex 3A
 Fix volume controls above menu https://i.imgur.com/IQ8BbYk.png
