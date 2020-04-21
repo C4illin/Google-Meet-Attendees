@@ -63,7 +63,7 @@ div.__gma-button > div a {
   display: none;
   position: absolute;
   top: 40px;
-  padding: 10px;
+  padding: 15px;
   background: white;
   border-radius: 0 0 0 8px;
   text-align: left;
@@ -205,6 +205,10 @@ div#compare-div {
 
 div#attendees-div {
   padding-left: 15px;
+}
+
+h1, h2 {
+  margin: 0;
 }
 
 /* Overrides some gmgv styles for increased compatibility */
