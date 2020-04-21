@@ -634,15 +634,17 @@ const getAllAttendees = () => {
 
   // let attendees = []
   setTimeout(() => {
+    
+    let nameSelector = "epqixc"
+
     // what it should return: nameSelector = "epqixc" but it doesn't sometimes and idk why
-    let nameSelector = null
-    if (document.querySelector(".__gmgv-vid-container")) {
-      // nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.lastChild.lastChild.classList[0]
-      nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.children[1].lastChild.classList[0]
-    } else {
-      nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
-    }
-    console.log(nameSelector)
+    // if (document.querySelector(".__gmgv-vid-container")) {
+    //   // nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.lastChild.lastChild.classList[0]
+    //   nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.children[1].lastChild.classList[0]
+    // } else {
+    //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
+    // }
+    // console.log(nameSelector)
     // document.querySelector(".__gmgv-vid-container").firstChild.lastChild.lastChild.classList[0]
     // if (!nameSelector || nameSelector == null) {
     //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
