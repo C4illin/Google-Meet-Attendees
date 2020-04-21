@@ -241,26 +241,17 @@ setInterval(() => {
     toggleButtonSVG.innerHTML = icon
     toggleButton.appendChild(toggleButtonSVG)
 
-    const additionalOptions = document.createElement("div")
+    const additionalOptions = addElement("div",toggleButton,"attendees-list",null)
     additionalOptions.onclick = e => e.stopPropagation()
-    toggleButton.appendChild(additionalOptions)
-    additionalOptions.id = "attendees-list"
 
-    const seeAttendeesDiv = document.createElement("div")
-    seeAttendeesDiv.id = "attendees-div"
+    const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
 
-    const Title = document.createElement("h1")
-    Title.innerText = "Närvaro"
-    seeAttendeesDiv.appendChild(Title)
+    const Title = addElement("h1",seeAttendeesDiv,null,"Närvaro")
 
-    const updateListI = document.createElement("a")
-    updateListI.id = "update"
+    const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
-    seeAttendeesDiv.appendChild(updateListI)
     
-    const showListI = document.createElement("a")
-    showListI.id = "show_list"
-    showListI.innerText = "Göm lista ↑"
+    const showListI = addElement("a",seeAttendeesDiv,"show_list","Göm lista ↑")
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
         peopleList.style.display = "flex"
@@ -271,31 +262,23 @@ setInterval(() => {
       }
     }
 
-    seeAttendeesDiv.appendChild(showListI)
-
-    const settings = document.createElement("a")
-    settings.id = "settingsButton"
+    const settings = addElement("a",seeAttendeesDiv,"settingsButton",null)
     settings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
     settings.innerHTML = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z\"></path><circle cx=\"12\" cy=\"12\" r=\"3.5\"></circle></svg>"
-    seeAttendeesDiv.appendChild(settings)
 
-    const settingsMenu = document.createElement("div")
+    const settingsMenu = addElement("div",seeAttendeesDiv,"settingsMenu",null)
     settingsMenu.style.display = "none"
-    settingsMenu.id = "settingsMenu"
 
-    const settingsHeader = document.createElement("div")
+    const settingsHeader = addElement("div",settingsMenu,"settingsHeader","Inställningar")
     settingsHeader.style.display = "block"
-    settingsHeader.innerText = "Inställningar"
-    settingsHeader.id = "settingsHeader"
     settingsHeader.onmousedown = (even) => {
       movableDiv(even, "settingsMenu")
     }
 
-    settingsMenu.appendChild(settingsHeader)
-
     // includeYourself
+    // Kanske göra till en funktion för att göra fler inställningar
     const includeYourselfLabel = document.createElement("label")
     const includeYourselfCheck = document.createElement("input")
     includeYourselfCheck.type = "checkbox"
@@ -308,7 +291,7 @@ setInterval(() => {
     includeYourselfLabel.prepend(includeYourselfCheck)
     settingsMenu.appendChild(includeYourselfLabel)
 
-    const sortByLastNameLabel = document.createElement("label")
+    const sortByLastNameLabel = addElement("label",settingsMenu,null,"Sortera efter efternamn")
     const sortByLastNameCheck = document.createElement("input")
     sortByLastNameCheck.type = "checkbox"
     sortByLastNameCheck.checked = sortByLastName
@@ -318,10 +301,9 @@ setInterval(() => {
     }
     sortByLastNameLabel.innerText = "Sortera efter efternamn"
     sortByLastNameLabel.prepend(sortByLastNameCheck)
-    settingsMenu.appendChild(sortByLastNameLabel)
 
     // Should be placed somewhere else
-    seeAttendeesDiv.append(settingsMenu)
+    // seeAttendeesDiv.append(settingsMenu)
 
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
@@ -341,25 +323,20 @@ setInterval(() => {
     seeAttendeesDiv.appendChild(peopleList)
     seeAttendeesDiv.appendChild(peopleCounter)
 
-    const copyList = document.createElement("a")
-    copyList.innerText = "Kopiera lista"
+    const copyList = addElement("a",seeAttendeesDiv,null,"Kopiera lista")
     copyList.onclick = () => {
       navigator.clipboard.writeText(localStorage.getItem("gmca-attendees-list").replace(/,/g, "\n"))
     }
-    seeAttendeesDiv.appendChild(copyList)
 
-    const randomPerson = document.createElement("a")
-    randomPerson.innerText = "Slumpa person"
+    const randomPerson = addElement("a",seeAttendeesDiv,null,"Slumpa person")
     randomPerson.onclick = () => {
       let attendees = localStorage.getItem("gmca-attendees-list").split(",")
       setTimeout(() => { // to make it async
         alert(attendees[Math.floor(Math.random() * attendees.length)])
       }, 1)
     }
-    seeAttendeesDiv.appendChild(randomPerson)
 
-    const showCompareList = document.createElement("a")
-    showCompareList.innerText = "Visa jämförings Lista ↓"
+    const showCompareList = addElement("a",seeAttendeesDiv,null,"Visa jämförings Lista ↓")
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
@@ -369,45 +346,29 @@ setInterval(() => {
         e.target.innerText = "Visa jämförings lista ↓"
       }
     }
-    seeAttendeesDiv.appendChild(showCompareList)
 
-    additionalOptions.appendChild(seeAttendeesDiv)
-
-    compare = document.createElement("div")
-    compare.id = "compare-div"
+    compare = addElement("div",additionalOptions,"compare-div",null)
     compare.style.display = "none"
-    additionalOptions.appendChild(compare)
 
-    const compareTitle = document.createElement("h2")
-    compareTitle.innerText = "Jämför deltagare"
-    compare.appendChild(compareTitle)
+    const compareTitle = addElement("h2",compare,null,"Jämför deltagare")
 
-    const compareList = document.createElement("textarea")
+    const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
     compareList.cols = 35
-    compareList.id = "compare-list"
     compareList.placeholder = "Kopiera in jämföringslista"
     compareList.style.display = "block"
-    compare.appendChild(compareList)
 
-    const compareButton = document.createElement("a")
-    compareButton.innerText = "Jämför"
+    const compareButton = addElement("a",compare,null,"Jämför")
     compareButton.onclick = compareLists
-    compare.appendChild(compareButton)
 
-    const cleanCompare = document.createElement("a")
-    cleanCompare.innerText = "Städa jämföringslista"
+    const cleanCompare = addElement("a",compare,null,"Städa jämföringslista")
     cleanCompare.onclick = cleanCompareLists
-    compare.appendChild(cleanCompare)
 
-    const classInput = document.createElement("input")
+    const classInput = addElement("input",compare,"classInput",null)
     classInput.attributes["type"] = "text"
     classInput.placeholder = "Klass"
-    classInput.id = "classInput"
-    compare.appendChild(classInput)
     
-    const saveButton = document.createElement("a")
-    saveButton.innerText = "Spara lista"
+    const saveButton = addElement("a",compare,null,"Spara lista")
     saveButton.onclick = () => {
       let className = document.getElementById("classInput").value
       saveClass(className)
@@ -415,12 +376,10 @@ setInterval(() => {
       chooseClassOptions.innerText = className
       document.getElementById("chooseClass").appendChild(chooseClassOptions)
     } 
-    compare.appendChild(saveButton)
 
-    const chooseClass = document.createElement("select")
-    chooseClass.id = "chooseClass"
+    const chooseClass = addElement("select",compare,"chooseClass",null)
     
-    const defaultClassOption = document.createElement("option")
+    const defaultClassOption = addElement("option",chooseClass,null,"Ladda lista")
     defaultClassOption.innerText = "Ladda lista"
     
     chooseClass.onchange = (selectedClass) => {
@@ -434,8 +393,6 @@ setInterval(() => {
       })
     }
 
-    chooseClass.appendChild(defaultClassOption)
-
     if (savedClasses) {
       console.log(savedClasses)
       Object.keys(savedClasses).forEach(className => {
@@ -445,10 +402,7 @@ setInterval(() => {
       })
     }
 
-    compare.appendChild(chooseClass) 
-
-    const removeClass = document.createElement("a")
-    removeClass.innerText = "Ta bort klass"
+    const removeClass = addElement("a",compare,null,"Ta bort klass")
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
       let className = classElement.selectedOptions[0].value
@@ -456,29 +410,21 @@ setInterval(() => {
       removeClassName(className)
     }
     
-    compare.appendChild(removeClass)
+    const hereL = addElement("label",compare,null,"Resultat:")
 
-    const hereL = document.createElement("label")
-    hereL.innerText = "Resultat:"
-    compare.appendChild(hereL)
-
-    const compareResultList = document.createElement("textarea")
+    const compareResultList = addElement("textarea",compare,null,null)
     compareResultList.rows = 10
     compareResultList.cols = 35
     compareResultList.readOnly = true
     compareResultList.value = "Klicka På jämför"
     compareResultList.style.display = "block"
-    compare.appendChild(compareResultList)
 
-    const copyCompareList = document.createElement("a")
-    copyCompareList.innerText = "Kopiera lista"
+    const copyCompareList = addElement("a",compare,null,"Kopiera lista")
     copyCompareList.onclick = () => {
       navigator.clipboard.writeText(compare.children[compare.childElementCount-3].value)
     }
-    compare.appendChild(copyCompareList)
 
-    const copyCompareListForChat = document.createElement("a")
-    copyCompareListForChat.innerText = "Kopiera för chatten"
+    const copyCompareListForChat = addElement("a",compare,null,"Kopiera för chatten")
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
       while (toCopy.length > 500) {
@@ -487,9 +433,6 @@ setInterval(() => {
       }
       navigator.clipboard.writeText(toCopy)
     }
-    compare.appendChild(copyCompareListForChat)
-
-    
   }
 }, 250)
 
@@ -570,8 +513,12 @@ const removeClassName = (className) => {
 
 const addElement = (element, parent, id, innertext) => {
   let elem = document.createElement(element)
-  elem.id = id
-  elem.innerText = innertext
+  if (id) {
+    elem.id = id
+  }
+  if (innertext) {
+    elem.innerText = innertext
+  }
   parent.appendChild(elem)
   return elem
 }
