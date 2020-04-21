@@ -573,6 +573,7 @@ const addElement = (element, parent, id, innertext) => {
   elem.id = id
   elem.innerText = innertext
   parent.appendChild(elem)
+  return elem
 }
 
 const getAllAttendees = () => {
