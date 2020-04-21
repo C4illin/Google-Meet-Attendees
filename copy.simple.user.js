@@ -128,9 +128,14 @@ div.__gma-button > div a {
 }
 
 #attendees-list textarea {
-  width: 270px;
-  border: gainsboro
-  border-radius: 4px;
+  // width: 270px;
+  width: 90%;
+  border: 3px gainsboro solid;
+  border-radius: 6px;
+}
+
+#classInput {
+  width: 40%;
 }
 
 #attendees-list #show_list {
@@ -189,7 +194,7 @@ div#attendees-list {
 
 div#attendees-div , div#compare-div {
   position: relative;
-  width: 290px;
+  width: 263px;
 }
 
 div#compare-div {
