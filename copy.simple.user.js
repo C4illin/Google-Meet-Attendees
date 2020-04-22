@@ -266,9 +266,6 @@ setInterval(() => {
     addSetting("gma-more-letters","Kopiera för chatten maximerar antalet bokstäver")
 
     const closeSettings = addElement("a",settingsMenu,null,"Stäng")
-    closeSettings.position = "absolute"
-    closeSettings.top = 0
-    closeSettings.right = 0
     closeSettings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
@@ -340,15 +337,7 @@ setInterval(() => {
     classInput.autocomplete = "off"
     
     const saveButton = addElement("a",compare,null,"Spara lista")
-    saveButton.onclick = () => {
-      console.log("bacon")
-      let className = document.getElementById("classInput").value
-      console.log(className)
-      saveClass(className)
-      let chooseClassOptions = document.createElement("option")
-      chooseClassOptions.innerText = className
-      document.getElementById("chooseClass").appendChild(chooseClassOptions)
-    } 
+    saveButton.onclick = saveClass
 
     const chooseClass = addElement("select",compare,"chooseClass",null)
     
@@ -482,7 +471,11 @@ const compareLists = () => {
   }
 }
 
-const saveClass = (className) => {
+const saveClass = () => {
+  let className = document.getElementById("classInput").value
+  let chooseClassOptions = document.createElement("option")
+  chooseClassOptions.innerText = className
+  document.getElementById("chooseClass").appendChild(chooseClassOptions)
   savedClasses[className] = document.getElementById("compare-list").value.split("\n")
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
   document.getElementById("chooseClass").lastChild.selected = true
