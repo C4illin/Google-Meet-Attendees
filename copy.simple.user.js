@@ -110,6 +110,7 @@ s.innerText = `
 
 #attendees-list textarea {
   width: 90%;
+  resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
 }
