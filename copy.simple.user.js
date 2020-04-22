@@ -43,75 +43,55 @@ const icon = "<path fill=\"currentColor\" d=\"M11.41 3.76c-.8.04-1.6.31-2.27.86-
 
 const s = document.createElement("style")
 s.innerText = `
-div.__gma-button > div a {
-  line-height: 36px;
-  margin-top: 5px !important;
-  margin-bottom: 5px !important;
-  box-shadow: 
-  -3px -3px 3px 0 rgba(255, 255, 255, 0.384),
-  3px 3px 3px 0 rgba(0, 0, 0, .09);
-}
 .__gma-button:hover {
   z-index: 8;
-  background-color: var(--gm-neutral-highlight-color);
+  background-color: var(--gm-neutral-highlight-color)
 }
 
 .__gma-button {
-  overflow: visible !important;
+  overflow: visible !important
 }
-.__gma-button > div {
-  box-sizing: border-box;
-  display: none;
-  position: absolute;
-  top: 40px;
-  padding: 15px;
-  background: white;
-  border-radius: 0 0 0 8px;
-  text-align: left;
-  cursor: auto;
-  line-height: 0;
+
+.__gma-button:hover>#attendees-list {
+  display: flex
 }
-.__gma-button:hover > div {
-  display: flex;
-}
-.__gma-button > div label {
+
+#attendees-list label {
   display: block;
   line-height: 24px;
-  color: #999999;
+  color: #999
 }
-.__gma-button > div label:not(.disabled) {
+
+#attendees-list label:not(.disabled) {
   cursor: pointer;
-  color: #000000;
+  color: #000
 }
-.__gma-button > div label small {
+
+#attendees-list label small {
   display: block;
   line-height: 12px;
-  font-weight: 400;
+  font-weight: 400
 }
-.__gma-button > div hr {
+
+#attendees-list hr {
   border: 0;
   height: 1px;
-  background: #f1f3f4;
-}
-.__gma-button > div a {
-  display: inline-block;
-  line-height: 20px;
+  background: #f1f3f4
 }
 
 #attendees-list a {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  box-shadow: -3px -3px 3px 0 rgba(255, 255, 255, 0.384), 3px 3px 3px 0 rgba(0, 0, 0, .09);
+  line-height: 20px;
   display: inline-block;
-  padding: 0 5px;
   border-radius: 2rem;
   color: var(--gm-body-text-color);
   cursor: pointer;
   background-color: gainsboro;
-  padding: 0 9px 0 9px;
+  padding: 0 9px;
   margin: 2px;
-  height: 34px;
-}
-
-#attendees-list p {
-  margin: 0;
+  height: 34px
 }
 
 #attendees-list #update {
@@ -122,22 +102,21 @@ div.__gma-button > div a {
   background-image: url('https://img.icons8.com/material/24/000000/update-left-rotation.png');
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: gainsboro;
+  background-color: gainsboro
 }
 
 #attendees-list #update:hover, #attendees-list #show_list:hover, #attendees-list a:hover {
-  background-color: #f1f3f4;
+  background-color: #f1f3f4
 }
 
 #attendees-list textarea {
-  // width: 270px;
   width: 90%;
   border: 3px gainsboro solid;
-  border-radius: 6px;
+  border-radius: 6px
 }
 
 #classInput {
-  width: 40%;
+  width: 40%
 }
 
 #attendees-list #show_list {
@@ -146,8 +125,8 @@ div.__gma-button > div a {
   height: 34px;
   position: absolute;
   background-color: gainsboro;
-  padding: 0 9px 0 9px;
-  line-height: 34px;
+  padding: 0 9px;
+  line-height: 34px
 }
 
 #attendees-list #settingsButton {
@@ -156,64 +135,65 @@ div.__gma-button > div a {
   text-align: center;
   right: 15px;
   padding: 5px;
-  height: auto;
+  height: auto
 }
 
 #settingsButton svg {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center
 }
 
-/* TO DO: */
-#attendees-list div#settingsMenu {
+#attendees-list #settingsMenu {
   position: absolute;
   text-align: center;
   top: 100px;
   left: -100px;
   background-color: white;
   z-index: 3;
-  border: 1px #2196F3 solid;
+  border: 1px #2196F3 solid
 }
 
-#attendees-list div#settingsHeader {
+#attendees-list #settingsHeader {
   padding: 5px;
   cursor: move;
   background-color: #2196F3;
-  color: white;
+  color: white
 }
 
-div#attendees-list {
+#attendees-list {
+  box-sizing: border-box;
+  display: none;
+  padding: 15px;
+  background: white;
+  text-align: left;
+  cursor: auto;
   line-height: 36px;
-  /* display: flex; */
   flex-direction: row-reverse;
   position: absolute;
   right: -232px;
   border-radius: 8px 0 8px 8px !important;
   z-index: 7;
-  top: 48px;
+  top: 48px
 }
 
-div#attendees-div , div#compare-div {
+#attendees-div, #compare-div {
   position: relative;
-  width: 263px;
+  width: 263px
 }
 
-div#compare-div {
+#compare-div {
   padding: 0 5px 10px 10px;
-  border-right: 3px dashed gainsboro;
+  border-right: 3px dashed gainsboro
 }
 
-div#attendees-div {
-  padding-left: 15px;
+#attendees-div {
+  padding-left: 15px
 }
 
-h1, h2 {
-  margin: 0;
+h1, h2, #attendees-list p {
+  margin: 0
 }
-
-/* Overrides some gmgv styles for increased compatibility */
-
 `
 document.body.append(s)
 
