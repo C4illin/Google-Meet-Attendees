@@ -505,13 +505,15 @@ const saveClass = () => {
   document.getElementById("chooseClass").lastChild.selected = true
 }
 
-// 
+// Removes a class that you selected in localStorage
 const removeClassName = (className) => {
   savedClasses[className] = null
   delete savedClasses[className]
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
 }
 
+// The main function used to create elements.
+// If there is no id or innertext supplied the function skips that.
 const addElement = (element, parent, id, innertext) => {
   let elem = document.createElement(element)
   if (id) {
@@ -524,6 +526,9 @@ const addElement = (element, parent, id, innertext) => {
   return elem
 }
 
+// The main function for adding new options.
+// It takes a path to localStorage as input and saves if the user has checked the box or not.
+// "name" is a variable name.
 const addSetting = (localStoragePath, name) => {
   let parent = addElement("label", settingsMenu, null, name)
   let elem = document.createElement("input")
@@ -542,6 +547,7 @@ const getAllAttendees = () => {
       stupid but I don't know how to do it in a 
       better way. :( 
   */
+//  Removes duplicate students in an Array
   function removeDups(names) {
     let unique = {}
     names.forEach(function(i) {
@@ -551,7 +557,7 @@ const getAllAttendees = () => {
     })
     return Object.keys(unique)
   }
-
+  // START This section turns on grid view for 2 seconds and grabs all the names. Then it turn itself off.
   let buttons = document.querySelector("[data-fps-request-screencast-cap]").parentElement.parentElement.parentElement
   
   let position = 2
@@ -580,6 +586,7 @@ const getAllAttendees = () => {
     toChange[1] = true
     waitTime += 800
   }
+// END
 
   setTimeout(() => {
     
