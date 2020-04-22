@@ -25,7 +25,7 @@ Get attendees in a better way
 let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
-let compare = null
+// let compare = null
 let yourName = null
 // let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
@@ -357,7 +357,8 @@ setInterval(() => {
       }
     }
 
-    compare = addElement("div",additionalOptions,"compare-div",null)
+    const compare = addElement("div",additionalOptions,"compare-div",null)
+    compare.id = "compare-master"
     compare.style.display = "none"
 
     const compareTitle = addElement("h2",compare,null,"Jämför deltagare")
@@ -473,7 +474,7 @@ const movableDiv = (even, moveID) => {
 }
 
 const cleanCompareLists = () => {
-  compare.firstChild.value = compare.firstChild.value.replace(/ {2,}/g, " ").replace(/\.|[0-9]/g, "").replace(/\n{2,}|\n{1,} {1,}/g, "\n")
+  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}/g, " ").replace(/\.|[0-9]/g, "").replace(/\n{2,}|\n{1,} {1,}/g, "\n")
 }
 
 const showElement = (elem) => {
@@ -507,7 +508,7 @@ const compareLists = () => {
   }
 
   if (out.length > 0) {
-    compare.children[compare.childElementCount-3].value = out.join(String.fromCharCode(13, 10))
+    document.getElementById("compare-master").children[document.getElementById("compare-master").childElementCount-3].value = out.join(String.fromCharCode(13, 10))
   }
 }
 
