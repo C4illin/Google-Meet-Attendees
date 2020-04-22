@@ -99,7 +99,7 @@ s.innerText = `
 }
 
 #attendees-list textarea {
-  width: 90%;
+  width: calc(263px - 15px);
   resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
@@ -123,7 +123,7 @@ s.innerText = `
   display: inline-block;
   position: absolute;
   text-align: center;
-  right: 15px;
+  right: 0;
   padding: 5px;
   height: auto
 }
@@ -154,7 +154,7 @@ s.innerText = `
 #attendees-list {
   box-sizing: border-box;
   display: none;
-  padding: 15px;
+  padding: 15px 20px 20px 0;
   background: white;
   text-align: left;
   cursor: auto;
@@ -173,16 +173,19 @@ s.innerText = `
 }
 
 #compare-div {
-  padding: 0 5px 10px 10px;
+  padding: 0 20px 5px 20px;
   border-right: 3px dashed gainsboro
 }
 
 #attendees-div {
-  padding-left: 15px
+  padding-left: 20px
 }
 
 h1, h2, #attendees-list p {
   margin: 0
+}
+.rKOYsc {
+  z-index: 0 !important;
 }
 `
 document.body.append(s)
@@ -207,6 +210,10 @@ setInterval(() => {
         elem.style.display = "flex"
         elem.__pinned = true
       }
+      // const pinToggle = document.getElementsByClassName("rKOYsc")
+      // for (let e of pinToggle) {
+      //   e.style.zIndex = "0"
+      // }
     }
     buttons.prepend(toggleButton)
 
@@ -229,14 +236,14 @@ setInterval(() => {
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
     
-    const showListI = addElement("a",seeAttendeesDiv,"show_list","Göm lista ↑")
+    const showListI = addElement("a",seeAttendeesDiv,"show_list","⮝ Göm lista")
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
         peopleList.style.display = "flex"
-        e.target.innerText = "Göm lista ↑"
+        e.target.innerText = "⮝ Göm lista"
       } else {
         peopleList.style.display = "none"
-        e.target.innerText = "Visa lista ↓"
+        e.target.innerText = "⮟ Visa lista"
       }
     }
 
@@ -273,7 +280,6 @@ setInterval(() => {
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
     peopleList.rows = 20
-    peopleList.cols = 35
     let attendees = localStorage.getItem("gmca-attendees-list")
     if (attendees) {
       peopleList.value = attendees.replace(/,/g, String.fromCharCode(13, 10))
@@ -300,14 +306,14 @@ setInterval(() => {
       }, 1)
     }
 
-    const showCompareList = addElement("a",seeAttendeesDiv,null,"Visa jämförings Lista ↓")
+    const showCompareList = addElement("a",seeAttendeesDiv,null,"⮜ Visa jämförings Lista")
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
-        e.target.innerText = "Göm jämförings lista ↑"
+        e.target.innerText = "⮞ Göm jämförings lista"
       } else {
         compare.style.display = "none"
-        e.target.innerText = "Visa jämförings lista ↓"
+        e.target.innerText = "⮜ Visa jämförings lista"
       }
     }
 
@@ -318,7 +324,6 @@ setInterval(() => {
 
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
-    compareList.cols = 35
     compareList.placeholder = "Kopiera in jämföringslista"
     compareList.style.display = "block"
 
@@ -380,7 +385,6 @@ setInterval(() => {
 
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
-    compareResultList.cols = 35
     compareResultList.readOnly = true
     compareResultList.value = "Klicka På jämför"
     compareResultList.style.display = "block"
