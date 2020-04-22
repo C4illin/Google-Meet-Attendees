@@ -547,7 +547,7 @@ const getAllAttendees = () => {
       stupid but I don't know how to do it in a 
       better way. :( 
   */
-//  Removes duplicate students in an Array
+  //  Removes duplicate students in an Array
   function removeDups(names) {
     let unique = {}
     names.forEach(function(i) {
@@ -586,7 +586,7 @@ const getAllAttendees = () => {
     toChange[1] = true
     waitTime += 800
   }
-// END
+  // END
 
   setTimeout(() => {
     let nameSelector = "epqixc"
