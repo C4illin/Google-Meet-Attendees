@@ -30,6 +30,7 @@ let yourName = null
 // let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
 let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
+let notOnList = localStorage.getItem("gma-add-not-on-list") === "true"
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
   savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
@@ -304,6 +305,16 @@ setInterval(() => {
     }
     sortByLastNameLabel.prepend(sortByLastNameCheck)
 
+    const notOnListLabel = addElement("label",settingsMenu,null,"Inkludera folk som inte är på jämförelselistan")
+    const notOnListCheck = document.createElement("input")
+    notOnListCheck.type = "checkbox"
+    notOnListCheck.checked = notOnList
+    notOnListCheck.onchange = e => {
+      notOnList = e.target.checked
+      localStorage.setItem("gma-add-not-on-list", notOnList)
+    }
+    notOnListLabel.prepend(notOnListCheck)
+
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
@@ -476,7 +487,7 @@ const compareLists = () => {
   let listToCompare = document.getElementById("compare-list").value.split("\n")
 
   let out = []
-  if (listToCompare.length > 1 && listToCompare[0] != "") {
+  if (listToCompare[0] != "") {
     listToCompare.forEach(listItem => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
@@ -485,7 +496,7 @@ const compareLists = () => {
       }
     })
   }
-  if (current[0] != "") {
+  if (current[0] != "" && notOnList) {
     current.forEach(listItem => {
       if (!listToCompare.includes(listItem)) {
         out.push("❔ " + listItem)
