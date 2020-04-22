@@ -99,7 +99,7 @@ s.innerText = `
 }
 
 #attendees-list textarea {
-  width: calc(263px - 15px);
+  width: calc(258px - 15px);
   resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
@@ -162,14 +162,14 @@ s.innerText = `
   flex-direction: row-reverse;
   position: absolute;
   right: -232px;
-  border-radius: 8px 0 8px 8px;
+  border-radius: 0 0 8px 8px;
   z-index: 7;
   top: 48px
 }
 
 #attendees-div, #compare-div {
   position: relative;
-  width: 263px
+  width: 258px
 }
 
 #compare-div {
@@ -312,9 +312,13 @@ setInterval(() => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
         e.target.innerText = "⮞ Göm jämförings lista"
+        additionalOptions.style.borderRadius = "8px 0 8px 8px"
+        document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
       } else {
         compare.style.display = "none"
         e.target.innerText = "⮜ Visa jämförings lista"
+        additionalOptions.style.borderRadius = "0 0 8px 8px"
+        document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
       }
     }
 
