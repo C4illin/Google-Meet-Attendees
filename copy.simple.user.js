@@ -399,18 +399,20 @@ setInterval(() => {
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
 
-      if (localStorage.getItem("gma-more-letters") === "true") {
-        while (toCopy.length > 500) {
-          toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
+      if (toCopy.length > 500) {
+        if (localStorage.getItem("gma-more-letters") === "true") {
+          while (toCopy.length > 500) {
+            toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
+          }
+        } else {
+          toCopy = toCopy.split("\n").map(elem => elem.substring(0, elem.indexOf(" ",3)+2)).join("\n")
         }
-      } else {
-        toCopy = toCopy.split("\n").map(elem => elem.substring(0, elem.indexOf(" ",3)+2)).join("\n")
+  
+        while (toCopy.length > 500) {
+          toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
+        }
       }
-
-      while (toCopy.length > 500) {
-        toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
-      }
-
+      
       navigator.clipboard.writeText(toCopy)
     }
   }
