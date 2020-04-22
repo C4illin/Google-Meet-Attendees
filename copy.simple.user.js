@@ -369,7 +369,9 @@ setInterval(() => {
     
     const saveButton = addElement("a",compare,null,"Spara lista")
     saveButton.onclick = () => {
+      console.log("bacon")
       let className = document.getElementById("classInput").value
+      console.log(className)
       saveClass(className)
       let chooseClassOptions = document.createElement("option")
       chooseClassOptions.innerText = className
@@ -499,12 +501,13 @@ const compareLists = () => {
 }
 
 const saveClass = (className) => {
+  console.log(Object.entries(savedClasses))
   savedClasses[className] = compare.firstChild.value.split("\n")
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
+  console.log(Object.entries(savedClasses))
 }
 
 const removeClassName = (className) => {
-  console.log("About to delete: "+className)
   savedClasses[className] = null
   delete savedClasses[className]
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
