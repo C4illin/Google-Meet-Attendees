@@ -83,7 +83,6 @@ s.innerText = `
   margin-top: 5px !important;
   margin-bottom: 5px !important;
   box-shadow: -3px -3px 3px 0 rgba(255, 255, 255, 0.384), 3px 3px 3px 0 rgba(0, 0, 0, .09);
-  line-height: 20px;
   display: inline-block;
   border-radius: 2rem;
   color: var(--gm-body-text-color);
@@ -111,6 +110,7 @@ s.innerText = `
 
 #attendees-list textarea {
   width: 90%;
+  resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
 }
