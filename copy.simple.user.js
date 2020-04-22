@@ -11,10 +11,7 @@
 
 // TODO (ordered by difficulty (easiest first))
 /* 
-When copying to chat make it ex Name L. With name and first letter of lastname. 
 Add better pop-up for random person
-Fix volume controls above menu https://i.imgur.com/IQ8BbYk.png
-Use more google colors var(--gm-...)
 Publish extension 
 Get attendees in a better way
 */
