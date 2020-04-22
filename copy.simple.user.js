@@ -260,25 +260,27 @@ setInterval(() => {
 
     // includeYourself
     // Kanske göra till en funktion för att göra fler inställningar
-    const includeYourselfLabel = addElement("label",settingsMenu,null,"Inkludera dig själv")
-    const includeYourselfCheck = document.createElement("input")
-    includeYourselfCheck.type = "checkbox"
-    includeYourselfCheck.checked = includeYourself
-    includeYourselfCheck.onchange = e => {
-      includeYourself = e.target.checked
-      localStorage.setItem("gma-include-yourself", includeYourself)
-    }
-    includeYourselfLabel.prepend(includeYourselfCheck)
+    // const includeYourselfLabel = addElement("label",settingsMenu,null,"Inkludera dig själv")
+    // const includeYourselfCheck = document.createElement("input")
+    // includeYourselfCheck.type = "checkbox"
+    // includeYourselfCheck.checked = includeYourself
+    // includeYourselfCheck.onchange = e => {
+    //   includeYourself = e.target.checked
+    //   localStorage.setItem("gma-include-yourself", includeYourself)
+    // }
+    // includeYourselfLabel.prepend(includeYourselfCheck)
+    addSetting(includeYourself, "gma-include-yourself", "Inkludera dig själv")
 
-    const sortByLastNameLabel = addElement("label",settingsMenu,null,"Sortera efter efternamn")
-    const sortByLastNameCheck = document.createElement("input")
-    sortByLastNameCheck.type = "checkbox"
-    sortByLastNameCheck.checked = sortByLastName
-    sortByLastNameCheck.onchange = e => {
-      sortByLastName = e.target.checked
-      localStorage.setItem("gma-sort-by-last-name", sortByLastName)
-    }
-    sortByLastNameLabel.prepend(sortByLastNameCheck)
+    // const sortByLastNameLabel = addElement("label",settingsMenu,null,"Sortera efter efternamn")
+    // const sortByLastNameCheck = document.createElement("input")
+    // sortByLastNameCheck.type = "checkbox"
+    // sortByLastNameCheck.checked = sortByLastName
+    // sortByLastNameCheck.onchange = e => {
+    //   sortByLastName = e.target.checked
+    //   localStorage.setItem("gma-sort-by-last-name", sortByLastName)
+    // }
+    // sortByLastNameLabel.prepend(sortByLastNameCheck)
+    addSetting(sortByLastName, "gma-sort-by-last-name","Sortera efter efternamn")
 
     const notOnListLabel = addElement("label",settingsMenu,null,"Inkludera folk som inte är på jämförelselistan")
     const notOnListCheck = document.createElement("input")
@@ -517,6 +519,18 @@ const addElement = (element, parent, id, innertext) => {
   }
   parent.appendChild(elem)
   return elem
+}
+
+const addSetting = (option, localStoragePath, name) => {
+  let parent = addElement("label",settingsMenu,null,name)
+  let elem = document.createElement("input")
+  elem.type = "checkbox"
+  elem.checked = option
+  elem.onchange = e => {
+    option = e.target.checked
+    localStorage.setItem(localStoragePath, option)
+  }
+  parent.prepend(elem)
 }
 
 const getAllAttendees = () => {
