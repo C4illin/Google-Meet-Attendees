@@ -24,9 +24,6 @@ let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
 let yourName = null
-// let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
-// let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
-// let notOnList = localStorage.getItem("gma-add-not-on-list") === "true"
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
   savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
