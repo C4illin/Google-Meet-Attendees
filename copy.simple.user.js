@@ -589,16 +589,7 @@ const getAllAttendees = () => {
 // END
 
   setTimeout(() => {
-    
     let nameSelector = "epqixc"
-
-    // what it should "epqixc" but it doesn't sometimes, which defeats the purpose
-    // if (document.querySelector(".__gmgv-vid-container")) {
-    //   // nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.lastChild.lastChild.classList[0]
-    //   nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.children[1].lastChild.classList[0]
-    // } else {
-    //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
-    // }
 
     let people = []
     let divList = document.getElementsByClassName(nameSelector)
