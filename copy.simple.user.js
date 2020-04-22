@@ -102,8 +102,22 @@ s.innerText = `
   border-radius: 6px
 }
 
-#classInput {
-  width: 40%
+#classSave, #cleanCompareList {
+  float: right;
+}
+
+#removeClass {
+  position: absolute;
+  right: 20px;
+}
+
+#chooseClass {
+  height: 21px;
+}
+
+#classInput , #chooseClass{
+  width: 50%;
+  margin: 10px 0;
 }
 
 #attendees-list #show_list {
@@ -331,7 +345,7 @@ setInterval(() => {
     const compareButton = addElement("a",compare,null,"Jämför")
     compareButton.onclick = compareLists
 
-    const cleanCompare = addElement("a",compare,null,"Städa jämföringslista")
+    const cleanCompare = addElement("a",compare,"cleanCompareList","Städa jämföringslista")
     cleanCompare.onclick = cleanCompareLists
 
     const classInput = addElement("input",compare,"classInput",null)
@@ -339,7 +353,7 @@ setInterval(() => {
     classInput.placeholder = "Klass"
     classInput.autocomplete = "off"
     
-    const saveButton = addElement("a",compare,null,"Spara lista")
+    const saveButton = addElement("a",compare,"classSave","Spara lista")
     saveButton.onclick = () => {
       console.log("bacon")
       let className = document.getElementById("classInput").value
@@ -374,7 +388,7 @@ setInterval(() => {
       })
     }
 
-    const removeClass = addElement("a",compare,null,"Ta bort klass")
+    const removeClass = addElement("a",compare,"removeClass","Ta bort klass")
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
       let className = classElement.selectedOptions[0].value
