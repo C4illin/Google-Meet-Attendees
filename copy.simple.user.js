@@ -252,7 +252,7 @@ setInterval(() => {
 
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
 
-    const Title = addElement("h1",seeAttendeesDiv,null,"Närvaro")
+    addElement("h1",seeAttendeesDiv,null,"Närvaro")
 
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
@@ -360,7 +360,7 @@ setInterval(() => {
     const compare = addElement("div",additionalOptions,"compare-div",null)
     compare.style.display = "none"
 
-    const compareTitle = addElement("h2",compare,null,"Jämför deltagare")
+    addElement("h2",compare,null,"Jämför deltagare")
 
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
@@ -422,7 +422,7 @@ setInterval(() => {
       removeClassName(className)
     }
     
-    const hereL = addElement("label",compare,null,"Resultat:")
+    addElement("label",compare,null,"Resultat:")
 
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
@@ -538,11 +538,12 @@ const addElement = (element, parent, id, innertext) => {
 }
 
 const getAllAttendees = () => {
-  /* This is the function that should be reworked
-     currently it forces grid view and then take
-     all the names which is really inefficent and
-     stupid but I don't know how to do it in a 
-     better way. :( */
+  /*  This is the function that should be reworked
+      currently it forces grid view and then take
+      all the names which is really inefficent and
+      stupid but I don't know how to do it in a 
+      better way. :( 
+  */
   function removeDups(names) {
     let unique = {}
     names.forEach(function(i) {
@@ -554,9 +555,6 @@ const getAllAttendees = () => {
   }
 
   let buttons = document.querySelector("[data-fps-request-screencast-cap]").parentElement.parentElement.parentElement
-
-  // console.log(buttons)
-
   
   let position = 2
   let checkboxes = buttons.children[2].lastChild.children
@@ -570,12 +568,10 @@ const getAllAttendees = () => {
   if (buttons.children[position].firstChild.innerHTML.substring(30, 31) == "1") {
     gridtoggle = true
   }
-  // let includeOwnVideo = checkboxes[2].firstChild.checked
-  // console.log(gridtoggle,showOnlyVideo)
   
   let waitTime = 0
   let toChange = [false, false]
-  // let toChange = [false, false, false]
+
   if (!gridtoggle) {
     buttons.children[position].click()
     toChange[0] = true
@@ -586,39 +582,25 @@ const getAllAttendees = () => {
     toChange[1] = true
     waitTime += 800
   }
-  // doesn't matter really
-  // if (!includeOwnVideo) {
-  //   checkboxes[2].firstChild.checked = true
-  //   toChange[2] = true
-  //   waitTime += 1000
-  // }
 
-  // let attendees = []
   setTimeout(() => {
     
     let nameSelector = "epqixc"
 
-    // what it should return: nameSelector = "epqixc" but it doesn't sometimes and idk why
+    // what it should "epqixc" but it doesn't sometimes, which defeats the purpose
     // if (document.querySelector(".__gmgv-vid-container")) {
     //   // nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.lastChild.lastChild.classList[0]
     //   nameSelector = document.querySelector(".__gmgv-vid-container").firstChild.children[1].lastChild.classList[0]
     // } else {
     //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
     // }
-    // console.log(nameSelector)
-    // document.querySelector(".__gmgv-vid-container").firstChild.lastChild.lastChild.classList[0]
-    // if (!nameSelector || nameSelector == null) {
-    //   nameSelector = document.querySelector("[data-allocation-index]").children[1].lastChild.classList[0]
-    // } // more effiecient maybe
+
     let people = []
     let divList = document.getElementsByClassName(nameSelector)
     for (let item of divList) {
       people.push(item.innerText)
     }
-    // console.log(people)
 
-    // Sorted by lastname (maybe add option?)
-    // let attendees = removeDups(people).sort((a, b) => a.split(" ")[1] < b.split(" ")[1] ? -1 : 1)
     if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
       people = []
     }
@@ -643,13 +625,10 @@ const getAllAttendees = () => {
     }
     
     localStorage.setItem("gmca-attendees-list", attendees)
-    // console.log(attendees)
 
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
     peopleCounter.innerText = attendees.length + " personer"
-    // return(attendees)
     setTimeout(() => {
-      // console.log(toChange)
       if (toChange[0]) {
         buttons.children[position].click()
       }
@@ -658,5 +637,4 @@ const getAllAttendees = () => {
       }
     }, 1000)
   }, waitTime)
-  // console.log(toChange)
 }
