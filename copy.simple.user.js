@@ -252,6 +252,7 @@ setInterval(() => {
     settingsMenu.style.display = "none"
 
     const settingsHeader = addElement("div",settingsMenu,"settingsHeader","Inställningar")
+    
     settingsHeader.style.display = "block"
     settingsHeader.onmousedown = (even) => {
       movableDiv(even, "settingsMenu")
@@ -288,6 +289,14 @@ setInterval(() => {
       localStorage.setItem("gma-add-not-on-list", notOnList)
     }
     notOnListLabel.prepend(notOnListCheck)
+
+    const closeSettings = addElement("a",settingsMenu,null,"Stäng")
+    closeSettings.position = "absolute"
+    closeSettings.top = 0
+    closeSettings.right = 0
+    closeSettings.onclick = () => {
+      showElement(document.getElementById("settingsMenu"))
+    }
 
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
