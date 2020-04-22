@@ -20,13 +20,9 @@ Get attendees in a better way
 */
 
 //global variables
-let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
 let yourName = null
-// let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
-// let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
-// let notOnList = localStorage.getItem("gma-add-not-on-list") === "true"
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
   savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
@@ -214,7 +210,9 @@ setInterval(() => {
     }
     buttons.prepend(toggleButton)
 
-    toggleButtonSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+    // const toggleButtonSVG = addElement("svg",toggleButton,"icon",null)
+    const toggleButtonSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+    toggleButtonSVG.id = "icon"
     toggleButtonSVG.style.width = "24px"
     toggleButtonSVG.style.height = "24px"
     toggleButtonSVG.setAttribute("viewBox", "0 0 24 24")
@@ -258,41 +256,11 @@ setInterval(() => {
       movableDiv(even, "settingsMenu")
     }
 
-    // includeYourself
-    // Kanske göra till en funktion för att göra fler inställningar
-    // const includeYourselfLabel = addElement("label",settingsMenu,null,"Inkludera dig själv")
-    // const includeYourselfCheck = document.createElement("input")
-    // includeYourselfCheck.type = "checkbox"
-    // includeYourselfCheck.checked = includeYourself
-    // includeYourselfCheck.onchange = e => {
-    //   includeYourself = e.target.checked
-    //   localStorage.setItem("gma-include-yourself", includeYourself)
-    // }
-    // includeYourselfLabel.prepend(includeYourselfCheck)
     addSetting("gma-include-yourself", "Inkludera dig själv")
 
-    // const sortByLastNameLabel = addElement("label",settingsMenu,null,"Sortera efter efternamn")
-    // const sortByLastNameCheck = document.createElement("input")
-    // sortByLastNameCheck.type = "checkbox"
-    // sortByLastNameCheck.checked = sortByLastName
-    // sortByLastNameCheck.onchange = e => {
-    //   sortByLastName = e.target.checked
-    //   localStorage.setItem("gma-sort-by-last-name", sortByLastName)
-    // }
-    // sortByLastNameLabel.prepend(sortByLastNameCheck)
     addSetting("gma-sort-by-last-name","Sortera efter efternamn")
 
     addSetting("gma-add-not-on-list","Inkludera folk som inte är på jämförelselistan")
-
-    // const notOnListLabel = addElement("label",settingsMenu,null,"Inkludera folk som inte är på jämförelselistan")
-    // const notOnListCheck = document.createElement("input")
-    // notOnListCheck.type = "checkbox"
-    // notOnListCheck.checked = notOnList
-    // notOnListCheck.onchange = e => {
-    //   notOnList = e.target.checked
-    //   localStorage.setItem("gma-add-not-on-list", notOnList)
-    // }
-    // notOnListLabel.prepend(notOnListCheck)
 
     const closeSettings = addElement("a",settingsMenu,null,"Stäng")
     closeSettings.position = "absolute"
