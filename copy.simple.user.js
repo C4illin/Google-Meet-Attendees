@@ -269,7 +269,7 @@ setInterval(() => {
     //   localStorage.setItem("gma-include-yourself", includeYourself)
     // }
     // includeYourselfLabel.prepend(includeYourselfCheck)
-    addSetting(includeYourself, "gma-include-yourself", "Inkludera dig själv")
+    addSetting("gma-include-yourself", "Inkludera dig själv")
 
     // const sortByLastNameLabel = addElement("label",settingsMenu,null,"Sortera efter efternamn")
     // const sortByLastNameCheck = document.createElement("input")
@@ -280,17 +280,19 @@ setInterval(() => {
     //   localStorage.setItem("gma-sort-by-last-name", sortByLastName)
     // }
     // sortByLastNameLabel.prepend(sortByLastNameCheck)
-    addSetting(sortByLastName, "gma-sort-by-last-name","Sortera efter efternamn")
+    addSetting("gma-sort-by-last-name","Sortera efter efternamn")
 
-    const notOnListLabel = addElement("label",settingsMenu,null,"Inkludera folk som inte är på jämförelselistan")
-    const notOnListCheck = document.createElement("input")
-    notOnListCheck.type = "checkbox"
-    notOnListCheck.checked = notOnList
-    notOnListCheck.onchange = e => {
-      notOnList = e.target.checked
-      localStorage.setItem("gma-add-not-on-list", notOnList)
-    }
-    notOnListLabel.prepend(notOnListCheck)
+    addSetting("gma-add-not-on-list","Inkludera folk som inte är på jämförelselistan")
+
+    // const notOnListLabel = addElement("label",settingsMenu,null,"Inkludera folk som inte är på jämförelselistan")
+    // const notOnListCheck = document.createElement("input")
+    // notOnListCheck.type = "checkbox"
+    // notOnListCheck.checked = notOnList
+    // notOnListCheck.onchange = e => {
+    //   notOnList = e.target.checked
+    //   localStorage.setItem("gma-add-not-on-list", notOnList)
+    // }
+    // notOnListLabel.prepend(notOnListCheck)
 
     const closeSettings = addElement("a",settingsMenu,null,"Stäng")
     closeSettings.position = "absolute"
@@ -521,14 +523,13 @@ const addElement = (element, parent, id, innertext) => {
   return elem
 }
 
-const addSetting = (option, localStoragePath, name) => {
-  let parent = addElement("label",settingsMenu,null,name)
+const addSetting = (localStoragePath, name) => {
+  let parent = addElement("label", settingsMenu, null, name)
   let elem = document.createElement("input")
   elem.type = "checkbox"
-  elem.checked = option
+  elem.checked = localStorage.getItem(localStoragePath) === "true"
   elem.onchange = e => {
-    option = e.target.checked
-    localStorage.setItem(localStoragePath, option)
+    localStorage.setItem(localStoragePath, e.target.checked)
   }
   parent.prepend(elem)
 }
