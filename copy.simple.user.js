@@ -372,7 +372,6 @@ setInterval(() => {
     const chooseClass = addElement("select",compare,"chooseClass",null)
     
     const defaultClassOption = addElement("option",chooseClass,null,"Ladda lista")
-    defaultClassOption.innerText = "Ladda lista"
     
     chooseClass.onchange = (selectedClass) => {
       Object.entries(savedClasses).forEach(className => {
@@ -493,10 +492,9 @@ const compareLists = () => {
 }
 
 const saveClass = (className) => {
-  console.log(Object.entries(savedClasses))
   savedClasses[className] = document.getElementById("compare-list").value.split("\n")
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
-  console.log(Object.entries(savedClasses))
+  document.getElementById("chooseClass").lastChild.selected = true
 }
 
 const removeClassName = (className) => {
