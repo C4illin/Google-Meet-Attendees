@@ -12,6 +12,7 @@
 // TODO (ordered by difficulty (easiest first))
 /* 
 Add better pop-up for random person
+English translation
 Publish extension 
 Get attendees in a better way
 */
@@ -381,7 +382,11 @@ setInterval(() => {
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
       let className = classElement.selectedOptions[0].value
-      classElement.removeChild(classElement.selectedOptions[0])
+      if (className != "Ladda lista") {
+        classElement.removeChild(classElement.selectedOptions[0])
+      }
+      classElement.firstChild.selected = true
+      document.getElementById("compare-list").value = null
       removeClassName(className)
     }
     
