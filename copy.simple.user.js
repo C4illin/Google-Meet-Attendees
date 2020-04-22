@@ -184,6 +184,9 @@ s.innerText = `
 h1, h2, #attendees-list p {
   margin: 0
 }
+.rKOYsc {
+  z-index: 0 !important;
+}
 `
 document.body.append(s)
 
@@ -207,6 +210,10 @@ setInterval(() => {
         elem.style.display = "flex"
         elem.__pinned = true
       }
+      // const pinToggle = document.getElementsByClassName("rKOYsc")
+      // for (let e of pinToggle) {
+      //   e.style.zIndex = "0"
+      // }
     }
     buttons.prepend(toggleButton)
 
@@ -229,14 +236,14 @@ setInterval(() => {
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
     
-    const showListI = addElement("a",seeAttendeesDiv,"show_list","Göm lista ↑")
+    const showListI = addElement("a",seeAttendeesDiv,"show_list","⮝ Göm lista")
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
         peopleList.style.display = "flex"
-        e.target.innerText = "Göm lista ↑"
+        e.target.innerText = "⮝ Göm lista"
       } else {
         peopleList.style.display = "none"
-        e.target.innerText = "Visa lista ↓"
+        e.target.innerText = "⮟ Visa lista"
       }
     }
 
@@ -301,14 +308,14 @@ setInterval(() => {
       }, 1)
     }
 
-    const showCompareList = addElement("a",seeAttendeesDiv,null,"Visa jämförings Lista ↓")
+    const showCompareList = addElement("a",seeAttendeesDiv,null,"⮜ Visa jämförings Lista ↓")
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
-        e.target.innerText = "Göm jämförings lista ↑"
+        e.target.innerText = "⮞ Göm jämförings lista"
       } else {
         compare.style.display = "none"
-        e.target.innerText = "Visa jämförings lista ↓"
+        e.target.innerText = "⮜ Visa jämförings lista"
       }
     }
 
