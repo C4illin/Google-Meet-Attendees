@@ -24,9 +24,9 @@ let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
 let yourName = null
-let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
-let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
-let notOnList = localStorage.getItem("gma-add-not-on-list") === "true"
+// let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
+// let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
+// let notOnList = localStorage.getItem("gma-add-not-on-list") === "true"
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
   savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
@@ -482,7 +482,7 @@ const compareLists = () => {
       }
     })
   }
-  if (current[0] != "" && notOnList) {
+  if (current[0] != "" && localStorage.getItem("gma-add-not-on-list") === "true") {
     current.forEach(listItem => {
       if (!listToCompare.includes(listItem)) {
         out.push("❔ " + listItem)
@@ -586,7 +586,7 @@ const getAllAttendees = () => {
     if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
       people = []
     }
-    if (includeYourself) {
+    if (localStorage.getItem("gma-include-yourself") === "true") {
       if (yourName == null) {
         document.querySelectorAll("#yDmH0d > script").forEach( (elements) => { //Locked id may break later
           let text = elements.innerText
@@ -600,7 +600,7 @@ const getAllAttendees = () => {
     }
 
     let attendees = removeDups(people)
-    if (sortByLastName) {
+    if (localStorage.getItem("gma-sort-by-last-name") === "true") {
       attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     } else {
       attendees = attendees.sort()
