@@ -20,7 +20,6 @@ Get attendees in a better way
 */
 
 //global variables
-let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
 let yourName = null
@@ -211,7 +210,9 @@ setInterval(() => {
     }
     buttons.prepend(toggleButton)
 
-    toggleButtonSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+    // const toggleButtonSVG = addElement("svg",toggleButton,"icon",null)
+    const toggleButtonSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+    toggleButtonSVG.id = "icon"
     toggleButtonSVG.style.width = "24px"
     toggleButtonSVG.style.height = "24px"
     toggleButtonSVG.setAttribute("viewBox", "0 0 24 24")
