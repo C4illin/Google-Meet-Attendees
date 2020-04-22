@@ -426,10 +426,18 @@ setInterval(() => {
     const copyCompareListForChat = addElement("a",compare,null,"Kopiera för chatten")
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
+      let splitarr = toCopy.split("\n")
+      // let goal = Math.floor(500/splitarr.length)
+      // toCopy = splitarr.map(elem => elem.substring(0, goal)).join("\n")
+
       while (toCopy.length > 500) {
-        let toCopyArr = toCopy.split("\n")
-        toCopy = toCopyArr.map(elem => elem.slice(0, -1)).join("\n")
+        toCopy = splitarr.map(elem => elem.split(" ").concat("").slice(0, 2)[1].slice(0, -1)).join("\n")
       }
+
+      // while (toCopy.length > 500) {
+      //   toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
+      // }
+
       navigator.clipboard.writeText(toCopy)
     }
   }
