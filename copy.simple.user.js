@@ -513,7 +513,7 @@ const compareLists = () => {
 
 const saveClass = (className) => {
   console.log(Object.entries(savedClasses))
-  savedClasses[className] = compare.firstChild.value.split("\n")
+  savedClasses[className] = document.getElementById("compare-list").value.split("\n")
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
   console.log(Object.entries(savedClasses))
 }
