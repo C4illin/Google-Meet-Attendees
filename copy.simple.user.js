@@ -13,11 +13,9 @@
 /* 
 When copying to chat make it ex Name L. With name and first letter of lastname. 
 Add better pop-up for random person
-Remove classname when cleaning list ex 3A
 Fix volume controls above menu https://i.imgur.com/IQ8BbYk.png
 Use more google colors var(--gm-...)
 Publish extension 
-Make the UI easier
 Get attendees in a better way
 */
 
@@ -25,9 +23,7 @@ Get attendees in a better way
 let toggleButtonSVG = null
 let peopleList = null
 let peopleCounter = null
-// let compare = null
 let yourName = null
-// let nameSelector = null
 let includeYourself = localStorage.getItem("gma-include-yourself") === "true"
 let sortByLastName = localStorage.getItem("gma-sort-by-last-name") === "true"
 let notOnList = localStorage.getItem("gma-add-not-on-list") === "true"
@@ -49,7 +45,7 @@ s.innerText = `
 }
 
 .__gma-button {
-  overflow: visible !important
+  overflow: visible
 }
 
 .__gma-button:hover>#attendees-list {
@@ -80,8 +76,6 @@ s.innerText = `
 }
 
 #attendees-list a {
-  margin-top: 5px !important;
-  margin-bottom: 5px !important;
   box-shadow: -3px -3px 3px 0 rgba(255, 255, 255, 0.384), 3px 3px 3px 0 rgba(0, 0, 0, .09);
   display: inline-block;
   border-radius: 2rem;
@@ -89,7 +83,7 @@ s.innerText = `
   cursor: pointer;
   background-color: gainsboro;
   padding: 0 9px;
-  margin: 2px;
+  margin: 5px 2px;
   height: 34px
 }
 
@@ -172,7 +166,7 @@ s.innerText = `
   flex-direction: row-reverse;
   position: absolute;
   right: -232px;
-  border-radius: 8px 0 8px 8px !important;
+  border-radius: 8px 0 8px 8px;
   z-index: 7;
   top: 48px
 }
