@@ -358,7 +358,6 @@ setInterval(() => {
     }
 
     const compare = addElement("div",additionalOptions,"compare-div",null)
-    compare.id = "compare-master"
     compare.style.display = "none"
 
     const compareTitle = addElement("h2",compare,null,"Jämför deltagare")
@@ -425,7 +424,7 @@ setInterval(() => {
     
     const hereL = addElement("label",compare,null,"Resultat:")
 
-    const compareResultList = addElement("textarea",compare,null,null)
+    const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
     compareResultList.cols = 35
     compareResultList.readOnly = true
@@ -474,7 +473,8 @@ const movableDiv = (even, moveID) => {
 }
 
 const cleanCompareLists = () => {
-  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}/g, " ").replace(/\.|[0-9]/g, "").replace(/\n{2,}|\n{1,} {1,}/g, "\n")
+  // removes double spaces, dots, numbers, numbers followed by a letter, empty new row and new row with space.
+  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}/g, " ").replace(/\.|[0-9][a-zA-Z]|[0-9]|\n$/g, "").replace(/\n{2,}|\n{1,} {1,}/g, "\n")
 }
 
 const showElement = (elem) => {
@@ -508,7 +508,7 @@ const compareLists = () => {
   }
 
   if (out.length > 0) {
-    document.getElementById("compare-master").children[document.getElementById("compare-master").childElementCount-3].value = out.join(String.fromCharCode(13, 10))
+    document.getElementById("compare-result-list").value = out.join(String.fromCharCode(13, 10))
   }
 }
 
