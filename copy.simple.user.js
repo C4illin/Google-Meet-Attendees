@@ -257,10 +257,9 @@ setInterval(() => {
     }
 
     addSetting("gma-include-yourself", "Inkludera dig själv")
-
     addSetting("gma-sort-by-last-name","Sortera efter efternamn")
-
     addSetting("gma-add-not-on-list","Inkludera folk som inte är på jämförelselistan")
+    addSetting("gma-only-first-letter","Kopiera för chatten inkluderar en bokstav")
 
     const closeSettings = addElement("a",settingsMenu,null,"Stäng")
     closeSettings.position = "absolute"
@@ -395,16 +394,17 @@ setInterval(() => {
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
       let splitarr = toCopy.split("\n")
-      // let goal = Math.floor(500/splitarr.length)
-      // toCopy = splitarr.map(elem => elem.substring(0, goal)).join("\n")
 
-      while (toCopy.length > 500) {
-        toCopy = splitarr.map(elem => elem.split(" ").concat("").slice(0, 2)[1].slice(0, -1)).join("\n")
+      if (localStorage.getItem("gma-only-first-letter") === "true") {
+        toCopy = splitarr.map(elem => elem.substring(0, elem.indexOf(" ")+2)).join("\n")
+        while (toCopy.length > 500) {
+          toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").slice(0, 2)[0].slice(0, -1)).join("\n")
+        }
+      } else {
+        while (toCopy.length > 500) {
+          toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").slice(0, 2)[1].slice(0, -1)).join("\n")
+        }
       }
-
-      // while (toCopy.length > 500) {
-      //   toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
-      // }
 
       navigator.clipboard.writeText(toCopy)
     }
