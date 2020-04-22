@@ -357,6 +357,7 @@ setInterval(() => {
     const classInput = addElement("input",compare,"classInput",null)
     classInput.attributes["type"] = "text"
     classInput.placeholder = "Klass"
+    classInput.autocomplete = "off"
     
     const saveButton = addElement("a",compare,null,"Spara lista")
     saveButton.onclick = () => {
