@@ -99,7 +99,7 @@ s.innerText = `
 }
 
 #attendees-list textarea {
-  width: 90%;
+  width: calc(263px - 15px);
   resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
@@ -123,7 +123,7 @@ s.innerText = `
   display: inline-block;
   position: absolute;
   text-align: center;
-  right: 15px;
+  right: 0;
   padding: 5px;
   height: auto
 }
@@ -154,7 +154,7 @@ s.innerText = `
 #attendees-list {
   box-sizing: border-box;
   display: none;
-  padding: 15px;
+  padding: 15px 20px 20px 0;
   background: white;
   text-align: left;
   cursor: auto;
@@ -173,12 +173,12 @@ s.innerText = `
 }
 
 #compare-div {
-  padding: 0 5px 10px 10px;
+  padding: 0 20px 5px 20px;
   border-right: 3px dashed gainsboro
 }
 
 #attendees-div {
-  padding-left: 15px
+  padding-left: 20px
 }
 
 h1, h2, #attendees-list p {
@@ -281,7 +281,6 @@ setInterval(() => {
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
     peopleList.rows = 20
-    peopleList.cols = 35
     let attendees = localStorage.getItem("gmca-attendees-list")
     if (attendees) {
       peopleList.value = attendees.replace(/,/g, String.fromCharCode(13, 10))
@@ -308,7 +307,7 @@ setInterval(() => {
       }, 1)
     }
 
-    const showCompareList = addElement("a",seeAttendeesDiv,null,"⮜ Visa jämförings Lista ↓")
+    const showCompareList = addElement("a",seeAttendeesDiv,null,"⮜ Visa jämförings Lista")
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
@@ -326,7 +325,6 @@ setInterval(() => {
 
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
-    compareList.cols = 35
     compareList.placeholder = "Kopiera in jämföringslista"
     compareList.style.display = "block"
 
@@ -388,7 +386,6 @@ setInterval(() => {
 
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
-    compareResultList.cols = 35
     compareResultList.readOnly = true
     compareResultList.value = "Klicka På jämför"
     compareResultList.style.display = "block"
