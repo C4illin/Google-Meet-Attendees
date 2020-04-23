@@ -12,6 +12,7 @@
 // TODO (ordered by difficulty (easiest first))
 /* 
 Add better pop-up for random person
+Add "20/28" attendees is here
 English translation
 Publish extension 
 Get attendees in a better way
