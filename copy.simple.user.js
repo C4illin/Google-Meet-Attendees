@@ -580,12 +580,12 @@ const getAllAttendees = () => {
   if (!gridtoggle) {
     buttons.children[position].click()
     toChange[0] = true
-    waitTime += 2000
+    waitTime += 3000
   }
   if (showOnlyVideo) {
     checkboxes[0].firstChild.checked = false
     toChange[1] = true
-    waitTime += 800
+    waitTime += 1000
   }
   // END
 
