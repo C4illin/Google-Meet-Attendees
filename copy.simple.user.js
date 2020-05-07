@@ -18,6 +18,108 @@ Publish extension
 Get attendees in a better way
 */
 
+const T = (untranslatedMsg) => {
+  let languages = navigator.languages
+  for(let i = 0; i < languages.length; i++){
+    let result = translations[untranslatedMsg][languages[i]]
+    if(result != null){
+      return result
+    }
+  }
+  return translations[untranslatedMsg]["en"]
+}
+
+const translations = {
+  "hide list": {
+    en: "⮝ hide list",
+    Sv: "⮝ Göm lista"
+  },
+  "show list": {
+    en: "⮟ Show list",
+    sv: "⮟ Visa lista"
+  },
+  "include yourself": {
+    en: "Include yourself",
+    sv: "Inkludera dig själv"
+  },
+  "sort by last name": {
+    en: "Sort by last name",
+    sv: "Sortera efter efternamn"
+  },
+  "include not on list": {
+    en: "Include people not on comparison list",
+    sv: "Inkludera folk som inte är på jämförelselistan"
+  },
+  "maximize letters": {
+    en: "Maximize letters for chat",
+    sv: "Kopiera för chatten maximerar antalet bokstäver"
+  },
+  "close": {
+    en: "Close",
+    sv: "Stäng"
+  },
+  "persons": {
+    en: "Persons",
+    sv: "personer"
+  },
+  "update list": {
+    en: "Update list",
+    sv: "Uppdatera listan"
+  },
+  "copy list": {
+    en: "Copy list",
+    sv: "Kopiera lista"
+  },
+  "randomize person": {
+    en: "Randomize person",
+    sv: "Slumpa person"
+  },
+  "show comparison list": {
+    en: "⮜ Show comparison list",
+    sv: "⮜ Visa jämföringslista"
+  },
+  "hide comparison list": {
+    en: "⮞ Hide comparison list",
+    sv: "⮞ Göm jämföringslista"
+  },
+  "Insert comparison list": {
+    en: "Insert comparison list",
+    sv: "Kopiera in jämföringslista"
+  },
+  "clean comparison list": {
+    en: "Clean comparison list",
+    sv: "hmm"
+  },
+  "class": {
+    en: "Class",
+    sv: "klass"
+  },
+  "save list": {
+    en: "Save list",
+    sv: "Spara lista"
+  },
+  "load list": {
+    en: "Load list",
+    sv: "Ladda lista"
+  },
+  "remove class": {
+    en: "Remove class",
+    sv: "Ta bort klass"
+  },
+  "result:": {
+    en: "Result:",
+    sv: "Resultat:"
+  },
+  "click on compare": {
+    en: "Click on compare",
+    sv: "Klicka på jämför"
+  },
+  "copy for chat": {
+    en: "Copy for chat",
+    sv: "Kopiera för chatten"
+  }
+}
+
 // Declare all global variables
 let peopleList = null
 let peopleCounter = null
@@ -247,14 +349,14 @@ setInterval(() => {
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
     
-    const showListI = addElement("a",seeAttendeesDiv,"show_list","⮝ Göm lista")
+    const showListI = addElement("a",seeAttendeesDiv,"show_list",T("hide list"))
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
         peopleList.style.display = "flex"
-        e.target.innerText = "⮝ Göm lista"
+        e.target.innerText = T("hide list")
       } else {
         peopleList.style.display = "none"
-        e.target.innerText = "⮟ Visa lista"
+        e.target.innerText = T("show list")
       }
     }
 
@@ -275,12 +377,12 @@ setInterval(() => {
     }
 
     // Calls addSetting function
-    addSetting("gma-include-yourself", "Inkludera dig själv")
-    addSetting("gma-sort-by-last-name","Sortera efter efternamn")
-    addSetting("gma-add-not-on-list","Inkludera folk som inte är på jämförelselistan")
-    addSetting("gma-more-letters","Kopiera för chatten maximerar antalet bokstäver")
+    addSetting("gma-include-yourself", T("include yourself"))
+    addSetting("gma-sort-by-last-name",T("sort by last name"))
+    addSetting("gma-add-not-on-list",T("include not on list"))
+    addSetting("gma-more-letters",T("maximize letters"))
 
-    const closeSettings = addElement("a",settingsMenu,null,"Stäng")
+    const closeSettings = addElement("a",settingsMenu,null,T("close"))
     closeSettings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
@@ -292,22 +394,22 @@ setInterval(() => {
     let attendees = localStorage.getItem("gmca-attendees-list")
     if (attendees) {
       peopleList.value = attendees.replace(/,/g, String.fromCharCode(13, 10))
-      peopleCounter.innerText = (attendees.length - attendees.replace(/,/g, "").length + 1) + " personer"
+      peopleCounter.innerText = (attendees.length - attendees.replace(/,/g, "").length + 1) + " " + T("persons")
     } else {
-      peopleList.value = "Uppdatera listan"
-      peopleCounter.innerText = "0 personer"
+      peopleList.value = T("update list")
+      peopleCounter.innerText = "0 " + T("persons")
       getAllAttendees()
     }
     peopleList.style.display = "block"
     seeAttendeesDiv.appendChild(peopleList)
     seeAttendeesDiv.appendChild(peopleCounter)
 
-    const copyList = addElement("a",seeAttendeesDiv,null,"Kopiera lista")
+    const copyList = addElement("a",seeAttendeesDiv,null,T("copy list"))
     copyList.onclick = () => {
       navigator.clipboard.writeText(localStorage.getItem("gmca-attendees-list").replace(/,/g, "\n"))
     }
 
-    const randomPerson = addElement("a",seeAttendeesDiv,null,"Slumpa person")
+    const randomPerson = addElement("a",seeAttendeesDiv,null,T("randomize person"))
     randomPerson.onclick = () => {
       let attendees = localStorage.getItem("gmca-attendees-list").split(",")
       setTimeout(() => { // to make it async
@@ -315,16 +417,16 @@ setInterval(() => {
       }, 1)
     }
 
-    const showCompareList = addElement("a",seeAttendeesDiv,null,"⮜ Visa jämförings Lista")
+    const showCompareList = addElement("a",seeAttendeesDiv,null,T("show comparison list"))
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
         compare.style.display = "block"
-        e.target.innerText = "⮞ Göm jämförings lista"
+        e.target.innerText = T("hide comparison list")
         additionalOptions.style.borderRadius = "8px 0 8px 8px"
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
       } else {
         compare.style.display = "none"
-        e.target.innerText = "⮜ Visa jämförings lista"
+        e.target.innerText = T("show comparison list")
         additionalOptions.style.borderRadius = "0 0 8px 8px"
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
       }
@@ -337,26 +439,26 @@ setInterval(() => {
 
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
-    compareList.placeholder = "Kopiera in jämföringslista"
+    compareList.placeholder = T("Insert comparison list")
     compareList.style.display = "block"
 
     const compareButton = addElement("a",compare,null,"Jämför")
     compareButton.onclick = compareLists
 
-    const cleanCompare = addElement("a",compare,"cleanCompareList","Städa jämföringslista")
+    const cleanCompare = addElement("a",compare,"cleanCompareList",T("clean comparison list"))
     cleanCompare.onclick = cleanCompareLists
 
     const classInput = addElement("input",compare,"classInput",null)
     classInput.attributes["type"] = "text"
-    classInput.placeholder = "Klass"
+    classInput.placeholder = T("class")
     classInput.autocomplete = "off"
     
-    const saveButton = addElement("a",compare,"classSave","Spara lista")
+    const saveButton = addElement("a",compare,"classSave",T("save list"))
     saveButton.onclick = saveClass
 
     const chooseClass = addElement("select",compare,"chooseClass",null)
     
-    const defaultClassOption = addElement("option",chooseClass,null,"Ladda lista")
+    const defaultClassOption = addElement("option",chooseClass,null,T("load list"))
     
     chooseClass.onchange = (selectedClass) => {
       Object.entries(savedClasses).forEach(className => {
@@ -377,11 +479,11 @@ setInterval(() => {
       })
     }
 
-    const removeClass = addElement("a",compare,"removeClass","Ta bort klass")
+    const removeClass = addElement("a",compare,"removeClass",T("remove class"))
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
       let className = classElement.selectedOptions[0].value
-      if (className != "Ladda lista") {
+      if (className != T("load list")) {
         classElement.removeChild(classElement.selectedOptions[0])
       }
       classElement.firstChild.selected = true
@@ -389,20 +491,20 @@ setInterval(() => {
       removeClassName(className)
     }
     
-    addElement("label",compare,null,"Resultat:")
+    addElement("label",compare,null,T("result:"))
 
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
     compareResultList.readOnly = true
-    compareResultList.value = "Klicka På jämför"
+    compareResultList.value = T("click on compare")
     compareResultList.style.display = "block"
 
-    const copyCompareList = addElement("a",compare,null,"Kopiera lista")
+    const copyCompareList = addElement("a",compare,null,T("copy list"))
     copyCompareList.onclick = () => {
       navigator.clipboard.writeText(compare.children[compare.childElementCount-3].value)
     }
 
-    const copyCompareListForChat = addElement("a",compare,null,"Kopiera för chatten")
+    const copyCompareListForChat = addElement("a",compare,null,T("copy for chat"))
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
 
