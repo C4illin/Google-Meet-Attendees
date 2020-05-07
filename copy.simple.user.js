@@ -32,7 +32,7 @@ const T = (untranslatedMsg) => {
 const translations = {
   "hide list": {
     en: "⮝ hide list",
-    Sv: "⮝ Göm lista"
+    sv: "⮝ Göm lista"
   },
   "show list": {
     en: "⮟ Show list",
