@@ -32,91 +32,113 @@ const T = (untranslatedMsg) => {
 const translations = {
   "hide list": {
     en: "⮝ Hide list",
-    sv: "⮝ Göm lista"
+    sv: "⮝ Göm lista",
+    de: "⮝ Liste ausblenden"
   },
   "show list": {
     en: "⮟ Show list",
-    sv: "⮟ Visa lista"
+    sv: "⮟ Visa lista",
+    de: "⮟ Liste anzeigen"
   },
   "include yourself": {
     en: "Include yourself",
-    sv: "Inkludera dig själv"
+    sv: "Inkludera dig själv",
+    de: "Schließen Sie sich ein"
   },
   "sort by last name": {
     en: "Sort by last name",
-    sv: "Sortera efter efternamn"
+    sv: "Sortera efter efternamn",
+    de: "Nach Nachnamen sortieren"
   },
   "include not on list": {
     en: "Include people not on comparison list",
-    sv: "Inkludera folk som inte är på jämförelselistan"
+    sv: "Inkludera folk som inte är på jämförelselistan",
+    de: "Personen einschließen, die nicht auf der Vergleichsliste stehen"
   },
   "maximize letters": {
     en: "Copy for chat maximizes letters",
-    sv: "Kopiera för chatten maximerar antalet bokstäver"
+    sv: "Kopiera för chatten maximerar antalet bokstäver",
+    de: "Kopie für Chat maximierte Anzahl von Buchstaben"
   },
   "close": {
     en: "Close",
-    sv: "Stäng"
+    sv: "Stäng",
+    de: "schließen"
   },
   "persons": {
     en: "persons",
-    sv: "personer"
+    sv: "personer",
+    de: "Personen"
   },
   "update list": {
     en: "Update list",
-    sv: "Uppdatera listan"
+    sv: "Uppdatera listan",
+    de: "Aktualisieren Liste"
   },
   "copy list": {
     en: "Copy list",
-    sv: "Kopiera lista"
+    sv: "Kopiera lista",
+    de: "Kopieren Liste"
   },
   "randomize person": {
     en: "Randomize person",
-    sv: "Slumpa person"
+    sv: "Slumpa person",
+    de: "Randomize person"
   },
   "show comparison list": {
     en: "⮜ Show comparison list",
-    sv: "⮜ Visa jämföringslista"
+    sv: "⮜ Visa jämföringslista",
+    de: "⮜ Vergleichsliste anzeigen"
   },
   "hide comparison list": {
     en: "⮞ Hide comparison list",
-    sv: "⮞ Göm jämföringslista"
+    sv: "⮞ Göm jämföringslista",
+    de: "⮞ Vergleichsliste ausblenden"
   },
   "Insert comparison list": {
     en: "Insert comparison list",
-    sv: "Kopiera in jämföringslista"
+    sv: "Kopiera in jämföringslista",
+    de: "Vergleichsliste einfügen"
   },
   "clean comparison list": {
     en: "Clean comparison list",
-    sv: "Städa jämföringslistan"
+    sv: "Städa jämföringslistan",
+    de: "Vergleichsliste reinigen"
   },
   "class": {
     en: "Class",
-    sv: "Klass"
+    sv: "Klass",
+    de: "Gruppe"
   },
   "save list": {
     en: "Save list",
-    sv: "Spara lista"
+    sv: "Spara lista",
+    de: "Liste speichern"
   },
   "load list": {
     en: "Load list",
-    sv: "Ladda lista"
+    sv: "Ladda lista",
+    de: "Liste laden"
   },
   "remove class": {
     en: "Remove class",
-    sv: "Ta bort klass"
+    sv: "Ta bort klass",
+    de: "Gruppe entfernen"
   },
   "result:": {
     en: "Result:",
-    sv: "Resultat:"
+    sv: "Resultat:",
+    de: "Ergebnis:"
   },
   "click on compare": {
-    en: "Click on compare",
-    sv: "Klicka på jämför"
+    en: "Click på compare",
+    sv: "Klicka på jämför",
+    de: "Klicken Sie auf Vergleichen"
   },
   "copy for chat": {
     en: "Copy for chat",
-    sv: "Kopiera för chatten"
+    sv: "Kopiera för chatten",
+    de: "Kopie für den Chat"
   }
 }
 
