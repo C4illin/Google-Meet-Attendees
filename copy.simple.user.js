@@ -51,7 +51,7 @@ const translations = {
     sv: "Inkludera folk som inte är på jämförelselistan"
   },
   "maximize letters": {
-    en: "Maximize letters for chat",
+    en: "Copy for chat maximizes letters",
     sv: "Kopiera för chatten maximerar antalet bokstäver"
   },
   "close": {
@@ -59,7 +59,7 @@ const translations = {
     sv: "Stäng"
   },
   "persons": {
-    en: "Persons",
+    en: "persons",
     sv: "personer"
   },
   "update list": {
@@ -88,11 +88,11 @@ const translations = {
   },
   "clean comparison list": {
     en: "Clean comparison list",
-    sv: "hmm"
+    sv: "Städa jämföringslistan"
   },
   "class": {
     en: "Class",
-    sv: "klass"
+    sv: "Klass"
   },
   "save list": {
     en: "Save list",
@@ -726,7 +726,7 @@ const getAllAttendees = () => {
     localStorage.setItem("gmca-attendees-list", attendees)
 
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
-    peopleCounter.innerText = attendees.length + " personer"
+    peopleCounter.innerText = attendees.length + " " + T("persons")
     setTimeout(() => {
       if (toChange[0]) {
         buttons.children[position].click()
