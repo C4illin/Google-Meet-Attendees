@@ -562,15 +562,15 @@ const getAllAttendees = () => {
   let buttons = document.querySelector("[data-fps-request-screencast-cap]").parentElement.parentElement.parentElement
   
   let position = 2
-  let checkboxes = buttons.children[2].lastChild.children
-  if (checkboxes.length > 9) {
+  let checkboxes = buttons.children[2].lastElementChild.children
+  if (checkboxes.length == 2) {
     position = 0
-    checkboxes = buttons.children[0].lastChild.children
+    checkboxes = buttons.children[0].lastElementChild.children
   }
   let showOnlyVideo = checkboxes[0].firstChild.checked
 
   let gridtoggle = false
-  if (buttons.children[position].firstChild.innerHTML.substring(30, 31) == "1") {
+  if (buttons.children[position].firstElementChild.innerHTML.substring(30, 31) == "1") {
     gridtoggle = true
   }
   
