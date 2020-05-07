@@ -190,7 +190,7 @@ s.innerText = `
   width: 34px;
   height: 34px;
   border-radius: 2rem 0 0 2rem;
-  background-image: url('https://img.icons8.com/material/24/000000/update-left-rotation.png');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-244 -244 956 956"><path d="M67 288H0v160l47-44a256 256 0 0 0 209 108c131 0 238-98 254-224h-65a192 192 0 0 1-350 73l79-73zM256 0C125 0 18 98 2 224h65a192 192 0 0 1 353-68l-68 68h160V64l-46 46A256 256 0 0 0 256 0zm0 0"/></svg>');
   background-repeat: no-repeat;
   background-position: center center;
   background-color: gainsboro
