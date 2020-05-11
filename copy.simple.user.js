@@ -63,7 +63,7 @@ const translations = {
   "close": {
     en: "Close",
     sv: "Stäng",
-    de: "schließen"
+    de: "Schließen"
   },
   "persons": {
     en: "persons",
