@@ -387,7 +387,7 @@ setInterval(() => {
 
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
 
-    addElement("h1",seeAttendeesDiv,null,T("attendance")"Närvaro")
+    addElement("h1",seeAttendeesDiv,null,T("attendance"))
 
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
