@@ -154,6 +154,11 @@ const translations = {
     en: "Attendance",
     sv: "Närvaro",
     de: "Attendance"
+  },
+  "settings": {
+    en: "Settings",
+    sv: "Inställningar",
+    de: "Attendance"
   }
 }
 
@@ -407,7 +412,7 @@ setInterval(() => {
     const settingsMenu = addElement("div",seeAttendeesDiv,"settingsMenu",null)
     settingsMenu.style.display = "none"
 
-    const settingsHeader = addElement("div",settingsMenu,"settingsHeader","Inställningar")
+    const settingsHeader = addElement("div",settingsMenu,"settingsHeader",T("settings"))
     
     settingsHeader.style.display = "block"
     settingsHeader.onmousedown = (even) => {
