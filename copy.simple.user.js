@@ -139,6 +139,21 @@ const translations = {
     en: "Copy for chat",
     sv: "Kopiera för chatten",
     de: "Kopie für den Chat"
+  },
+  "compare attendees": {
+    en: "Compare attendees",
+    sv: "Jämför deltagare",
+    de: "Vergleichen attendees"
+  },
+  "compare": {
+    en: "Compare",
+    sv: "Jämför",
+    de: "Vergleichen"
+  },
+  "attendance": {
+    en: "Attendance",
+    sv: "Närvaro",
+    de: "Attendance"
   }
 }
 
@@ -367,7 +382,7 @@ setInterval(() => {
 
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
 
-    addElement("h1",seeAttendeesDiv,null,"Närvaro")
+    addElement("h1",seeAttendeesDiv,null,T("attendance")"Närvaro")
 
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
@@ -458,14 +473,14 @@ setInterval(() => {
     const compare = addElement("div",additionalOptions,"compare-div",null)
     compare.style.display = "none"
 
-    addElement("h2",compare,null,"Jämför deltagare")
+    addElement("h2",compare,null,T("compare attendees"))
 
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
     compareList.placeholder = T("Insert comparison list")
     compareList.style.display = "block"
 
-    const compareButton = addElement("a",compare,null,"Jämför")
+    const compareButton = addElement("a",compare,null,T("compare"))
     compareButton.onclick = compareLists
 
     const cleanCompare = addElement("a",compare,"cleanCompareList",T("clean comparison list"))
