@@ -143,7 +143,7 @@ const translations = {
   "compare attendees": {
     en: "Compare attendees",
     sv: "Jämför deltagare",
-    de: "Vergleichen attendees"
+    de: "Teilnehmer vergleichen"
   },
   "compare": {
     en: "Compare",
