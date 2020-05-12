@@ -683,7 +683,8 @@ const getAllAttendees = () => {
     return Object.keys(unique)
   }
   // START This section turns on grid view for 2 seconds and grabs all the names. Then it turn itself off.
-  let buttons = document.querySelector("[data-fps-request-screencast-cap]").parentElement.parentElement.parentElement
+  let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
+  let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
   
   let position = 2
   let checkboxes = buttons.children[2].lastElementChild.children

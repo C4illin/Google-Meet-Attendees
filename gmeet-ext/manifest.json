@@ -1,5 +1,6 @@
 {
   "name": "Google Meet Attendees",
+  "short_name": "GMeet Attendees",
   "description": "Keep track of attendees in Google Meet",
   "version": "0.0.1",
   "icons": {
