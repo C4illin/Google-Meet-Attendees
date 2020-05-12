@@ -83,7 +83,7 @@ const translations = {
   "randomize person": {
     en: "Randomize person",
     sv: "Slumpa person",
-    de: "Randomize person"
+    de: "Zufällige Person"
   },
   "show comparison list": {
     en: "⮜ Show comparison list",
