@@ -153,12 +153,12 @@ const translations = {
   "attendance": {
     en: "Attendance",
     sv: "Närvaro",
-    de: "Attendance"
+    de: "Anwesenheit"
   },
   "settings": {
     en: "Settings",
     sv: "Inställningar",
-    de: "Attendance"
+    de: "Einstellung"
   }
 }
 
@@ -386,9 +386,15 @@ setInterval(() => {
     additionalOptions.onclick = e => e.stopPropagation()
 
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
-    seeAttendeesDiv.onmouseout = function(){
+    additionalOptions.onmouseout = function(){
       // Change to screencast const variable
       document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
+    }
+
+    additionalOptions.onmouseover = function () {
+      if (compare.style.display !== "none") {
+        document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
+      }
     }
 
     addElement("h1",seeAttendeesDiv,null,T("attendance"))
