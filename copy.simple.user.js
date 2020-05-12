@@ -329,7 +329,8 @@ h1, h2, #attendees-list p {
 document.body.append(s)
 
 setInterval(() => {
-  let buttons = document.querySelector("[data-fps-request-screencast-cap]").parentElement.parentElement.parentElement
+  let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
+  let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
   if ((buttons) && (!buttons.__attendent_ran)) {
     buttons.__attendent_ran = true
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
