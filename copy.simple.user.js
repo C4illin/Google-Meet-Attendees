@@ -386,6 +386,10 @@ setInterval(() => {
     additionalOptions.onclick = e => e.stopPropagation()
 
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
+    seeAttendeesDiv.onmouseout = function(){
+      // Change to screencast const variable
+      document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
+    }
 
     addElement("h1",seeAttendeesDiv,null,T("attendance"))
 
