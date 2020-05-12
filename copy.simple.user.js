@@ -131,7 +131,7 @@ const translations = {
     de: "Ergebnis:"
   },
   "click on compare": {
-    en: "Click på compare",
+    en: "Click on compare",
     sv: "Klicka på jämför",
     de: "Klicken Sie auf Vergleichen"
   },
