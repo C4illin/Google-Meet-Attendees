@@ -1,3 +1,11 @@
 {
-  "description": "Håll koll på deltagare i Google Meet"
+  "appName": {
+    "message": "Google Meet Deltagare"
+  },
+  "extName": {
+    "message": "Google Meet Deltagare - Håll koll på alla"
+  },
+  "extDesc": {
+    "message": "Få enkelt alla deltagare i en Google Meet och jämför de med en lista med mera."
+  }
 }

@@ -1,3 +1,14 @@
 {
-  "description": "Keep track of attendees in Google Meet"
+  "appName": {
+    "message": "Google Meet Attendees",
+    "description": "Short name"
+  },
+  "extName": {
+    "message": "Google Meet Attendees - Track Participants",
+    "description": "Extension name (46 characters)"
+  },
+  "extDesc": {
+    "message": "Easily get everyone attending a Google Meet and compare them to a list and more", 
+    "description": "Extension description"
+  }
 }

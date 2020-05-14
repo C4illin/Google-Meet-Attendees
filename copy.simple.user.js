@@ -3,14 +3,15 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.0.1
+// @version     0.0.2
 // @author      Daniel & C4illin
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
 // ==/UserScript==
 
 // TODO (ordered by difficulty (easiest first))
-/* 
+/*
+Sort names correctly
 Sort by status in compare list
 Add better pop-up for random person
 Add "20/28" attendees is here
