@@ -1,34 +1,28 @@
 {
-  "name": "__MSG_extName__",
-  "short_name": "__MSG_appName__",
-  "description": "__MSG_extDesc__",
-  "default_locale": "en",
-  "version": "0.0.2",
-  "manifest_version": 2,
-  "icons": {
-    "16": "icons/icon16.png",
-    "32": "icons/icon32.png",
-    "48": "icons/icon48.png",
-    "96": "icons/icon96.png",
-    "128": "icons/icon128.png"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://meet.google.com/*"
-      ],
-      "js": [
-        "js/inject.js"
-      ],
-      "run_at": "document_idle",
-      "all_frames": false
-    }
-  ],
-  "browser_action": {
-    "default_title": "Google Meet Attendees",
-    "default_popup": "html/popup.html"
-  },
-  "web_accessible_resources": [
-    "js/copy.simple.user.js"
-  ]
+   "browser_action": {
+      "default_popup": "html/popup.html",
+      "default_title": "Google Meet Attendees"
+   },
+   "content_scripts": [ {
+      "all_frames": false,
+      "js": [ "js/inject.js" ],
+      "matches": [ "https://meet.google.com/*" ],
+      "run_at": "document_idle"
+   } ],
+   "default_locale": "en",
+   "description": "__MSG_extDesc__",
+   "icons": {
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "96": "icons/icon96.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Swb9pIU1RwX1MW3zEycX+8wa3BsJ75pyh664PaCkvcuPz5uLgGKcO7rQ1OU3VtepIX5E/B/g/wqQOZu2eFkd7xleLkWUrzx8tNLVfFtvfK0Ade9g75nynBPcc2pL4YTrRiQN4/imurK5xdY2mhrx4S55JxpQb1quKsfbB5UGW7BXHAt+KhZriamPVhzBPKbRNmouleAlEFQZ3w4A+C2kEAzPqflsD9BTPqROYPP0zc+e2gfnv0+51Q5KrmLmOY/ElL5IBKFo7EgcqmU3EfHRE3wMk1NjeH1NzMErpu+mYDXlYfG+MrUzGObPCTMYBfeYF3iv/J/MqrRpeC4sKpNGwIDAQAB",
+   "manifest_version": 2,
+   "name": "__MSG_extName__",
+   "short_name": "__MSG_appName__",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.0.2",
+   "web_accessible_resources": [ "js/copy.simple.user.js" ]
 }
