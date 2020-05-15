@@ -15,6 +15,7 @@ Sort names correctly
 Sort by status in compare list
 Add better pop-up for random person
 Add "20/28" attendees is here
+Darkmode
 Publish extension 
 Get attendees in a better way
 */
