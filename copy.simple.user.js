@@ -324,6 +324,11 @@ s.innerText = `
   border: 1px #2196F3 solid;
 }
 
+#attendees-list #settingsMenu label {
+  text-align: left;
+  margin: 2px 4px 0 4px;
+}
+
 #attendees-list #settingsHeader {
   padding: 5px;
   cursor: move;
