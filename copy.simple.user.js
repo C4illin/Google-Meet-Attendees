@@ -9,6 +9,18 @@
 // @run-at      document-idle
 // ==/UserScript==
 
+// Changelog
+/*
+0.0.3
+Dark mode
+
+0.0.2
+Fixed Chromeextension localisation
+
+0.0.1
+Initial Relese
+*/
+
 // TODO (ordered by difficulty (easiest first))
 /*
 Sort names correctly
