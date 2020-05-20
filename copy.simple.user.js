@@ -13,13 +13,13 @@
 /*
 0.0.3
 Dark mode
-Now works when "Show only video" is enabled
+Now works when "Only show participants with video" is enabled
 
 0.0.2
-Fixed Chromeextension localisation
+Fixed Chrome extension localisation
 
 0.0.1
-Initial Relese
+Initial Release
 */
 
 // TODO (ordered by difficulty (easiest first))
