@@ -498,7 +498,10 @@ setInterval(() => {
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
     const darkMode = document.createElement("input")
     darkMode.type = "checkbox"
-    darkMode.checked = localStorage.getItem("gma-dark-mode") === "true"
+    if (localStorage.getItem("gma-dark-mode") === "true") {
+      darkMode.checked = true
+      additionalOptions.className = "dark_mode"
+    }
     darkMode.onchange = e => {
       localStorage.setItem("gma-dark-mode", e.target.checked)
       if (e.target.checked) {
