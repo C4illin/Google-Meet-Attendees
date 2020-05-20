@@ -165,7 +165,7 @@ const translations = {
   "dark mode": {
     en: "Dark mode",
     sv: "Mörkt läge",
-    de: "Dark mode"
+    de: "Dunkles Design"
   }
 }
 
