@@ -9,6 +9,18 @@
 // @run-at      document-idle
 // ==/UserScript==
 
+// Changelog
+/*
+0.0.3
+Dark mode
+
+0.0.2
+Fixed Chromeextension localisation
+
+0.0.1
+Initial Relese
+*/
+
 // TODO (ordered by difficulty (easiest first))
 /*
 Sort names correctly
@@ -826,6 +838,14 @@ const getAllAttendees = () => {
         people.push(yourName)
       }
     }
+
+    people = people.map((name) => {
+      if (/[0-9a-zA-Z ]{1,} \([0-9a-zA-Z ]{1,}\)$/.test(name)) {
+        return name.substring(name.indexOf("(") + 1, name.length - 1)
+      } else {
+        return name
+      }
+    })
 
     let attendees = removeDups(people)
     if (localStorage.getItem("gma-sort-by-last-name") === "true") {
