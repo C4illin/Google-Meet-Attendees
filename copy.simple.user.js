@@ -309,7 +309,7 @@ s.innerText = `
   left: -100px;
   background-color: white;
   z-index: 3;
-  border: 1px #2196F3 solid;
+  border: 3px #2196F3 solid;
 }
 
 #attendees-list #settingsHeader {
@@ -356,9 +356,17 @@ h1, h2, #attendees-list p {
   z-index: 0 !important;
 }
 
-#attendees-list.dark_mode {
+#attendees-list.dark_mode, #attendees-list.dark_mode #settingsMenu, #attendees-list.dark_mode #settingsMenu label {
   background-color: #181e23;
   color: white;
+}
+
+#attendees-list.dark_mode #settingsMenu {
+  border-color: #2196f324;
+}
+
+#attendees-list.dark_mode #settingsHeader {
+  background-color: #2196f324;
 }
 
 #attendees-list.dark_mode #update {
