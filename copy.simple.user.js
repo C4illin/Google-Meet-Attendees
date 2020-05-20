@@ -13,6 +13,7 @@
 /*
 0.0.3
 Dark mode
+Now works when "Show only video" is enabled
 
 0.0.2
 Fixed Chromeextension localisation
@@ -24,11 +25,9 @@ Initial Relese
 // TODO (ordered by difficulty (easiest first))
 /*
 Sort names correctly
-Sort by status in compare list
 Add better pop-up for random person
 Add "20/28" attendees is here
 Darkmode
-Publish extension 
 Get attendees in a better way
 */
 
@@ -43,6 +42,11 @@ const T = (untranslatedMsg) => {
   return translations[untranslatedMsg]["en"] // English is default
 }
 
+/*
+Translation guidelines:
+Try to keep the translation short (preferebly not much longer then the english translation).
+Make sure to use correct case if applicable
+*/
 const translations = {
   "hide list": {
     en: "⮝ Hide list",
@@ -178,6 +182,10 @@ const translations = {
     en: "Dark mode",
     sv: "Mörkt läge",
     de: "Dunkles Design"
+  },
+  "sort compare list by status": {
+    en: "Sort compare list by status",
+    sv: "Sortera jämföringslistan efter status"
   }
 }
 
@@ -494,6 +502,7 @@ setInterval(() => {
     addSetting("gma-sort-by-last-name",T("sort by last name"))
     addSetting("gma-add-not-on-list",T("include not on list"))
     addSetting("gma-more-letters",T("maximize letters"))
+    addSetting("gma-sort-on-compare",T("sort compare list by status"))
     
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
     const darkMode = document.createElement("input")
@@ -640,7 +649,14 @@ setInterval(() => {
             toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
           }
         } else {
-          toCopy = toCopy.split("\n").map(elem => elem.substring(0, elem.indexOf(" ",3)+2)).join("\n")
+          toCopy = toCopy.split("\n").map((elem) => {
+            let spacePostion = elem.indexOf(" ", 3)
+            if (spacePostion > 0) {
+              return elem.substring(0, spacePostion+2)
+            } else {
+              return elem
+            }
+          }).join("\n")
         }
   
         while (toCopy.length > 500) {
@@ -716,7 +732,9 @@ const compareLists = () => {
       }
     })
   }
-
+  if (localStorage.getItem("gma-sort-on-compare") === "true") {
+    out.sort()
+  }
   if (out.length > 0) {
     document.getElementById("compare-result-list").value = out.join(String.fromCharCode(13, 10))
   }
