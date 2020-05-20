@@ -330,6 +330,7 @@ s.innerText = `
   background-color: white;
   z-index: 3;
   border: 3px #2196F3 solid;
+  border-radius: 8px;
 }
 
 #attendees-list #settingsMenu label {
@@ -749,12 +750,12 @@ const compareLists = () => {
   if (out.length > 0) {
     document.getElementById("compare-result-list").value = out.join(String.fromCharCode(13, 10))
   }
-  
+
   let compareListPeoples = document.getElementById("compare-list").value.split("\n").length
   if (compareListPeoples > 1) {
     resultHeader.innerText = T("result:") + " " + count + "/" + compareListPeoples
   } else {
-    resultHeader.innerText = T("result:") + " " + count
+    resultHeader.innerText = T("result:")
   }
 }
 
