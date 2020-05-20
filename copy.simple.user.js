@@ -807,6 +807,14 @@ const getAllAttendees = () => {
       }
     }
 
+    people = people.map((name) => {
+      if (/[0-9a-zA-Z ]{1,} \([0-9a-zA-Z ]{1,}\)$/.test(name)) {
+        return name.substring(name.indexOf("(") + 1, name.length - 1)
+      } else {
+        return name
+      }
+    })
+
     let attendees = removeDups(people)
     if (localStorage.getItem("gma-sort-by-last-name") === "true") {
       attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
