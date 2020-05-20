@@ -496,7 +496,7 @@ setInterval(() => {
     addSetting("gma-more-letters",T("maximize letters"))
     
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
-    darkMode = document.createElement("input")
+    const darkMode = document.createElement("input")
     darkMode.type = "checkbox"
     darkMode.checked = localStorage.getItem("gma-dark-mode") === "true"
     darkMode.onchange = e => {
