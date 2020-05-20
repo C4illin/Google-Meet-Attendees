@@ -27,7 +27,7 @@ const T = (untranslatedMsg) => {
       return result
     }
   }
-  return translations[untranslatedMsg]["en"]
+  return translations[untranslatedMsg]["en"] // English is default
 }
 
 const translations = {
