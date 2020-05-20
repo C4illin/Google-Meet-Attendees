@@ -27,7 +27,6 @@ Initial Release
 Sort names correctly
 Add better pop-up for random person
 Add "20/28" attendees is here
-Darkmode
 Get attendees in a better way
 */
 
@@ -636,7 +635,7 @@ setInterval(() => {
       removeClassName(className)
     }
     
-    addElement("h3",compare,null,T("result:"))
+    const resultHeader = addElement("h3",compare,"resultHeader",T("result:"))
 
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
@@ -724,12 +723,14 @@ const showElement = (elem) => {
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = document.getElementById("compare-list").value.split("\n")
+  let count = 0
 
   let out = []
   if (listToCompare[0] != "") {
     listToCompare.forEach(listItem => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
+        count += 1
       } else {
         out.push("❌ " + listItem)
       }
@@ -747,6 +748,13 @@ const compareLists = () => {
   }
   if (out.length > 0) {
     document.getElementById("compare-result-list").value = out.join(String.fromCharCode(13, 10))
+  }
+  
+  let compareListPeoples = document.getElementById("compare-list").value.split("\n").length
+  if (compareListPeoples > 1) {
+    resultHeader.innerText = T("result:") + " " + count + "/" + compareListPeoples
+  } else {
+    resultHeader.innerText = T("result:") + " " + count
   }
 }
 
@@ -889,12 +897,6 @@ const getAllAttendees = () => {
     localStorage.setItem("gmca-attendees-list", attendees)
 
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
-    let compareListPeoples = document.getElementById("compare-list").value.split("\n").length
-    if (compareListPeoples > 1) {
-      peopleCounter.innerText = attendees.length + "/" + compareListPeoples+ " " + T("persons")
-    } else {
-      peopleCounter.innerText = attendees.length + " " + T("persons")
-    }
       
     setTimeout(() => {
       if (toChange[0]) {
