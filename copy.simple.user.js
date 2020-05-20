@@ -504,11 +504,7 @@ setInterval(() => {
     }
     darkMode.onchange = e => {
       localStorage.setItem("gma-dark-mode", e.target.checked)
-      if (e.target.checked) {
-        additionalOptions.className = "dark_mode"
-      } else {
-        additionalOptions.classList.remove("dark_mode")
-      }
+      additionalOptions.classList.toggle("dark_mode")
     }
     darkModeParent.prepend(darkMode)
     
