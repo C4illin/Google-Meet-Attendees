@@ -812,7 +812,7 @@ const getAllAttendees = () => {
     waitTime += 3000
   }
   if (showOnlyVideo) {
-    checkboxes[0].firstChild.checked = false
+    checkboxes[0].firstChild.click()
     toChange[1] = true
     waitTime += 1000
   }
@@ -873,7 +873,7 @@ const getAllAttendees = () => {
         buttons.children[position].click()
       }
       if (toChange[1]) {
-        checkboxes[0].firstChild.checked = true
+        checkboxes[0].firstChild.click()
       }
     }, 1000)
   }, waitTime)
