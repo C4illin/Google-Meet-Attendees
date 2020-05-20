@@ -15,6 +15,7 @@ Sort names correctly
 Sort by status in compare list
 Add better pop-up for random person
 Add "20/28" attendees is here
+Darkmode
 Publish extension 
 Get attendees in a better way
 */
@@ -160,6 +161,11 @@ const translations = {
     en: "Settings",
     sv: "Inställningar",
     de: "Einstellung"
+  },
+  "dark mode": {
+    en: "Dark mode",
+    sv: "Mörkt läge",
+    de: "Dark mode"
   }
 }
 
@@ -239,7 +245,7 @@ s.innerText = `
   background-color: gainsboro
 }
 
-#attendees-list #update:hover, #attendees-list #show_list:hover, #attendees-list a:hover {
+#attendees-list #update:hover, #attendees-list #show-list:hover, #attendees-list a:hover {
   background-color: #f1f3f4
 }
 
@@ -268,7 +274,7 @@ s.innerText = `
   margin: 10px 0;
 }
 
-#attendees-list #show_list {
+#attendees-list #show-list {
   display: inline-flex;
   border-radius: 0 2rem 2rem 0;
   height: 34px;
@@ -284,7 +290,9 @@ s.innerText = `
   text-align: center;
   right: 0;
   padding: 5px;
-  height: auto
+  height: auto;
+  width: 24px;
+  height: 24px;
 }
 
 #settingsButton svg {
@@ -300,7 +308,7 @@ s.innerText = `
   left: -100px;
   background-color: white;
   z-index: 3;
-  border: 1px #2196F3 solid
+  border: 1px #2196F3 solid;
 }
 
 #attendees-list #settingsHeader {
@@ -345,6 +353,33 @@ h1, h2, #attendees-list p {
 }
 .rKOYsc {
   z-index: 0 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark_mode {
+    background-color: #181e23;
+    color: white;
+  }
+
+  .dark_mode #update {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23FFFFFF" xmlns="http://www.w3.org/2000/svg" viewBox="-244 -244 956 956"><path d="M67 288H0v160l47-44a256 256 0 0 0 209 108c131 0 238-98 254-224h-65a192 192 0 0 1-350 73l79-73zM256 0C125 0 18 98 2 224h65a192 192 0 0 1 353-68l-68 68h160V64l-46 46A256 256 0 0 0 256 0zm0 0"/></svg>');
+  }
+
+  .dark_mode #settingsButton {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23FFFFFF" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 32 32"><path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path><circle cx="12" cy="12" r="3.5"></circle></svg>')
+  }
+
+  .dark_mode a, #attendees-list #update, #attendees-list #show-list {
+    background-color: #38393f;
+    color: white;
+    box-shadow: -3px -3px 3px 0 rgba(0, 0, 0, .09), 3px 3px 3px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .dark_mode textarea, #attendees-list input, #attendees-list select, #attendees-list select option {
+    color: white;
+    background-color: #181e23;
+    border: none;
+  }
 }
 `
 document.body.append(s)
@@ -403,7 +438,7 @@ setInterval(() => {
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
     
-    const showListI = addElement("a",seeAttendeesDiv,"show_list",T("hide list"))
+    const showListI = addElement("a",seeAttendeesDiv,"show-list",T("hide list"))
     showListI.onclick = (e) => {
       if (peopleList.style.display === "none") {
         peopleList.style.display = "flex"
@@ -418,7 +453,7 @@ setInterval(() => {
     settings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
-    settings.innerHTML = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z\"></path><circle cx=\"12\" cy=\"12\" r=\"3.5\"></circle></svg>"
+    // settings.innerHTML = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z\"></path><circle cx=\"12\" cy=\"12\" r=\"3.5\"></circle></svg>"
 
     const settingsMenu = addElement("div",seeAttendeesDiv,"settingsMenu",null)
     settingsMenu.style.display = "none"
@@ -435,6 +470,7 @@ setInterval(() => {
     addSetting("gma-sort-by-last-name",T("sort by last name"))
     addSetting("gma-add-not-on-list",T("include not on list"))
     addSetting("gma-more-letters",T("maximize letters"))
+    addSetting("gma-dark-mode",T("dark mode"))
 
     const closeSettings = addElement("a",settingsMenu,null,T("close"))
     closeSettings.onclick = () => {
