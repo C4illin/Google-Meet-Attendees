@@ -366,7 +366,7 @@ s.innerText = `
   padding-left: 20px
 }
 
-h1, h2, #attendees-list p {
+h1, h2, h3, #attendees-list p {
   margin: 0
 }
 .rKOYsc {
