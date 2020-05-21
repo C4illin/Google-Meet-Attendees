@@ -1,7 +1,6 @@
-DEL gmeet-ext.zip
-COPY copy.simple.user.js gmeet-ext\js\
-powershell Compress-Archive gmeet-ext\. gmeet-ext.zip
-crx3 -p gmeet.pem gmeet-ext
+DEL chrome-ext.zip
+powershell Compress-Archive chrome\. chrome-ext.zip
+crx3 -p chrome.pem chrome-ext
 EXIT
 
 REM DEL gmeet-ext\js\copy.simple.user.js

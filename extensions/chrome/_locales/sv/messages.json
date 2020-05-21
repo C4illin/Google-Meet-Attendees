@@ -1,9 +1,9 @@
 {
   "appName": {
-    "message": "Google Meet Deltagare"
+    "message": "Google Meet Attendees"
   },
   "extName": {
-    "message": "Google Meet Deltagare - Håll koll på alla"
+    "message": "Google Meet Attendees - Håll koll på alla"
   },
   "extDesc": {
     "message": "Få enkelt alla deltagare i en Google Meet och jämför de med en lista med mera."
