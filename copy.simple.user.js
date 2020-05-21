@@ -14,6 +14,7 @@
 0.0.3
 Dark mode
 Now works when "Only show participants with video" is enabled
+Added people counter when comparing lists. Ex 2/32 persons here
 
 0.0.2
 Fixed Chrome extension localisation
