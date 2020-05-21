@@ -4,7 +4,7 @@
 // @include     https://meet.google.com/*
 // @grant       none
 // @version     0.0.3
-// @author      Daniel & C4illin
+// @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
 // ==/UserScript==
@@ -27,7 +27,6 @@ Initial Release
 /*
 Sort names correctly
 Add better pop-up for random person
-Add "20/28" attendees is here
 Get attendees in a better way
 */
 
