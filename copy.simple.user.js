@@ -899,9 +899,8 @@ const getAllAttendees = () => {
     }
     
     localStorage.setItem("gmca-attendees-list", attendees)
-
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
-      
+    peopleCounter.innerText = attendees.length + " " + T("persons")
     setTimeout(() => {
       if (toChange[0]) {
         buttons.children[position].click()

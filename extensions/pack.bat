@@ -1,6 +1,6 @@
 DEL chrome-ext.zip
 powershell Compress-Archive chrome\. chrome-ext.zip
-crx3 -p chrome.pem chrome-ext
+crx3 -p chrome-ext.pem chrome-ext
 EXIT
 
 REM DEL gmeet-ext\js\copy.simple.user.js
