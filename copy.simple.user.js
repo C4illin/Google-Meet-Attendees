@@ -720,6 +720,14 @@ const showElement = (elem) => {
   }
 }
 
+const reverseName = function(name) {
+	var words = name.split(" ").reverse()
+	var string = ""
+	for(word in words)
+		string += (word > 0 ? " " : "") + words[word]
+	return string
+}
+
 // This function compares the attendees to a class list and then outputs who is preset and who is not.
 // Present people are marked by a green checkmark and not present people is marked by a red cross.
 // People that was found in the meet but not in the class list is marked by an questionmark.   
@@ -734,11 +742,17 @@ const compareLists = () => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
         count += 1
+
+      } else if (current.includes(reverseName(listItem))) {
+        out.push("✔️ " + listItem)
+        count += 1
+
       } else {
         out.push("❌ " + listItem)
       }
     })
   }
+
   if (current[0] != "" && localStorage.getItem("gma-add-not-on-list") === "true") {
     current.forEach(listItem => {
       if (!listToCompare.includes(listItem)) {
