@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.0.3
+// @version     0.0.4
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,10 @@
 
 // Changelog
 /*
+0.0.4
+Removed more unnessary characters in clean function
+Matches name reversed as well
+
 0.0.3
 Dark mode
 Now works when "Only show participants with video" is enabled
