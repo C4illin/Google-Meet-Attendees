@@ -52,14 +52,14 @@ Make sure to use correct case if applicable
 */
 const translations = {
   "hide list": {
-    en: "⮝ Hide list",
-    sv: "⮝ Göm lista",
-    de: "⮝ Liste ausblenden"
+    en: "▲ Hide list",
+    sv: "▲ Göm lista",
+    de: "▲ Liste ausblenden"
   },
   "show list": {
-    en: "⮟ Show list",
-    sv: "⮟ Visa lista",
-    de: "⮟ Liste anzeigen"
+    en: "▼ Show list",
+    sv: "▼ Visa lista",
+    de: "▼ Liste anzeigen"
   },
   "include yourself": {
     en: "Include yourself",
@@ -107,14 +107,14 @@ const translations = {
     de: "Zufällige Person"
   },
   "show comparison list": {
-    en: "⮜ Show comparison list",
-    sv: "⮜ Visa jämföringslista",
-    de: "⮜ Vergleichsliste anzeigen"
+    en: "◄ Show comparison list",
+    sv: "◄ Visa jämföringslista",
+    de: "◄ Vergleichsliste anzeigen"
   },
   "hide comparison list": {
-    en: "⮞ Hide comparison list",
-    sv: "⮞ Göm jämföringslista",
-    de: "⮞ Vergleichsliste ausblenden"
+    en: "► Hide comparison list",
+    sv: "► Göm jämföringslista",
+    de: "► Vergleichsliste ausblenden"
   },
   "Insert comparison list": {
     en: "Insert comparison list",
