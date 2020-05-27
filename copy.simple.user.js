@@ -708,7 +708,7 @@ const movableDiv = (even, moveID) => {
 // Removes double spaces, dots, numbers, numbers followed by a letter, empty new row and new row with space.
 // This is used to clean input textarea from unnecessary signs.
 const cleanCompareLists = () => {
-  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}/g, " ").replace(/\.|[0-9][a-zA-Z]|[0-9]|\n$/g, "").replace(/\n{2,}|\n{1,} {1,}/g, "\n")
+  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}|, /g, " ").replace(/\.|[0-9][a-zA-Z]|[0-9]|\n$| $|^ |\t/g, "").replace(/\n{2,}|\n | \n/g, "\n")
 }
 
 // Takes an element for input and displays it if its not ready displayed.
@@ -721,11 +721,11 @@ const showElement = (elem) => {
 }
 
 const reverseName = function(name) {
-	var words = name.split(" ").reverse()
-	var string = ""
-	for(word in words)
-		string += (word > 0 ? " " : "") + words[word]
-	return string
+  let words = name.split(" ").reverse()
+  let string = ""
+  for(let word in words)
+    string += (word > 0 ? " " : "") + words[word]
+  return string
 }
 
 // This function compares the attendees to a class list and then outputs who is preset and who is not.

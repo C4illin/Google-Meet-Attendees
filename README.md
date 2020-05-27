@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="Rome, logo of an ancient Greek spartan helmet" src="https://raw.githubusercontent.com/C4illin/Google-Meet-Attendees/master/extensions/marketing/main%201.jpg">
+</p>
+
 # Google Meet Attendees
 This script is currently far from finished but the current prototype is working and open for installation.
 
@@ -5,6 +9,8 @@ It relies heavily on the Google Meet Grid View script/extension so that is requi
 
 ## Install
 * Chrome: https://chrome.google.com/webstore/detail/olmgpgbhojeoalaimckcpgkadjkejacl/
+
+        or
 
 * Userscript: https://github.com/C4illin/Google-Meet-Attendees/raw/master/copy.simple.user.js
 
