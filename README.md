@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Rome, logo of an ancient Greek spartan helmet" src="https://raw.githubusercontent.com/C4illin/Google-Meet-Attendees/master/extensions/marketing/main%201.jpg">
+  <img src="https://raw.githubusercontent.com/C4illin/Google-Meet-Attendees/master/extensions/marketing/main%201.jpg">
 </p>
 
 # Google Meet Attendees
