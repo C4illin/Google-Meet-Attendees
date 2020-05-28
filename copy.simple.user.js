@@ -387,11 +387,17 @@ s.innerText = `
   border-right: 3px dashed gainsboro
 }
 
+#compare-result-list {
+  display: block;
+}
+
 #create-groups-grid {
   display: grid;
   grid-template-columns: repeat(2,1fr);
   grid-template-areas: "type-of-group group-number-selector"
-  "make-group-button make-group-button";
+  "make-group-button make-group-button"
+  "generated-groups generated-groups";
+  grid-template-rows: auto auto 200px;
 }
 
 #type-of-group {
@@ -424,6 +430,10 @@ s.innerText = `
   text-align: center;
   width: fit-content;
   justify-self: center;
+}
+
+#generated-groups {
+  grid-area: generated-groups;
 }
 
 #attendees-div {
@@ -501,7 +511,14 @@ setInterval(() => {
       } else {
         elem.style.display = "flex"
         elem.__pinned = true
-        document.addEventListener("click", event => hideElementTarget(event.target))
+        document.firstElementChild.onclick = (event) => {
+          if (event.target.innerText == "Hide Participant") {
+            let elem = document.getElementById("attendees-list")
+            elem.style.display = null
+            elem.__pinned = false
+            document.firstElementChild.onclick = ""
+          }
+        }
       }
     }
     buttons.prepend(toggleButton)
@@ -712,7 +729,6 @@ setInterval(() => {
     compareResultList.rows = 10
     compareResultList.readOnly = true
     compareResultList.value = T("click on compare")
-    compareResultList.style.display = "block"
     
     const copyCompareList = addElement("a",compare,null,T("copy list"))
     copyCompareList.onclick = () => {
@@ -758,22 +774,28 @@ setInterval(() => {
     
     // Choose to generate groups by number of people or number of groups
     const numberOfGroups = addElement("div",createGroupsGrid,"type-of-group",null)
-    addElement("div",numberOfGroups,"group-members","Users per group").onclick = (e) => {
+    const groupsWithPeople = addElement("div",numberOfGroups,"group-members","Users per group")
+    groupsWithPeople.onclick = (e) => {
       document.getElementById("group-number").className = ""
       e.target.className = "selected"
     }
-    addElement("div",numberOfGroups,"group-number","Number of groups").onclick = (e) => {
+    const groupsWithNumber = addElement("div",numberOfGroups,"group-number","Number of groups")
+    groupsWithNumber.className = "selected"
+    groupsWithNumber.onclick = (e) => {
       document.getElementById("group-members").className = ""
       e.target.className = "selected"
     }
+    
     // Creates the dropdown menu
     const groupNumberSelector = addElement("select",createGroupsGrid,"group-number-selector",null)
     for (let i = 1; i < 13; i++) {
       addElement("option",groupNumberSelector,null,i)
     }
 
-    addElement("a",createGroupsGrid,"make-group-button","Generate groups")
+    const generateGroupsButton = addElement("a",createGroupsGrid,"make-group-button","Generate groups")
+    generateGroupsButton.onclick = generateGroups
     
+    addElement("textarea",createGroupsGrid,"generated-groups",null)
   }
 }, 250)
 
@@ -824,22 +846,6 @@ const reverseName = (name) => {
   return string
 }
 
-
-const meetTest = (callback) => {
-  let xhr = new XMLHttpRequest()
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status == 200) {
-        callback("g.co/meet/" + (xhr.responseText.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
-      }
-    }
-  }
-  xhr.open('GET', 'https://meet.google.com/new', true)
-  xhr.send()
-}
-
-// g.co/meet/zrq-hdoo-rbr
-
 // This function compares the attendees to a class list and then outputs who is present and who is not.
 // Present people are marked by a green checkmark and not present people is marked by a red cross.
 // People that was found in the meet but not in the class list is marked by a questionmark.   
@@ -884,15 +890,6 @@ const compareLists = () => {
     resultHeader.innerText = T("result:") + " " + count + "/" + compareListPeoples
   } else {
     resultHeader.innerText = T("result:")
-  }
-}
-
-const hideElementTarget = (target) => {
-  let elem = document.getElementById("attendees-list")
-  if (!elem.parentElement.contains(target)) {
-    elem.style.display = null
-    elem.__pinned = false
-    document.removeEventListener("click", event => hideElementTarget(event.target))
   }
 }
 
@@ -941,6 +938,103 @@ const addSetting = (localStoragePath, name) => {
     localStorage.setItem(localStoragePath, e.target.checked)
   }
   parent.prepend(elem)
+}
+
+const meetGenerator = (callback) => {
+  let xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status == 200) {
+        callback("g.co/meet/" + (xhr.responseText.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+      }
+    }
+  }
+  xhr.open('GET', 'https://meet.google.com/new', true)
+  xhr.send()
+}
+
+const generateMulipleMeets = (num) => {
+  let meets = new Array
+  for (let i = 0; i < num; i++) {
+    meetGenerator((result) => {
+      meets.push(result)
+    })
+  }
+  localStorage.setItem("gma-group-meets", JSON.stringify(meets))
+  return(meets)
+}
+
+// 1: Emrik Ö, Daniel Pz
+// 
+// 2: Filip R, Joel B, Edvin N
+// const newGroupsByNumber = (number) => {
+//   let groups = []
+
+//   let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+//   let attendeesPerGroup = Math.floor((attendees.length - 1) / number)
+  
+//   for (let i = 0; i <= number; i++) {
+//     let smallGroup = []
+//     for (let j = 0; j < attendeesPerGroup; j++) {
+//       smallGroup.push(attendees[attendeesPerGroup*i+j])
+//     }
+//     groups.push(smallGroup)
+//   }
+
+//   for (let i = 0; i <= attendees.length - 1 - (number * attendeesPerGroup); i++) {
+//     groups[i].push(attendees[number * attendeesPerGroup + i])
+//   }
+  
+// }
+
+
+// From: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+const shuffle = (a) => {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return(a)
+}
+
+const groupGenerator = (number, specifyPeople) => {
+  let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+  
+  if (specifyPeople){
+    number = Math.floor((attendees.length - 1) / number)
+  }
+  
+  let groups = []
+  for(let i = 0; i < number; i++) {
+    groups.push([])
+  }
+
+  for (let i = 0; i < attendees.length; i++) {
+    groups[i % number].push(attendees[i])
+  }
+
+  localStorage.setItem("gma-groups", JSON.stringify(groups))
+  return(groups)
+}
+
+const generateGroups = () => {
+  let number = document.getElementById("group-number-selector").value
+  let groupsByPeople = document.getElementById("group-members").className
+  let groupsByNumber = document.getElementById("group-number").className
+
+  switch("selected") {
+    case groupsByPeople:
+      document.getElementById("generated-groups").value = groupGenerator(number, true).join(String.fromCharCode(13, 10))
+      break
+
+    case groupsByNumber:
+      document.getElementById("generated-groups").value = groupGenerator(number, false).join(String.fromCharCode(13, 10))
+      break
+
+    default:
+      console.log("Group switch failed")
+      break
+  }
 }
 
 const getAllAttendees = () => {
