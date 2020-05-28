@@ -387,6 +387,45 @@ s.innerText = `
   border-right: 3px dashed gainsboro
 }
 
+#create-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas: "type-of-group group-number-selector"
+  "make-group-button make-group-button";
+}
+
+#type-of-group {
+  grid-area: type-of-group;
+}
+
+#type-of-group > * {
+  text-align: center;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  padding: 0 7px 0 7px;
+}
+
+#create-groups-grid .selected {
+  background-color: #2196F3;
+  color: white;
+}
+
+#group-number-selector {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  grid-area: group-number-selector;
+}
+
+#make-group-button {
+  grid-area: make-group-button;
+  text-align: center;
+  width: fit-content;
+  justify-self: center;
+}
+
 #attendees-div {
   padding-left: 20px
 }
@@ -448,7 +487,7 @@ setInterval(() => {
   if ((buttons) && (!buttons.__attendent_ran)) {
     buttons.__attendent_ran = true
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
-
+    
     buttons.prepend(buttons.children[3].cloneNode())
     const toggleButton = document.createElement("div")
     toggleButton.classList = buttons.children[3].classList
@@ -462,10 +501,11 @@ setInterval(() => {
       } else {
         elem.style.display = "flex"
         elem.__pinned = true
+        document.addEventListener("click", event => hideElementTarget(event.target))
       }
     }
     buttons.prepend(toggleButton)
-
+    
     // Adds a icon to item bar 
     const toggleButtonSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
     toggleButtonSVG.id = "icon"
@@ -474,25 +514,25 @@ setInterval(() => {
     toggleButtonSVG.setAttribute("viewBox", "0 0 24 24")
     toggleButtonSVG.innerHTML = icon
     toggleButton.appendChild(toggleButtonSVG)
-
+    
     // Creates the main div for every element
     const additionalOptions = addElement("div",toggleButton,"attendees-list",null)
     additionalOptions.onclick = e => e.stopPropagation()
-
+    
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
-    additionalOptions.onmouseout = function(){
+    additionalOptions.onmouseout = () => {
       // Change to screencast const variable
       document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
     }
-
-    additionalOptions.onmouseover = function () {
+    
+    additionalOptions.onmouseover = () => {
       if (compare.style.display !== "none") {
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
       }
     }
-
+    
     addElement("h1",seeAttendeesDiv,null,T("attendance"))
-
+    
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
     
@@ -506,22 +546,22 @@ setInterval(() => {
         e.target.innerText = T("show list")
       }
     }
-
+    
     const settings = addElement("a",seeAttendeesDiv,"settingsButton",null)
     settings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
-
+    
     settingsMenu = addElement("div",seeAttendeesDiv,"settingsMenu",null)
     settingsMenu.style.display = "none"
-
+    
     const settingsHeader = addElement("div",settingsMenu,"settingsHeader",T("settings"))
     
     settingsHeader.style.display = "block"
     settingsHeader.onmousedown = (even) => {
       movableDiv(even, "settingsMenu")
     }
-
+    
     // Calls addSetting function
     addSetting("gma-include-yourself", T("include yourself"))
     addSetting("gma-sort-by-last-name",T("sort by last name"))
@@ -546,7 +586,7 @@ setInterval(() => {
     closeSettings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
-
+    
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
@@ -563,12 +603,12 @@ setInterval(() => {
     peopleList.style.display = "block"
     seeAttendeesDiv.appendChild(peopleList)
     seeAttendeesDiv.appendChild(peopleCounter)
-
+    
     const copyList = addElement("a",seeAttendeesDiv,null,T("copy list"))
     copyList.onclick = () => {
       navigator.clipboard.writeText(localStorage.getItem("gmca-attendees-list").replace(/,/g, "\n"))
     }
-
+    
     const randomPerson = addElement("a",seeAttendeesDiv,null,T("randomize person"))
     randomPerson.onclick = () => {
       let attendees = localStorage.getItem("gmca-attendees-list").split(",")
@@ -576,7 +616,7 @@ setInterval(() => {
         alert(attendees[Math.floor(Math.random() * attendees.length)])
       }, 1)
     }
-
+    
     const showCompareList = addElement("a",seeAttendeesDiv,null,T("show comparison list"))
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
@@ -591,7 +631,7 @@ setInterval(() => {
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
       }
     }
-
+    
     const showCreateGroups = addElement("a",seeAttendeesDiv,null,T("show group creation"))
     showCreateGroups.onclick = (e) => {
       if (createGroups.style.display === "none") {
@@ -606,23 +646,23 @@ setInterval(() => {
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
       }
     }
-
+    
     const compare = addElement("div",additionalOptions,"compare-div",null)
     compare.style.display = "none"
-
+    
     addElement("h2",compare,null,T("compare attendees"))
-
+    
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
     compareList.placeholder = T("Insert comparison list")
     compareList.style.display = "block"
-
+    
     const compareButton = addElement("a",compare,null,T("compare"))
     compareButton.onclick = compareLists
-
+    
     const cleanCompare = addElement("a",compare,"cleanCompareList",T("clean comparison list"))
     cleanCompare.onclick = cleanCompareLists
-
+    
     const classInput = addElement("input",compare,"classInput",null)
     classInput.attributes["type"] = "text"
     classInput.placeholder = T("class")
@@ -630,7 +670,7 @@ setInterval(() => {
     
     const saveButton = addElement("a",compare,"classSave",T("save list"))
     saveButton.onclick = saveClass
-
+    
     const chooseClass = addElement("select",compare,"chooseClass",null)
     
     const defaultClassOption = addElement("option",chooseClass,null,T("load list"))
@@ -645,7 +685,7 @@ setInterval(() => {
         }
       })
     }
-
+    
     if (savedClasses) {
       Object.keys(savedClasses).forEach(className => {
         let chooseClassOptions = document.createElement("option")
@@ -653,7 +693,7 @@ setInterval(() => {
         chooseClass.appendChild(chooseClassOptions)
       })
     }
-
+    
     const removeClass = addElement("a",compare,"removeClass",T("remove class"))
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
@@ -667,22 +707,22 @@ setInterval(() => {
     }
     
     resultHeader = addElement("h3",compare,"resultHeader",T("result:"))
-
+    
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
     compareResultList.readOnly = true
     compareResultList.value = T("click on compare")
     compareResultList.style.display = "block"
-
+    
     const copyCompareList = addElement("a",compare,null,T("copy list"))
     copyCompareList.onclick = () => {
       navigator.clipboard.writeText(compare.children[compare.childElementCount-3].value)
     }
-
+    
     const copyCompareListForChat = addElement("a",compare,null,T("copy for chat"))
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
-
+      
       if (toCopy.length > 500) {
         if (localStorage.getItem("gma-more-letters") === "true") {
           while (toCopy.length > 500) {
@@ -698,7 +738,7 @@ setInterval(() => {
             }
           }).join("\n")
         }
-  
+        
         while (toCopy.length > 500) {
           toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
         }
@@ -707,12 +747,33 @@ setInterval(() => {
       navigator.clipboard.writeText(toCopy)
     }
 
+    // Group creation
     const createGroups = addElement("div",additionalOptions,"create-groups-div",null)
     createGroups.style.display = "none"
+    
     // Lägg till översättning
     addElement("h2",createGroups,null,"Grupp skapande")
 
-    const groupByNumber = addElement("select",createGroups,"groupByNumber",null)
+    const createGroupsGrid = addElement("div",createGroups,"create-groups-grid",null)
+    
+    // Choose to generate groups by number of people or number of groups
+    const numberOfGroups = addElement("div",createGroupsGrid,"type-of-group",null)
+    addElement("div",numberOfGroups,"group-members","Users per group").onclick = (e) => {
+      document.getElementById("group-number").className = ""
+      e.target.className = "selected"
+    }
+    addElement("div",numberOfGroups,"group-number","Number of groups").onclick = (e) => {
+      document.getElementById("group-members").className = ""
+      e.target.className = "selected"
+    }
+    // Creates the dropdown menu
+    const groupNumberSelector = addElement("select",createGroupsGrid,"group-number-selector",null)
+    for (let i = 1; i < 13; i++) {
+      addElement("option",groupNumberSelector,null,i)
+    }
+
+    addElement("a",createGroupsGrid,"make-group-button","Generate groups")
+    
   }
 }, 250)
 
@@ -722,12 +783,12 @@ const movableDiv = (even, moveID) => {
   even.preventDefault()
   pos3 = even.clientX
   pos4 = even.clientY
-
+  
   document.onmouseup = () => {
     document.onmouseup = null
     document.onmousemove = null
   }
-
+  
   document.onmousemove = (ev) => {
     ev = ev || window.event
     ev.preventDefault()
@@ -755,39 +816,55 @@ const showElement = (elem) => {
   }
 }
 
-const reverseName = function(name) {
+const reverseName = (name) => {
   let words = name.split(" ").reverse()
   let string = ""
   for(let word in words)
-    string += (word > 0 ? " " : "") + words[word]
+  string += (word > 0 ? " " : "") + words[word]
   return string
 }
 
-// This function compares the attendees to a class list and then outputs who is preset and who is not.
+
+const meetTest = (callback) => {
+  let xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status == 200) {
+        callback("g.co/meet/" + (xhr.responseText.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+      }
+    }
+  }
+  xhr.open('GET', 'https://meet.google.com/new', true)
+  xhr.send()
+}
+
+// g.co/meet/zrq-hdoo-rbr
+
+// This function compares the attendees to a class list and then outputs who is present and who is not.
 // Present people are marked by a green checkmark and not present people is marked by a red cross.
-// People that was found in the meet but not in the class list is marked by an questionmark.   
+// People that was found in the meet but not in the class list is marked by a questionmark.   
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = document.getElementById("compare-list").value.split("\n")
   let count = 0
-
+  
   let out = []
   if (listToCompare[0] != "") {
     listToCompare.forEach(listItem => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
         count += 1
-
+        
       } else if (current.includes(reverseName(listItem))) {
         out.push("✔️ " + listItem)
         count += 1
-
+        
       } else {
         out.push("❌ " + listItem)
       }
     })
   }
-
+  
   if (current[0] != "" && localStorage.getItem("gma-add-not-on-list") === "true") {
     current.forEach(listItem => {
       if (!listToCompare.includes(listItem)) {
@@ -801,12 +878,21 @@ const compareLists = () => {
   if (out.length > 0) {
     document.getElementById("compare-result-list").value = out.join(String.fromCharCode(13, 10))
   }
-
+  
   let compareListPeoples = document.getElementById("compare-list").value.split("\n").length
   if (compareListPeoples > 1) {
     resultHeader.innerText = T("result:") + " " + count + "/" + compareListPeoples
   } else {
     resultHeader.innerText = T("result:")
+  }
+}
+
+const hideElementTarget = (target) => {
+  let elem = document.getElementById("attendees-list")
+  if (!elem.parentElement.contains(target)) {
+    elem.style.display = null
+    elem.__pinned = false
+    document.removeEventListener("click", event => hideElementTarget(event.target))
   }
 }
 
@@ -859,11 +945,11 @@ const addSetting = (localStoragePath, name) => {
 
 const getAllAttendees = () => {
   /*  This is the function that should be reworked
-      currently it forces grid view and then take
-      all the names which is really inefficent and
-      stupid but I don't know how to do it in a 
-      better way. :( 
-  */
+  currently it forces grid view and then take
+  all the names which is really inefficent and
+  stupid but I don't know how to do it in a 
+  better way. :(                                  */
+
   //  Removes duplicate students in an Array
   function removeDups(names) {
     let unique = {}
@@ -885,7 +971,7 @@ const getAllAttendees = () => {
     checkboxes = buttons.children[0].lastElementChild.children
   }
   let showOnlyVideo = checkboxes[0].firstChild.checked
-
+  
   let gridtoggle = false
   if (buttons.children[position].firstElementChild.innerHTML.substring(30, 31) == "1") {
     gridtoggle = true
@@ -893,7 +979,7 @@ const getAllAttendees = () => {
   
   let waitTime = 0
   let toChange = [false, false]
-
+  
   if (!gridtoggle) {
     buttons.children[position].click()
     toChange[0] = true
@@ -905,16 +991,16 @@ const getAllAttendees = () => {
     waitTime += 1000
   }
   // END
-
+  
   setTimeout(() => {
     let nameSelector = "epqixc"
-
+    
     let people = []
     let divList = document.getElementsByClassName(nameSelector)
     for (let item of divList) {
       people.push(item.innerText)
     }
-
+    
     if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
       people = []
     }
@@ -930,7 +1016,7 @@ const getAllAttendees = () => {
         people.push(yourName)
       }
     }
-
+    
     people = people.map((name) => {
       if (/[0-9a-zA-Z ]{1,} \([0-9a-zA-Z ]{1,}\)$/.test(name)) {
         return name.substring(name.indexOf("(") + 1, name.length - 1)
@@ -938,7 +1024,7 @@ const getAllAttendees = () => {
         return name
       }
     })
-
+    
     let attendees = removeDups(people)
     if (localStorage.getItem("gma-sort-by-last-name") === "true") {
       attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
