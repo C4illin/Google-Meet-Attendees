@@ -814,7 +814,7 @@ setInterval(() => {
     // addElement("textarea",createGroupsGrid,"generated-groups",null)
     const generatedGroupsTable = addElement("table",createGroupsGrid,"generated-groups",null)
 
-    if (localStorage.getItem("gma-groups") !== undefined) {
+    if (localStorage.getItem("gma-groups") !== null) {
       printOutGroups(JSON.parse(localStorage.getItem("gma-groups")))
     }
   }
