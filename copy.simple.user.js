@@ -1031,16 +1031,16 @@ const generateGroups = () => {
   let groups
 
   switch("selected") {
-    case groupsByPeople:
-      groups = groupGenerator(number, true)
-      printOutGroups(groups)
+  case groupsByPeople:
+    groups = groupGenerator(number, true)
+    printOutGroups(groups)
 
-      break
+    break
 
-    case groupsByNumber:
-      groups = groupGenerator(number, false)
-      printOutGroups(groups)
-      break
+  case groupsByNumber:
+    groups = groupGenerator(number, false)
+    printOutGroups(groups)
+    break
 
   default:
     console.log("Group switch failed")
@@ -1156,7 +1156,20 @@ const getAllAttendees = () => {
     
     let attendees = removeDups(people)
     if (localStorage.getItem("gma-sort-by-last-name") === "true") {
-      attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
+      attendees = attendees.sort((a, b) => {
+        if (a.split(" ").concat("")[1] > b.split(" ").concat("")[1]) {
+          return 1
+        } else if (a.split(" ").concat("")[1] < b.split(" ").concat("")[1]){
+          return -1
+        } else if (a.split(" ")[0] > b.split(" ")[0]) {
+          return 1
+        } else if (a.split(" ")[0] < b.split(" ")[0]) {
+          return -1
+        } else {
+          return 0
+        }
+      })
+      // attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     } else {
       attendees = attendees.sort()
     }
