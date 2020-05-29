@@ -406,6 +406,8 @@ s.innerText = `
 
 #type-of-group {
   grid-area: type-of-group;
+  border-radius: 1.1rem;
+  background-color: #efefef;
 }
 
 #type-of-group > * {
@@ -799,7 +801,8 @@ setInterval(() => {
     const generateGroupsButton = addElement("a",createGroupsGrid,"make-group-button","Generate groups")
     generateGroupsButton.onclick = generateGroups
     
-    addElement("textarea",createGroupsGrid,"generated-groups",null)
+    // addElement("textarea",createGroupsGrid,"generated-groups",null)
+    const generatedGroupsTable = addElement("table",createGroupsGrid,"generated-groups",null)
   }
 }, 250)
 
@@ -1025,20 +1028,48 @@ const generateGroups = () => {
   let number = document.getElementById("group-number-selector").value
   let groupsByPeople = document.getElementById("group-members").className
   let groupsByNumber = document.getElementById("group-number").className
+  let groups
 
   switch("selected") {
-  case groupsByPeople:
-    document.getElementById("generated-groups").value = groupGenerator(number, true).join(String.fromCharCode(13, 10))
-    break
+    case groupsByPeople:
+      groups = groupGenerator(number, true)
+      printOutGroups(groups)
 
-  case groupsByNumber:
-    document.getElementById("generated-groups").value = groupGenerator(number, false).join(String.fromCharCode(13, 10))
-    break
+      break
+
+    case groupsByNumber:
+      groups = groupGenerator(number, false)
+      printOutGroups(groups)
+      break
 
   default:
     console.log("Group switch failed")
     break
   }
+}
+
+const printOutGroups = (groups) => {
+  let table = generatedGroupsTable
+  groups = groups.join(String.fromCharCode(13, 10))
+
+  for (let i = 0; i < groups.length; i += 3) {
+    let tableRow = addElement("tr",table,null,null)
+    for (let j = i; j < i + 3; j++) {
+      addElement("th",tableRow,null,j)
+    }
+
+    
+
+    for (let k = 0; k < groups[i].length; k++) {
+      let tableRowGroupNames = addElement("tr",table,null,null)
+      for (let l = i; l < i + 3; l++) {
+        addElement("td",tableRowGroupNames,null,groups[l][k])
+      }
+    }
+    addElement("tr",table,null,null)
+  }
+
+  // document.getElementById("generated-groups").value
 }
 
 const getAllAttendees = () => {
