@@ -1049,21 +1049,19 @@ const generateGroups = () => {
 }
 
 const printOutGroups = (groups) => {
-  let table = generatedGroupsTable
-  groups = groups.join(String.fromCharCode(13, 10))
+  document.getElementById("generated-groups").innerText = ""
+  let table = document.getElementById("generated-groups")
 
   for (let i = 0; i < groups.length; i += 3) {
     let tableRow = addElement("tr",table,null,null)
-    for (let j = i; j < i + 3; j++) {
-      addElement("th",tableRow,null,j)
+    for (let j = i; j < Math.min(i + 3,groups.length); j++) {
+      addElement("th",tableRow,null,j+1)
     }
-
-    
 
     for (let k = 0; k < groups[i].length; k++) {
       let tableRowGroupNames = addElement("tr",table,null,null)
-      for (let l = i; l < i + 3; l++) {
-        addElement("td",tableRowGroupNames,null,groups[l][k])
+      for (let l = i; l < Math.min(i + 3,groups.length); l++) {
+        addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
       }
     }
     addElement("tr",table,null,null)
