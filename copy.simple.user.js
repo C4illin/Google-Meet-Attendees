@@ -76,11 +76,11 @@ const translations = {
     sv: "Inkludera folk som inte är på jämförelselistan",
     de: "Personen einschließen, die nicht auf der Vergleichsliste stehen"
   },
-  "maximize letters": {
-    en: "Copy for chat maximizes letters",
-    sv: "Kopiera för chatten maximerar antalet bokstäver",
-    de: "Kopie für Chat maximierte Anzahl von Buchstaben"
-  },
+  // "maximize letters": {
+  //   en: "Copy for chat maximizes letters",
+  //   sv: "Kopiera för chatten maximerar antalet bokstäver",
+  //   de: "Kopie für Chat maximierte Anzahl von Buchstaben"
+  // },
   "close": {
     en: "Close",
     sv: "Stäng",
@@ -599,7 +599,7 @@ setInterval(() => {
     addSetting("gma-include-yourself", T("include yourself"))
     addSetting("gma-sort-by-last-name",T("sort by last name"))
     addSetting("gma-add-not-on-list",T("include not on list"))
-    addSetting("gma-more-letters",T("maximize letters"))
+    // addSetting("gma-more-letters",T("maximize letters"))
     addSetting("gma-sort-on-compare",T("sort compare list by status"))
     
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
@@ -756,20 +756,29 @@ setInterval(() => {
       let toCopy = compare.children[compare.childElementCount-3].value
       
       if (toCopy.length > 500) {
-        if (localStorage.getItem("gma-more-letters") === "true") {
-          while (toCopy.length > 500) {
-            toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
-          }
-        } else {
-          toCopy = toCopy.split("\n").map((elem) => {
-            let spacePosition = elem.indexOf(" ", 3)
-            if (spacePosition > 0) {
-              return elem.substring(0, spacePosition+2)
-            } else {
-              return elem
-            }
-          }).join("\n")
+        toCopy = getShortName(toCopy.split("\n"), true).join("\n")
+
+        if (toCopy.length > 500) {
+          toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
+          if (toCopy.length > 500) {
+            toCopy = toCopy.replace(/\./g, "")
+          }  
         }
+
+        // if (localStorage.getItem("gma-more-letters") === "true") {
+        //   while (toCopy.length > 500) {
+        //     toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
+        //   }
+        // } else {
+        //   toCopy = toCopy.split("\n").map((elem) => {
+        //     let spacePosition = elem.indexOf(" ", 3)
+        //     if (spacePosition > 0) {
+        //       return elem.substring(0, spacePosition+2)
+        //     } else {
+        //       return elem
+        //     }
+        //   }).join("\n")
+        // }
         
         while (toCopy.length > 500) {
           toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
@@ -1005,6 +1014,36 @@ const generateMultipleMeets = (num) => {
   
 // }
 
+const getShortName = (names, emoji = false) => {
+  function generateSignature(name, numberOfLetters = 1) {
+    let parts = name.split(' ')
+    if (emoji) {
+      if (parts.length <= 2) return name
+      return parts.shift() + ' ' + parts.shift() + ' ' + parts.map(n => n.substring(0, numberOfLetters)).join('.') + '.'
+    } else {
+      if (parts.length <= 1) return name
+      return parts.shift() + ' ' + parts.map(n => n.substring(0, numberOfLetters)).join('.') + '.'
+    }
+  }
+  
+  let nameSignatures = names.map(name => generateSignature(name))
+  
+  for(let j = 2; j < 20; j++) { // 20 letters is the limit for last names
+    let temp = Array.from(nameSignatures)
+    let done = true
+    for (let i = 0; i < names.length; i++) {
+      if (temp.includes(temp.shift())) {
+        done = false
+        let k = i + 1 + temp.indexOf(nameSignatures[i])
+        nameSignatures[i] = generateSignature(names[i], j)
+        nameSignatures[k] = generateSignature(names[k], j)
+      }
+    }
+    if (done) break
+  }
+  
+  return(nameSignatures)
+}
 
 // From: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 const shuffle = (a) => {
@@ -1017,6 +1056,7 @@ const shuffle = (a) => {
 
 const groupGenerator = (number, specifyPeople) => {
   let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+  attendees = getShortName(attendees)
   
   if (specifyPeople){
     number = Math.floor((attendees.length) / number)
