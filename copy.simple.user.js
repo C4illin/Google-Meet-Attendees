@@ -200,6 +200,10 @@ const translations = {
     en: "Sort compare list by status",
     sv: "Sortera jämföringslistan efter status",
     de: "Sortierliste nach Status sortieren"
+  },
+  "create groups": {
+    en: "Create Groups",
+    sv: "Skapa grupper"
   }
 }
 
@@ -768,7 +772,7 @@ setInterval(() => {
     createGroups.style.display = "none"
     
     // Lägg till översättning
-    addElement("h2",createGroups,null,"Grupp skapande")
+    addElement("h2",createGroups,null,T("create groups"))
 
     const createGroupsGrid = addElement("div",createGroups,"create-groups-grid",null)
     
