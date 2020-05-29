@@ -289,7 +289,7 @@ s.innerText = `
   background-color: #f1f3f4
 }
 
-#attendees-list textarea {
+#attendees-list textarea, #generated-groups {
   width: calc(258px - 15px);
   resize: none;
   border: 3px gainsboro solid;
@@ -440,6 +440,16 @@ s.innerText = `
 
 #generated-groups {
   grid-area: generated-groups;
+  width: auto;
+}
+
+#generated-groups tr th {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+#generated-groups tr td {
+  text-align: center;
 }
 
 #attendees-div {
@@ -803,6 +813,10 @@ setInterval(() => {
     
     // addElement("textarea",createGroupsGrid,"generated-groups",null)
     const generatedGroupsTable = addElement("table",createGroupsGrid,"generated-groups",null)
+
+    if (localStorage.getItem("gma-groups") !== undefined) {
+      printOutGroups(JSON.parse(localStorage.getItem("gma-groups")))
+    }
   }
 }, 250)
 
@@ -971,9 +985,6 @@ const generateMultipleMeets = (num) => {
   return(meets)
 }
 
-// 1: Emrik Ö, Daniel Pz
-// 
-// 2: Filip R, Joel B, Edvin N
 // const newGroupsByNumber = (number) => {
 //   let groups = []
 
@@ -1008,7 +1019,7 @@ const groupGenerator = (number, specifyPeople) => {
   let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
   
   if (specifyPeople){
-    number = Math.floor((attendees.length - 1) / number)
+    number = Math.floor((attendees.length) / number)
   }
   
   let groups = []
