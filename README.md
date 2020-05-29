@@ -10,8 +10,6 @@ It relies heavily on the Google Meet Grid View script/extension so that is requi
 ## Install
 * Chrome: https://chrome.google.com/webstore/detail/olmgpgbhojeoalaimckcpgkadjkejacl/
 
-        or
-
 * Userscript: https://github.com/C4illin/Google-Meet-Attendees/raw/master/copy.simple.user.js
 
 Make sure you have Google Meet Grid View installed!
