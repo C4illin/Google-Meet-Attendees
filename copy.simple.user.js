@@ -752,9 +752,9 @@ setInterval(() => {
           }
         } else {
           toCopy = toCopy.split("\n").map((elem) => {
-            let spacePostion = elem.indexOf(" ", 3)
-            if (spacePostion > 0) {
-              return elem.substring(0, spacePostion+2)
+            let spacePosition = elem.indexOf(" ", 3)
+            if (spacePosition > 0) {
+              return elem.substring(0, spacePosition+2)
             } else {
               return elem
             }
@@ -960,7 +960,7 @@ const meetGenerator = (callback) => {
   xhr.send()
 }
 
-const generateMulipleMeets = (num) => {
+const generateMultipleMeets = (num) => {
   let meets = new Array
   for (let i = 0; i < num; i++) {
     meetGenerator((result) => {
