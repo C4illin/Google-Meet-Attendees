@@ -415,7 +415,6 @@ s.innerText = `
   border-radius: 2rem;
   font-size: 0.8rem;
   padding: 0 7px 0 7px;
-  background-color: 
 }
 
 #create-groups-grid .selected {
@@ -1029,16 +1028,17 @@ const generateGroups = () => {
   let number = document.getElementById("group-number-selector").value
   let groupsByPeople = document.getElementById("group-members").className
   let groupsByNumber = document.getElementById("group-number").className
+  let groups
 
   switch("selected") {
     case groupsByPeople:
-      let groups = groupGenerator(number, true)
+      groups = groupGenerator(number, true)
       printOutGroups(groups)
 
       break
 
     case groupsByNumber:
-      let groups = groupGenerator(number, false)
+      groups = groupGenerator(number, false)
       printOutGroups(groups)
       break
 
@@ -1069,15 +1069,7 @@ const printOutGroups = (groups) => {
     addElement("tr",table,null,null)
   }
 
-
-  groups.forEach(group => {
-    let tableRow = addElement("tr",table,null,null)
-    for (let i = 0; i < group; i++) {
-      addElement
-    }
-
-  })
-  document.getElementById("generated-groups").value
+  // document.getElementById("generated-groups").value
 }
 
 const getAllAttendees = () => {
