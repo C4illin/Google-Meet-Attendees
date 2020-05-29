@@ -842,7 +842,7 @@ const reverseName = (name) => {
   let words = name.split(" ").reverse()
   let string = ""
   for(let word in words)
-  string += (word > 0 ? " " : "") + words[word]
+    string += (word > 0 ? " " : "") + words[word]
   return string
 }
 
@@ -991,8 +991,8 @@ const generateMulipleMeets = (num) => {
 // From: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 const shuffle = (a) => {
   for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]]
   }
   return(a)
 }
@@ -1023,17 +1023,17 @@ const generateGroups = () => {
   let groupsByNumber = document.getElementById("group-number").className
 
   switch("selected") {
-    case groupsByPeople:
-      document.getElementById("generated-groups").value = groupGenerator(number, true).join(String.fromCharCode(13, 10))
-      break
+  case groupsByPeople:
+    document.getElementById("generated-groups").value = groupGenerator(number, true).join(String.fromCharCode(13, 10))
+    break
 
-    case groupsByNumber:
-      document.getElementById("generated-groups").value = groupGenerator(number, false).join(String.fromCharCode(13, 10))
-      break
+  case groupsByNumber:
+    document.getElementById("generated-groups").value = groupGenerator(number, false).join(String.fromCharCode(13, 10))
+    break
 
-    default:
-      console.log("Group switch failed")
-      break
+  default:
+    console.log("Group switch failed")
+    break
   }
 }
 
@@ -1060,7 +1060,7 @@ const getAllAttendees = () => {
   
   let position = 2
   let checkboxes = buttons.children[2].lastElementChild.children
-  if (checkboxes.length == 2) {
+  if (checkboxes.length == 3) {
     position = 0
     checkboxes = buttons.children[0].lastElementChild.children
   }
