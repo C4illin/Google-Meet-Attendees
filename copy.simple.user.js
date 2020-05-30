@@ -518,6 +518,9 @@ setInterval(() => {
     const toggleButton = document.createElement("div")
     toggleButton.classList = buttons.children[3].classList
     toggleButton.classList.add("__gma-button")
+    if (toggleButton.classList.contains("__gmgv-button")) {
+      toggleButton.classList.remove("__gmgv-button")
+    }
     toggleButton.style.display = "flex"
     toggleButton.onclick = () => {
       let elem = document.getElementById("attendees-list")
@@ -994,30 +997,10 @@ const generateMultipleMeets = (num) => {
   return(meets)
 }
 
-// const newGroupsByNumber = (number) => {
-//   let groups = []
-
-//   let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
-//   let attendeesPerGroup = Math.floor((attendees.length - 1) / number)
-  
-//   for (let i = 0; i <= number; i++) {
-//     let smallGroup = []
-//     for (let j = 0; j < attendeesPerGroup; j++) {
-//       smallGroup.push(attendees[attendeesPerGroup*i+j])
-//     }
-//     groups.push(smallGroup)
-//   }
-
-//   for (let i = 0; i <= attendees.length - 1 - (number * attendeesPerGroup); i++) {
-//     groups[i].push(attendees[number * attendeesPerGroup + i])
-//   }
-  
-// }
-
-const getShortName = (names, emoji = false) => {
+const getShortName = (names, skipFirstName = false) => {
   function generateSignature(name, numberOfLetters = 1) {
     let parts = name.split(' ')
-    if (emoji) {
+    if (skipFirstName) {
       if (parts.length <= 2) return name
       return parts.shift() + ' ' + parts.shift() + ' ' + parts.map(n => n.substring(0, numberOfLetters)).join('.') + '.'
     } else {
@@ -1138,20 +1121,25 @@ const getAllAttendees = () => {
     })
     return Object.keys(unique)
   }
-  // START This section turns on grid view for 2 seconds and grabs all the names. Then it turn itself off.
+  // START This section turns on grid view for 3 seconds and grabs all the names. Then it turns itself off.
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
   let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  let buttonChildren = buttons.children
   
-  let position = 2
-  let checkboxes = buttons.children[2].lastElementChild.children
-  if (checkboxes.length == 3) {
-    position = 0
-    checkboxes = buttons.children[0].lastElementChild.children
+  for (let i = 0; i < buttonChildren.length; i++) {
+    if (buttonChildren[i].classList.contains("__gmgv-button")) {
+      var theButton = buttonChildren[i]
+      break
+    } else if (i == buttonChildren.length - 1) {
+      alert("Grid View NOT detected, make sure you have Google Meet Grid View installed")
+    }
   }
+
+  let checkboxes = theButton.lastElementChild.children
   let showOnlyVideo = checkboxes[0].firstChild.checked
   
   let gridtoggle = false
-  if (buttons.children[position].firstElementChild.innerHTML.substring(30, 31) == "1") {
+  if (theButton.firstElementChild.innerHTML.substring(30, 31) == "1") {
     gridtoggle = true
   }
   
@@ -1159,7 +1147,7 @@ const getAllAttendees = () => {
   let toChange = [false, false]
   
   if (!gridtoggle) {
-    buttons.children[position].click()
+    theButton.click()
     toChange[0] = true
     waitTime += 3000
   }
@@ -1228,7 +1216,7 @@ const getAllAttendees = () => {
     peopleCounter.innerText = attendees.length + " " + T("persons")
     setTimeout(() => {
       if (toChange[0]) {
-        buttons.children[position].click()
+        theButton.click()
       }
       if (toChange[1]) {
         checkboxes[0].firstChild.click()
