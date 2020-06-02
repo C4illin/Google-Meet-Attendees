@@ -1085,11 +1085,29 @@ const generateGroups = () => {
 const printOutGroups = (groups) => {
   document.getElementById("generated-groups").innerText = ""
   let table = document.getElementById("generated-groups")
+  var meets
+
+  if (localStorage.getItem("gma-group-meets") != null && JSON.parse(localStorage.getItem("gma-group-meets")).length >= groups.length ) {
+    meets = JSON.parse(localStorage.getItem("gma-group-meets"))
+  } else {
+    meets = generateMultipleMeets(groups.length - 1)
+    localStorage.setItem("gma-group-meets", JSON.stringify(meets))
+  }
+
+  console.log(meets)
+  console.log("meets index")
+  console.log(meets[0])
+  console.log(meets.length)
 
   for (let i = 0; i < groups.length; i += 3) {
     let tableRow = addElement("tr",table,null,null)
     for (let j = i; j < Math.min(i + 3,groups.length); j++) {
-      addElement("th",tableRow,null,j+1)
+      let tableHeader = addElement("th",tableRow,null,null)
+      console.log(meets[j])
+      let meetLink = addElement("a",tableHeader,null,j+1)
+      meetLink.href = meets[j]
+      meetLink.target = "_blank"
+      meetLink.rel = "noopener noreferrer"
     }
 
     for (let k = 0; k < groups[i].length; k++) {
