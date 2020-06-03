@@ -841,7 +841,7 @@ setInterval(() => {
     generateGroupsButton.onclick = generateGroups
     
     // addElement("textarea",createGroupsGrid,"generated-groups",null)
-    const generatedGroupsTable = addElement("table",createGroupsGrid,"generated-groups",null)
+    addElement("table",createGroupsGrid,"generated-groups",null)
 
     if (localStorage.getItem("gma-groups") !== null) {
       printOutGroups(JSON.parse(localStorage.getItem("gma-groups")))
@@ -998,35 +998,44 @@ const addSetting = (localStoragePath, name) => {
   parent.prepend(elem)
 }
 
-function httpGet(url, responseCallback) {
-  var xhr = new XMLHttpRequest();
+// const fetchMeet = (callback) => {
+//   fetch("https://meet.google.com/new")
+//     .then(res => res.text())
+//     .then(body => {
+//       callback(body.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1])
+//     })
+//     .catch(err => {throw(err)})
+// }
+
+const httpGet = (responseCallback) => {
+  let xhr = new XMLHttpRequest()
   xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-          responseCallback(xhr.responseText, xhr.status);
-      }
-  };
-  xhr.open('GET', url, true);
-  xhr.send();
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      responseCallback(xhr.responseText, xhr.status)
+    }
+  }
+  xhr.open('GET', 'https://meet.google.com/new', true)
+  xhr.send()
 }
 
-function generateMeets(numberOfMeets, responseCallback) {
-
-  var meets = []
-  let done = 0;
+const generateMeets = (numberOfMeets, responseCallback) => {
+  let meets = []
+  let done = 0
 
   for (let i = 0; i < numberOfMeets; i++) {
-      httpGet('https://meet.google.com/new',  function (response, statusCode) {
-          if (statusCode === 200) {
-              meets.push("https://g.co/meet/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]));
-              if (++done == numberOfMeets) {
-                  responseCallback(meets, true);
-              }
-          } else {
-              responseCallback(null, false);
-          }
-      })
+    httpGet(function (response, statusCode) {
+      if (statusCode === 200) {
+        meets.push("https://g.co/meet/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+        if (++done == numberOfMeets) {
+          responseCallback(meets, true)
+        }
+      } else {
+        responseCallback(null, false)
+      }
+    })
   }
 }
+
 const getShortName = (names, skipFirstName = false) => {
   function generateSignature(name, numberOfLetters = 1) {
     let parts = name.split(' ')
