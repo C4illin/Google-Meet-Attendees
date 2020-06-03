@@ -400,8 +400,9 @@ s.innerText = `
   grid-template-columns: repeat(2,1fr);
   grid-template-areas: "type-of-group group-number-selector"
   "make-group-button make-group-button"
-  "generated-groups generated-groups";
-  grid-template-rows: auto auto 200px;
+  "generated-groups generated-groups"
+  "copy-generated-groups copy-generated-meets";
+  grid-template-rows: auto auto auto auto;
 }
 
 #type-of-group {
@@ -449,6 +450,22 @@ s.innerText = `
 }
 
 #generated-groups tr td {
+  text-align: center;
+}
+
+#generated-groups tr th a {
+  padding: 0;
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+#copy-generated-groups {
+  grid-area: copy-generated-groups;
+  text-align: center;
+}
+
+#copy-generated-meets {
+  grid-area: copy-generated-meets;
   text-align: center;
 }
 
@@ -829,6 +846,14 @@ setInterval(() => {
     if (localStorage.getItem("gma-groups") !== null) {
       printOutGroups(JSON.parse(localStorage.getItem("gma-groups")))
     }
+
+    addElement("a",createGroupsGrid,"copy-generated-groups","Copy groups").onclick = () => {
+      copyGroups(JSON.parse(localStorage.getItem("gma-groups")))
+    }
+    
+    addElement("a",createGroupsGrid,"copy-generated-meets","Copy meets").onclick = () => {
+      copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")))
+    }
   }
 }, 250)
 
@@ -1127,6 +1152,22 @@ const printOutGroupsPart2 = (groups, meets) => {
     }
     addElement("tr",table,null,null)
   }
+}
+
+const copyGroups = (groups) => {
+  var stringToCopy = ""
+  for (let i = 0; i < groups.length; i++) {
+    stringToCopy += (i+1) + ": " + groups[i].join(" ") + "\n"
+  }
+  navigator.clipboard.writeText(stringToCopy)
+}
+
+const copyMeets = (meets) => {
+  var stringToCopy = ""
+  for (let i = 0; i < meets.length; i++) {
+    stringToCopy += (i+1) + ": " + meets[i] + "\n"
+  }
+  navigator.clipboard.writeText(stringToCopy)
 }
 
 const getAllAttendees = () => {
