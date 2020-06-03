@@ -997,6 +997,12 @@ const generateMultipleMeets = (num) => {
   return(meets)
 }
 
+const generateSingleMeet = () => {
+  meetGenerator((result) => {
+    return(result)
+  })
+}
+
 const getShortName = (names, skipFirstName = false) => {
   function generateSignature(name, numberOfLetters = 1) {
     let parts = name.split(' ')
