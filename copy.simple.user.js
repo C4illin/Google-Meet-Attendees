@@ -973,36 +973,35 @@ const addSetting = (localStoragePath, name) => {
   parent.prepend(elem)
 }
 
-const meetGenerator = (callback) => {
-  let xhr = new XMLHttpRequest()
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status == 200) {
-        callback("g.co/meet/" + (xhr.responseText.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+function httpGet(url, responseCallback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+          responseCallback(xhr.responseText, xhr.status);
       }
-    }
+  };
+  xhr.open('GET', url, true);
+  xhr.send();
+}
+
+function generateMeets(numberOfMeets, responseCallback) {
+
+  var meets = []
+  let done = 0;
+
+  for (let i = 0; i < numberOfMeets; i++) {
+      httpGet('https://meet.google.com/new',  function (response, statusCode) {
+          if (statusCode === 200) {
+              meets.push("https://g.co/meet/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]));
+              if (++done == numberOfMeets) {
+                  responseCallback(meets, true);
+              }
+          } else {
+              responseCallback(null, false);
+          }
+      })
   }
-  xhr.open('GET', 'https://meet.google.com/new', true)
-  xhr.send()
 }
-
-const generateMultipleMeets = (num) => {
-  let meets = new Array
-  for (let i = 0; i < num; i++) {
-    meetGenerator((result) => {
-      meets.push(result)
-    })
-  }
-  localStorage.setItem("gma-group-meets", JSON.stringify(meets))
-  return(meets)
-}
-
-const generateSingleMeet = () => {
-  meetGenerator((result) => {
-    return(result)
-  })
-}
-
 const getShortName = (names, skipFirstName = false) => {
   function generateSignature(name, numberOfLetters = 1) {
     let parts = name.split(' ')
@@ -1090,27 +1089,30 @@ const generateGroups = () => {
 
 const printOutGroups = (groups) => {
   document.getElementById("generated-groups").innerText = ""
-  let table = document.getElementById("generated-groups")
   var meets
 
   if (localStorage.getItem("gma-group-meets") != null && JSON.parse(localStorage.getItem("gma-group-meets")).length >= groups.length ) {
     meets = JSON.parse(localStorage.getItem("gma-group-meets"))
+    printOutGroupsPart2(groups,meets)
   } else {
-    meets = generateMultipleMeets(groups.length)
-    console.log("Generated " + groups.length + " meets")
-    localStorage.setItem("gma-group-meets", JSON.stringify(meets))
+    // meets = generateMultipleMeets(groups.length)
+    generateMeets(groups.length, function (meetsArr, successful) {
+      if (successful) {
+        meets = meetsArr
+        localStorage.setItem("gma-group-meets", JSON.stringify(meets))
+        printOutGroupsPart2(groups,meets)
+      }
+    })
   }
-  console.log("meets")
-  console.log(meets)
-  console.log("meets index")
-  console.log(meets[0])
-  console.log(meets.length)
+}
+
+const printOutGroupsPart2 = (groups, meets) => {
+  let table = document.getElementById("generated-groups")
 
   for (let i = 0; i < groups.length; i += 3) {
     let tableRow = addElement("tr",table,null,null)
     for (let j = i; j < Math.min(i + 3,groups.length); j++) {
       let tableHeader = addElement("th",tableRow,null,null)
-      console.log(meets[j])
       let meetLink = addElement("a",tableHeader,null,j+1)
       meetLink.href = meets[j]
       meetLink.target = "_blank"
@@ -1125,8 +1127,6 @@ const printOutGroups = (groups) => {
     }
     addElement("tr",table,null,null)
   }
-
-  // document.getElementById("generated-groups").value
 }
 
 const getAllAttendees = () => {
