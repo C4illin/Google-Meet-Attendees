@@ -1090,10 +1090,11 @@ const printOutGroups = (groups) => {
   if (localStorage.getItem("gma-group-meets") != null && JSON.parse(localStorage.getItem("gma-group-meets")).length >= groups.length ) {
     meets = JSON.parse(localStorage.getItem("gma-group-meets"))
   } else {
-    meets = generateMultipleMeets(groups.length - 1)
+    meets = generateMultipleMeets(groups.length)
+    console.log("Generated " + groups.length + " meets")
     localStorage.setItem("gma-group-meets", JSON.stringify(meets))
   }
-
+  console.log("meets")
   console.log(meets)
   console.log("meets index")
   console.log(meets[0])
