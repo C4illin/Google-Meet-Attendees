@@ -1200,42 +1200,63 @@ const printOutGroupsPart2 = (groups, meets) => {
     for (let k = 0; k < groups[i].length; k++) {
       let tableRowGroupNames = addElement("tr",table,null,null)
       for (let l = i; l < Math.min(i + 3,groups.length); l++) {
-        let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
-        createTableDataExtras(tableData)
+        addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        // let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        // createTableDataExtras(tableData)
       }
     }
     addElement("tr",table,null,null)
   }
 }
 
-const createTableDataExtras = (tableData) => {
-  tableData.draggable = true
-  tableData.ondragover = (ev => ev.preventDefault())
-  tableData.ondrop = (ev => {
-    ev.preventDefault()
+// const createTableDataExtras = (tableData) => {
+//   // if (tableData.innerText != "") {
+//   tableData.draggable = true
 
-    let toSwap = ev.target.innerText
-    let newName = ev.dataTransfer.getData("text")
-    for (const elem of document.querySelectorAll("td")) {
-      if (elem.innerText == newName) {
-        elem.innerText = toSwap
-        break
-      }
-    }
+//   tableData.ondragstart = (ev => {
+//     if (ev.target.innerText != "") {
+//       ev.dataTransfer.setData("text", ev.target.innerText)
+//     }
+//   })
 
-    localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName).replace('"'+newName+'"','"'+toSwap+'"').replace(newName, '"'+newName+'"'))
+//   // ondragend
 
-    ev.target.innerText = newName
-    // let elem = document.createElement("td")
-    // elem.innerText = ev.dataTransfer.getData("text")
-    // ev.target.parentElement.nextSibling.prepend(elem)
-    // createTableDataExtras(tableData)
-  })
-  tableData.ondragstart = (ev => {
+//   tableData.style.cursor = "grab"
+//   // }
+  
+//   tableData.ondragover = (ev => ev.preventDefault())
+//   tableData.ondrop = (ev => {
+//     ev.preventDefault()
+
+//     let toSwap = ev.target.innerText
+//     let newName = ev.dataTransfer.getData("text")
+//     for (const elem of document.querySelectorAll("td")) {
+//       if (elem.innerText == newName) {
+//         elem.innerText = toSwap
+//         var oldElement = elem
+//         break
+//       }
+//     }
+
+//     console.log(oldElement)
+
+//     let groups = JSON.parse(localStorage.getItem("gma-groups"))
+
+//     console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
+//     console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
     
-    ev.dataTransfer.setData("text", ev.target.innerText)
-  })
-}
+//     // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
+
+//     // console.log(JSON.parse(localStorage.getItem("gma-groups")))
+
+//     ev.target.innerText = newName
+//     // let elem = document.createElement("td")
+//     // elem.innerText = ev.dataTransfer.getData("text")
+//     // ev.target.parentElement.nextSibling.prepend(elem)
+//     // createTableDataExtras(tableData)
+//   })
+  
+// }
 
 const copyGroups = (groups) => {
   var stringToCopy = ""
