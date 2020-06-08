@@ -121,6 +121,7 @@ const translations = {
     sv: "◄ Visa grupp skapande",
     de: "◄ Gruppenerstellung anzeigen"
   },
+  // Change name
   "hide group creation": {
     en: "► Hide group creation",
     sv: "► Göm grupp skapande",
@@ -202,8 +203,34 @@ const translations = {
     de: "Sortierliste nach Status sortieren"
   },
   "create groups": {
-    en: "Create Groups",
-    sv: "Skapa grupper"
+    en: "Create groups",
+    sv: "Skapa grupper",
+    de: "Gruppen erstellen"
+  },
+  "users per group": { 
+    en: "Users / group",
+    sv: "Användare / grupp",
+    de: "Benutzer / Gruppe"
+  },
+  "number of groups": { 
+    en: "Number of groups",
+    sv: "Antal grupper",
+    de: "Anzahl der Gruppen"
+  },
+  "generate groups": { 
+    en: "Generate groups",
+    sv: "Generera grupper",
+    de: "Gruppen generieren"
+  },
+  "copy groups": { 
+    en: "Copy groups",
+    sv: "Kopiera grupper",
+    de: "Gruppen kopieren"
+  },
+  "copy meets": { 
+    en: "Copy meets",
+    sv: "Kopiera möten",
+    de: "Meeting-Links kopieren"
   }
 }
 
@@ -269,7 +296,7 @@ s.innerText = `
   color: var(--gm-body-text-color);
   cursor: pointer;
   background-color: gainsboro;
-  padding: 0 9px;
+  padding: 0 10px;
   margin: 5px 2px;
   height: 34px
 }
@@ -401,7 +428,8 @@ s.innerText = `
   grid-template-areas: "type-of-group group-number-selector"
   "make-group-button make-group-button"
   "generated-groups generated-groups"
-  "copy-generated-groups copy-generated-meets";
+  "copy-generated-groups copy-generated-groups"
+  "copy-generated-meets copy-generated-meets";
   grid-template-rows: auto auto auto auto;
 }
 
@@ -462,11 +490,15 @@ s.innerText = `
 #copy-generated-groups {
   grid-area: copy-generated-groups;
   text-align: center;
+  width: fit-content;
+  justify-self: center;
 }
 
 #copy-generated-meets {
   grid-area: copy-generated-meets;
   text-align: center;
+  width: fit-content;
+  justify-self: center;
 }
 
 #attendees-div {
@@ -515,6 +547,18 @@ h1, h2, h3, #attendees-list p {
   color: white;
   background-color: #181e23;
   border-color: #0000003d;
+}
+
+#attendees-list.dark_mode #type-of-group {
+  background-color: #38393f;
+}
+
+#attendees-list.dark_mode #generated-groups {
+  border: 3px #0000003d solid;
+}
+
+#attendees-list.dark_mode #create-groups-grid .selected {
+  background-color: #ffffff70;
 }
 
 ::placeholder { 
@@ -819,12 +863,12 @@ setInterval(() => {
     
     // Choose to generate groups by number of people or number of groups
     const numberOfGroups = addElement("div",createGroupsGrid,"type-of-group",null)
-    const groupsWithPeople = addElement("div",numberOfGroups,"group-members","Users per group")
+    const groupsWithPeople = addElement("div",numberOfGroups,"group-members",T("users per group"))
     groupsWithPeople.onclick = (e) => {
       document.getElementById("group-number").className = ""
       e.target.className = "selected"
     }
-    const groupsWithNumber = addElement("div",numberOfGroups,"group-number","Number of groups")
+    const groupsWithNumber = addElement("div",numberOfGroups,"group-number",T("number of groups"))
     groupsWithNumber.className = "selected"
     groupsWithNumber.onclick = (e) => {
       document.getElementById("group-members").className = ""
@@ -837,7 +881,7 @@ setInterval(() => {
       addElement("option",groupNumberSelector,null,i)
     }
 
-    const generateGroupsButton = addElement("a",createGroupsGrid,"make-group-button","Generate groups")
+    const generateGroupsButton = addElement("a",createGroupsGrid,"make-group-button",T("generate groups"))
     generateGroupsButton.onclick = generateGroups
     
     // addElement("textarea",createGroupsGrid,"generated-groups",null)
@@ -847,11 +891,11 @@ setInterval(() => {
       printOutGroups(JSON.parse(localStorage.getItem("gma-groups")))
     }
 
-    addElement("a",createGroupsGrid,"copy-generated-groups","Copy groups").onclick = () => {
+    addElement("a",createGroupsGrid,"copy-generated-groups",T("copy groups")).onclick = () => {
       copyGroups(JSON.parse(localStorage.getItem("gma-groups")))
     }
     
-    addElement("a",createGroupsGrid,"copy-generated-meets","Copy meets").onclick = () => {
+    addElement("a",createGroupsGrid,"copy-generated-meets",T("copy meets")).onclick = () => {
       copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")))
     }
   }
