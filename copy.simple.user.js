@@ -173,7 +173,7 @@ const translations = {
     de: "Kopie für den Chat"
   },
   "compare attendees": {
-    en: "Compare attendees",
+    en: "Compare Attendees",
     sv: "Jämför deltagare",
     de: "Teilnehmer vergleichen"
   },
@@ -1200,11 +1200,38 @@ const printOutGroupsPart2 = (groups, meets) => {
     for (let k = 0; k < groups[i].length; k++) {
       let tableRowGroupNames = addElement("tr",table,null,null)
       for (let l = i; l < Math.min(i + 3,groups.length); l++) {
-        addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        createTableDataExtras(tableData)
       }
     }
     addElement("tr",table,null,null)
   }
+}
+
+const createTableDataExtras = (tableData) => {
+  tableData.draggable = true
+  tableData.ondragover = (ev => ev.preventDefault())
+  tableData.ondrop = (ev => {
+    ev.preventDefault()
+    // let elementTarget = ev.target.parentElement.nextSibling
+    let toSwap = ev.target.innerText
+    let newName = ev.dataTransfer.getData("text")
+    for (const elem of document.querySelectorAll("td")) {
+      if (elem.innerText == newName) {
+        elem.innerText = toSwap
+        break
+      }
+    }
+    ev.target.innerText = newName
+    // let elem = document.createElement("td")
+    // elem.innerText = ev.dataTransfer.getData("text")
+    // ev.target.parentElement.nextSibling.prepend(elem)
+    // createTableDataExtras(tableData)
+  })
+  tableData.ondragstart = (ev => {
+    console.log(ev.target)
+    ev.dataTransfer.setData("text", ev.target.innerText)
+  })
 }
 
 const copyGroups = (groups) => {
