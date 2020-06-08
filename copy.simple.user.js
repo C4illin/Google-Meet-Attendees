@@ -1169,35 +1169,25 @@ const createTableDataExtras = (tableData) => {
   tableData.ondragover = (ev => ev.preventDefault())
   tableData.ondrop = (ev => {
     ev.preventDefault()
-    // console.log(ev.target)
-    // console.log(ev.dataTransfer.getData("text"))
     // let elementTarget = ev.target.parentElement.nextSibling
     let toSwap = ev.target.innerText
     let newName = ev.dataTransfer.getData("text")
-
     for (const elem of document.querySelectorAll("td")) {
       if (elem.innerText == newName) {
-        console.log(elem)
         elem.innerText = toSwap
         break
-      } else {
-        console.log(elem.innerText)
       }
     }
-
     ev.target.innerText = newName
-    
     // let elem = document.createElement("td")
     // elem.innerText = ev.dataTransfer.getData("text")
     // ev.target.parentElement.nextSibling.prepend(elem)
     // createTableDataExtras(tableData)
   })
-
   tableData.ondragstart = (ev => {
     console.log(ev.target)
     ev.dataTransfer.setData("text", ev.target.innerText)
   })
-
 }
 
 const copyGroups = (groups) => {
