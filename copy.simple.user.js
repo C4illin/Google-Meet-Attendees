@@ -901,7 +901,7 @@ setInterval(() => {
     }
     
     addElement("a",createGroupsGrid,"copy-generated-meets",T("copy meets")).onclick = () => {
-      copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")))
+      copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")), JSON.parse(localStorage.getItem("gma-groups")).length)
     }
   }
 }, 250)
@@ -1178,10 +1178,10 @@ const printOutGroups = (groups) => {
     meets = JSON.parse(localStorage.getItem("gma-group-meets"))
     printOutGroupsPart2(groups,meets)
   } else {
-    // meets = generateMultipleMeets(groups.length)
-    generateMeets(groups.length, function (meetsArr, successful) {
+    let numberOfMeetsToGen = groups.length - JSON.parse(localStorage.getItem("gma-group-meets")).length
+    generateMeets(numberOfMeetsToGen, function (meetsArr, successful) {
       if (successful) {
-        meets = meetsArr
+        meets = JSON.parse(localStorage.getItem("gma-group-meets")).concat(meetsArr)
         localStorage.setItem("gma-group-meets", JSON.stringify(meets))
         printOutGroupsPart2(groups,meets)
       }
@@ -1271,9 +1271,9 @@ const copyGroups = (groups) => {
   navigator.clipboard.writeText(stringToCopy)
 }
 
-const copyMeets = (meets) => {
+const copyMeets = (meets, groupLength) => {
   var stringToCopy = ""
-  for (let i = 0; i < meets.length; i++) {
+  for (let i = 0; i < groupLength; i++) {
     stringToCopy += (i+1) + ": " + meets[i] + "\n"
   }
   navigator.clipboard.writeText(stringToCopy)
