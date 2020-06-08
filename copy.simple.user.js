@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.0.4
+// @version     0.1.0
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,11 @@
 
 // Changelog
 /*
+
+0.1.0
+Added breakout/group rooms
+Notice when grid view isn't installed
+
 0.0.4
 Removed more unnessary characters in clean function
 Matches name reversed as well
