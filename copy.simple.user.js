@@ -1213,7 +1213,7 @@ const createTableDataExtras = (tableData) => {
   tableData.ondragover = (ev => ev.preventDefault())
   tableData.ondrop = (ev => {
     ev.preventDefault()
-    // let elementTarget = ev.target.parentElement.nextSibling
+
     let toSwap = ev.target.innerText
     let newName = ev.dataTransfer.getData("text")
     for (const elem of document.querySelectorAll("td")) {
@@ -1222,6 +1222,9 @@ const createTableDataExtras = (tableData) => {
         break
       }
     }
+
+    localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName).replace('"'+newName+'"','"'+toSwap+'"').replace(newName, '"'+newName+'"'))
+
     ev.target.innerText = newName
     // let elem = document.createElement("td")
     // elem.innerText = ev.dataTransfer.getData("text")
@@ -1229,7 +1232,7 @@ const createTableDataExtras = (tableData) => {
     // createTableDataExtras(tableData)
   })
   tableData.ondragstart = (ev => {
-    console.log(ev.target)
+    
     ev.dataTransfer.setData("text", ev.target.innerText)
   })
 }
