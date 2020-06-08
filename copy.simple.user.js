@@ -881,7 +881,7 @@ setInterval(() => {
     
     // Creates the dropdown menu
     const groupNumberSelector = addElement("select",createGroupsGrid,"group-number-selector",null)
-    for (let i = 1; i < 13; i++) {
+    for (let i = 1; i < 15; i++) {
       addElement("option",groupNumberSelector,null,i)
     }
 
@@ -1175,10 +1175,22 @@ const printOutGroups = (groups) => {
     meets = JSON.parse(localStorage.getItem("gma-group-meets"))
     printOutGroupsPart2(groups,meets)
   } else {
-    let numberOfMeetsToGen = groups.length - JSON.parse(localStorage.getItem("gma-group-meets")).length
+    let numberOfMeetsToGen = 0
+    console.log(localStorage.getItem("gma-group-meets"))
+    if (localStorage.getItem("gma-group-meets") == null) {
+      numberOfMeetsToGen = groups.length
+    } else {
+      numberOfMeetsToGen = groups.length - JSON.parse(localStorage.getItem("gma-group-meets")).length
+    }
+    console.log(numberOfMeetsToGen)
     generateMeets(numberOfMeetsToGen, function (meetsArr, successful) {
       if (successful) {
-        meets = JSON.parse(localStorage.getItem("gma-group-meets")).concat(meetsArr)
+        if (localStorage.getItem("gma-group-meets") == null) {
+          meets = meetsArr
+        } else {
+          meets = JSON.parse(localStorage.getItem("gma-group-meets")).concat(meetsArr)
+        }
+        
         localStorage.setItem("gma-group-meets", JSON.stringify(meets))
         printOutGroupsPart2(groups,meets)
       }
