@@ -172,7 +172,7 @@ const translations = {
     de: "Kopie für den Chat"
   },
   "compare attendees": {
-    en: "Compare attendees",
+    en: "Compare Attendees",
     sv: "Jämför deltagare",
     de: "Teilnehmer vergleichen"
   },
