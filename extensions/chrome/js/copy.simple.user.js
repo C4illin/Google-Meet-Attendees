@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.0.4
+// @version     0.1.0
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,11 @@
 
 // Changelog
 /*
+
+0.1.0
+Added breakout/group rooms
+Notice when grid view isn't installed
+
 0.0.4
 Removed more unnessary characters in clean function
 Matches name reversed as well
@@ -52,14 +57,14 @@ Make sure to use correct case if applicable
 */
 const translations = {
   "hide list": {
-    en: "⮝ Hide list",
-    sv: "⮝ Göm lista",
-    de: "⮝ Liste ausblenden"
+    en: "▲ Hide list",
+    sv: "▲ Göm lista",
+    de: "▲ Liste ausblenden"
   },
   "show list": {
-    en: "⮟ Show list",
-    sv: "⮟ Visa lista",
-    de: "⮟ Liste anzeigen"
+    en: "▼ Show list",
+    sv: "▼ Visa lista",
+    de: "▼ Liste anzeigen"
   },
   "include yourself": {
     en: "Include yourself",
@@ -76,11 +81,11 @@ const translations = {
     sv: "Inkludera folk som inte är på jämförelselistan",
     de: "Personen einschließen, die nicht auf der Vergleichsliste stehen"
   },
-  "maximize letters": {
-    en: "Copy for chat maximizes letters",
-    sv: "Kopiera för chatten maximerar antalet bokstäver",
-    de: "Kopie für Chat maximierte Anzahl von Buchstaben"
-  },
+  // "maximize letters": {
+  //   en: "Copy for chat maximizes letters",
+  //   sv: "Kopiera för chatten maximerar antalet bokstäver",
+  //   de: "Kopie für Chat maximierte Anzahl von Buchstaben"
+  // },
   "close": {
     en: "Close",
     sv: "Stäng",
@@ -107,14 +112,25 @@ const translations = {
     de: "Zufällige Person"
   },
   "show comparison list": {
-    en: "⮜ Show comparison list",
-    sv: "⮜ Visa jämföringslista",
-    de: "⮜ Vergleichsliste anzeigen"
+    en: "◄ Show comparison list",
+    sv: "◄ Visa jämföringslista",
+    de: "◄ Vergleichsliste anzeigen"
   },
   "hide comparison list": {
-    en: "⮞ Hide comparison list",
-    sv: "⮞ Göm jämföringslista",
-    de: "⮞ Vergleichsliste ausblenden"
+    en: "► Hide comparison list",
+    sv: "► Göm jämföringslista",
+    de: "► Vergleichsliste ausblenden"
+  },
+  "show group creation": {
+    en: "◄ Show group creation",
+    sv: "◄ Visa grupp skapande",
+    de: "◄ Gruppenerstellung anzeigen"
+  },
+  // Change name
+  "hide group creation": {
+    en: "► Hide group creation",
+    sv: "► Göm grupp skapande",
+    de: "► Gruppenerstellung ausblenden"
   },
   "Insert comparison list": {
     en: "Insert comparison list",
@@ -162,7 +178,7 @@ const translations = {
     de: "Kopie für den Chat"
   },
   "compare attendees": {
-    en: "Compare attendees",
+    en: "Compare Attendees",
     sv: "Jämför deltagare",
     de: "Teilnehmer vergleichen"
   },
@@ -190,6 +206,36 @@ const translations = {
     en: "Sort compare list by status",
     sv: "Sortera jämföringslistan efter status",
     de: "Sortierliste nach Status sortieren"
+  },
+  "create groups": {
+    en: "Create groups",
+    sv: "Skapa grupper",
+    de: "Gruppen erstellen"
+  },
+  "users per group": { 
+    en: "Users / group",
+    sv: "Användare / grupp",
+    de: "Benutzer / Gruppe"
+  },
+  "number of groups": { 
+    en: "Number of groups",
+    sv: "Antal grupper",
+    de: "Anzahl der Gruppen"
+  },
+  "generate groups": { 
+    en: "Generate groups",
+    sv: "Generera grupper",
+    de: "Gruppen generieren"
+  },
+  "copy groups": { 
+    en: "Copy groups",
+    sv: "Kopiera grupper",
+    de: "Gruppen kopieren"
+  },
+  "copy meets": { 
+    en: "Copy meets",
+    sv: "Kopiera möten",
+    de: "Meeting-Links kopieren"
   }
 }
 
@@ -255,7 +301,7 @@ s.innerText = `
   color: var(--gm-body-text-color);
   cursor: pointer;
   background-color: gainsboro;
-  padding: 0 9px;
+  padding: 0 10px;
   margin: 5px 2px;
   height: 34px
 }
@@ -275,7 +321,7 @@ s.innerText = `
   background-color: #f1f3f4
 }
 
-#attendees-list textarea {
+#attendees-list textarea, #generated-groups {
   width: calc(258px - 15px);
   resize: none;
   border: 3px gainsboro solid;
@@ -367,14 +413,97 @@ s.innerText = `
   top: 48px
 }
 
-#attendees-div, #compare-div {
+#attendees-list > * {
   position: relative;
   width: 258px
 }
 
-#compare-div {
+#compare-div, #create-groups-div {
   padding: 0 20px 5px 20px;
   border-right: 3px dashed gainsboro
+}
+
+#compare-result-list {
+  display: block;
+}
+
+#create-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas: "type-of-group group-number-selector"
+  "make-group-button make-group-button"
+  "generated-groups generated-groups"
+  "copy-generated-groups copy-generated-groups"
+  "copy-generated-meets copy-generated-meets";
+  grid-template-rows: auto auto auto auto;
+}
+
+#type-of-group {
+  grid-area: type-of-group;
+  border-radius: 1.1rem;
+  background-color: #efefef;
+}
+
+#type-of-group > * {
+  text-align: center;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  padding: 0 7px 0 7px;
+}
+
+#create-groups-grid .selected {
+  background-color: #2196F3;
+  color: white;
+}
+
+#group-number-selector {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  grid-area: group-number-selector;
+}
+
+#make-group-button {
+  grid-area: make-group-button;
+  text-align: center;
+  width: fit-content;
+  justify-self: center;
+}
+
+#generated-groups {
+  grid-area: generated-groups;
+  width: auto;
+}
+
+#generated-groups tr th {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+#generated-groups tr td {
+  text-align: center;
+}
+
+#generated-groups tr th a {
+  padding: 0;
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+#copy-generated-groups {
+  grid-area: copy-generated-groups;
+  text-align: center;
+  width: fit-content;
+  justify-self: center;
+}
+
+#copy-generated-meets {
+  grid-area: copy-generated-meets;
+  text-align: center;
+  width: fit-content;
+  justify-self: center;
 }
 
 #attendees-div {
@@ -409,8 +538,7 @@ h1, h2, h3, #attendees-list p {
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23FFFFFF" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 32 32"><path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path><circle cx="12" cy="12" r="3.5"></circle></svg>')
 }
 
-#attendees-list.dark_mode #compare-div {
-  border-color: #dcdcdc63;
+#attendees-list.dark_mode > * {
   border-color: #0000006b;
 }
 
@@ -426,6 +554,18 @@ h1, h2, h3, #attendees-list p {
   border-color: #0000003d;
 }
 
+#attendees-list.dark_mode #type-of-group {
+  background-color: #38393f;
+}
+
+#attendees-list.dark_mode #generated-groups {
+  border: 3px #0000003d solid;
+}
+
+#attendees-list.dark_mode #create-groups-grid .selected {
+  background-color: #ffffff70;
+}
+
 ::placeholder { 
   color: lightgrey;
   opacity: 1; 
@@ -439,11 +579,14 @@ setInterval(() => {
   if ((buttons) && (!buttons.__attendent_ran)) {
     buttons.__attendent_ran = true
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
-
+    
     buttons.prepend(buttons.children[3].cloneNode())
     const toggleButton = document.createElement("div")
     toggleButton.classList = buttons.children[3].classList
     toggleButton.classList.add("__gma-button")
+    if (toggleButton.classList.contains("__gmgv-button")) {
+      toggleButton.classList.remove("__gmgv-button")
+    }
     toggleButton.style.display = "flex"
     toggleButton.onclick = () => {
       let elem = document.getElementById("attendees-list")
@@ -453,10 +596,18 @@ setInterval(() => {
       } else {
         elem.style.display = "flex"
         elem.__pinned = true
+        document.firstElementChild.onclick = (event) => {
+          if (event.target.innerText == "Hide Participant") {
+            let elem = document.getElementById("attendees-list")
+            elem.style.display = null
+            elem.__pinned = false
+            document.firstElementChild.onclick = ""
+          }
+        }
       }
     }
     buttons.prepend(toggleButton)
-
+    
     // Adds a icon to item bar 
     const toggleButtonSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
     toggleButtonSVG.id = "icon"
@@ -465,25 +616,25 @@ setInterval(() => {
     toggleButtonSVG.setAttribute("viewBox", "0 0 24 24")
     toggleButtonSVG.innerHTML = icon
     toggleButton.appendChild(toggleButtonSVG)
-
+    
     // Creates the main div for every element
     const additionalOptions = addElement("div",toggleButton,"attendees-list",null)
     additionalOptions.onclick = e => e.stopPropagation()
-
+    
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
-    additionalOptions.onmouseout = function(){
+    additionalOptions.onmouseout = () => {
       // Change to screencast const variable
       document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
     }
-
-    additionalOptions.onmouseover = function () {
+    
+    additionalOptions.onmouseover = () => {
       if (compare.style.display !== "none") {
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
       }
     }
-
+    
     addElement("h1",seeAttendeesDiv,null,T("attendance"))
-
+    
     const updateListI = addElement("a",seeAttendeesDiv,"update",null)
     updateListI.onclick = getAllAttendees
     
@@ -497,27 +648,27 @@ setInterval(() => {
         e.target.innerText = T("show list")
       }
     }
-
+    
     const settings = addElement("a",seeAttendeesDiv,"settingsButton",null)
     settings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
-
+    
     settingsMenu = addElement("div",seeAttendeesDiv,"settingsMenu",null)
     settingsMenu.style.display = "none"
-
+    
     const settingsHeader = addElement("div",settingsMenu,"settingsHeader",T("settings"))
     
     settingsHeader.style.display = "block"
     settingsHeader.onmousedown = (even) => {
       movableDiv(even, "settingsMenu")
     }
-
+    
     // Calls addSetting function
     addSetting("gma-include-yourself", T("include yourself"))
     addSetting("gma-sort-by-last-name",T("sort by last name"))
     addSetting("gma-add-not-on-list",T("include not on list"))
-    addSetting("gma-more-letters",T("maximize letters"))
+    // addSetting("gma-more-letters",T("maximize letters"))
     addSetting("gma-sort-on-compare",T("sort compare list by status"))
     
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
@@ -537,7 +688,7 @@ setInterval(() => {
     closeSettings.onclick = () => {
       showElement(document.getElementById("settingsMenu"))
     }
-
+    
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
@@ -554,12 +705,12 @@ setInterval(() => {
     peopleList.style.display = "block"
     seeAttendeesDiv.appendChild(peopleList)
     seeAttendeesDiv.appendChild(peopleCounter)
-
+    
     const copyList = addElement("a",seeAttendeesDiv,null,T("copy list"))
     copyList.onclick = () => {
       navigator.clipboard.writeText(localStorage.getItem("gmca-attendees-list").replace(/,/g, "\n"))
     }
-
+    
     const randomPerson = addElement("a",seeAttendeesDiv,null,T("randomize person"))
     randomPerson.onclick = () => {
       let attendees = localStorage.getItem("gmca-attendees-list").split(",")
@@ -567,7 +718,7 @@ setInterval(() => {
         alert(attendees[Math.floor(Math.random() * attendees.length)])
       }, 1)
     }
-
+    
     const showCompareList = addElement("a",seeAttendeesDiv,null,T("show comparison list"))
     showCompareList.onclick = (e) => {
       if (compare.style.display === "none") {
@@ -582,23 +733,38 @@ setInterval(() => {
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
       }
     }
-
+    
+    const showCreateGroups = addElement("a",seeAttendeesDiv,null,T("show group creation"))
+    showCreateGroups.onclick = (e) => {
+      if (createGroups.style.display === "none") {
+        createGroups.style.display = "block"
+        e.target.innerText = T("hide group creation")
+        additionalOptions.style.borderRadius = "8px 0 8px 8px"
+        document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
+      } else {
+        createGroups.style.display = "none"
+        e.target.innerText = T("show group creation")
+        additionalOptions.style.borderRadius = "0 0 8px 8px"
+        document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
+      }
+    }
+    
     const compare = addElement("div",additionalOptions,"compare-div",null)
     compare.style.display = "none"
-
+    
     addElement("h2",compare,null,T("compare attendees"))
-
+    
     const compareList = addElement("textarea",compare,"compare-list",null)
     compareList.rows = 10
     compareList.placeholder = T("Insert comparison list")
     compareList.style.display = "block"
-
+    
     const compareButton = addElement("a",compare,null,T("compare"))
     compareButton.onclick = compareLists
-
+    
     const cleanCompare = addElement("a",compare,"cleanCompareList",T("clean comparison list"))
     cleanCompare.onclick = cleanCompareLists
-
+    
     const classInput = addElement("input",compare,"classInput",null)
     classInput.attributes["type"] = "text"
     classInput.placeholder = T("class")
@@ -606,7 +772,7 @@ setInterval(() => {
     
     const saveButton = addElement("a",compare,"classSave",T("save list"))
     saveButton.onclick = saveClass
-
+    
     const chooseClass = addElement("select",compare,"chooseClass",null)
     
     const defaultClassOption = addElement("option",chooseClass,null,T("load list"))
@@ -621,7 +787,7 @@ setInterval(() => {
         }
       })
     }
-
+    
     if (savedClasses) {
       Object.keys(savedClasses).forEach(className => {
         let chooseClassOptions = document.createElement("option")
@@ -629,7 +795,7 @@ setInterval(() => {
         chooseClass.appendChild(chooseClassOptions)
       })
     }
-
+    
     const removeClass = addElement("a",compare,"removeClass",T("remove class"))
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
@@ -643,44 +809,99 @@ setInterval(() => {
     }
     
     resultHeader = addElement("h3",compare,"resultHeader",T("result:"))
-
+    
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
     compareResultList.rows = 10
     compareResultList.readOnly = true
     compareResultList.value = T("click on compare")
-    compareResultList.style.display = "block"
-
+    
     const copyCompareList = addElement("a",compare,null,T("copy list"))
     copyCompareList.onclick = () => {
       navigator.clipboard.writeText(compare.children[compare.childElementCount-3].value)
     }
-
+    
     const copyCompareListForChat = addElement("a",compare,null,T("copy for chat"))
     copyCompareListForChat.onclick = () => {
       let toCopy = compare.children[compare.childElementCount-3].value
-
+      
       if (toCopy.length > 500) {
-        if (localStorage.getItem("gma-more-letters") === "true") {
-          while (toCopy.length > 500) {
-            toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
-          }
-        } else {
-          toCopy = toCopy.split("\n").map((elem) => {
-            let spacePostion = elem.indexOf(" ", 3)
-            if (spacePostion > 0) {
-              return elem.substring(0, spacePostion+2)
-            } else {
-              return elem
-            }
-          }).join("\n")
+        toCopy = getShortName(toCopy.split("\n"), true).join("\n")
+
+        if (toCopy.length > 500) {
+          toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
+          if (toCopy.length > 500) {
+            toCopy = toCopy.replace(/\./g, "")
+          }  
         }
-  
+
+        // if (localStorage.getItem("gma-more-letters") === "true") {
+        //   while (toCopy.length > 500) {
+        //     toCopy = toCopy.split("\n").map(elem => elem.split(" ").concat("").concat("").slice(0, 3).join(" ").slice(0, -1)).join("\n")
+        //   }
+        // } else {
+        //   toCopy = toCopy.split("\n").map((elem) => {
+        //     let spacePosition = elem.indexOf(" ", 3)
+        //     if (spacePosition > 0) {
+        //       return elem.substring(0, spacePosition+2)
+        //     } else {
+        //       return elem
+        //     }
+        //   }).join("\n")
+        // }
+        
         while (toCopy.length > 500) {
           toCopy = toCopy.split("\n").map(elem => elem.slice(0, -1)).join("\n")
         }
       }
       
       navigator.clipboard.writeText(toCopy)
+    }
+
+    // Group creation
+    const createGroups = addElement("div",additionalOptions,"create-groups-div",null)
+    createGroups.style.display = "none"
+    
+    // Lägg till översättning
+    addElement("h2",createGroups,null,T("create groups"))
+
+    const createGroupsGrid = addElement("div",createGroups,"create-groups-grid",null)
+    
+    // Choose to generate groups by number of people or number of groups
+    const numberOfGroups = addElement("div",createGroupsGrid,"type-of-group",null)
+    const groupsWithPeople = addElement("div",numberOfGroups,"group-members",T("users per group"))
+    groupsWithPeople.onclick = (e) => {
+      document.getElementById("group-number").className = ""
+      e.target.className = "selected"
+    }
+    const groupsWithNumber = addElement("div",numberOfGroups,"group-number",T("number of groups"))
+    groupsWithNumber.className = "selected"
+    groupsWithNumber.onclick = (e) => {
+      document.getElementById("group-members").className = ""
+      e.target.className = "selected"
+    }
+    
+    // Creates the dropdown menu
+    const groupNumberSelector = addElement("select",createGroupsGrid,"group-number-selector",null)
+    for (let i = 1; i < 13; i++) {
+      addElement("option",groupNumberSelector,null,i)
+    }
+
+    const generateGroupsButton = addElement("a",createGroupsGrid,"make-group-button",T("generate groups"))
+    generateGroupsButton.onclick = generateGroups
+    
+    // addElement("textarea",createGroupsGrid,"generated-groups",null)
+    addElement("table",createGroupsGrid,"generated-groups",null)
+
+    if (localStorage.getItem("gma-groups") !== null) {
+      printOutGroups(JSON.parse(localStorage.getItem("gma-groups")))
+    }
+
+    addElement("a",createGroupsGrid,"copy-generated-groups",T("copy groups")).onclick = () => {
+      copyGroups(JSON.parse(localStorage.getItem("gma-groups")))
+    }
+    
+    addElement("a",createGroupsGrid,"copy-generated-meets",T("copy meets")).onclick = () => {
+      copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")))
     }
   }
 }, 250)
@@ -691,12 +912,12 @@ const movableDiv = (even, moveID) => {
   even.preventDefault()
   pos3 = even.clientX
   pos4 = even.clientY
-
+  
   document.onmouseup = () => {
     document.onmouseup = null
     document.onmousemove = null
   }
-
+  
   document.onmousemove = (ev) => {
     ev = ev || window.event
     ev.preventDefault()
@@ -724,7 +945,7 @@ const showElement = (elem) => {
   }
 }
 
-const reverseName = function(name) {
+const reverseName = (name) => {
   let words = name.split(" ").reverse()
   let string = ""
   for(let word in words)
@@ -732,31 +953,31 @@ const reverseName = function(name) {
   return string
 }
 
-// This function compares the attendees to a class list and then outputs who is preset and who is not.
+// This function compares the attendees to a class list and then outputs who is present and who is not.
 // Present people are marked by a green checkmark and not present people is marked by a red cross.
-// People that was found in the meet but not in the class list is marked by an questionmark.   
+// People that was found in the meet but not in the class list is marked by a questionmark.   
 const compareLists = () => {  
   let current = localStorage.getItem("gmca-attendees-list").split(",")
   let listToCompare = document.getElementById("compare-list").value.split("\n")
   let count = 0
-
+  
   let out = []
   if (listToCompare[0] != "") {
     listToCompare.forEach(listItem => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
         count += 1
-
+        
       } else if (current.includes(reverseName(listItem))) {
         out.push("✔️ " + listItem)
         count += 1
-
+        
       } else {
         out.push("❌ " + listItem)
       }
     })
   }
-
+  
   if (current[0] != "" && localStorage.getItem("gma-add-not-on-list") === "true") {
     current.forEach(listItem => {
       if (!listToCompare.includes(listItem)) {
@@ -770,7 +991,7 @@ const compareLists = () => {
   if (out.length > 0) {
     document.getElementById("compare-result-list").value = out.join(String.fromCharCode(13, 10))
   }
-
+  
   let compareListPeoples = document.getElementById("compare-list").value.split("\n").length
   if (compareListPeoples > 1) {
     resultHeader.innerText = T("result:") + " " + count + "/" + compareListPeoples
@@ -826,13 +1047,245 @@ const addSetting = (localStoragePath, name) => {
   parent.prepend(elem)
 }
 
+// const fetchMeet = (callback) => {
+//   fetch("https://meet.google.com/new")
+//     .then(res => res.text())
+//     .then(body => {
+//       callback(body.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1])
+//     })
+//     .catch(err => {throw(err)})
+// }
+
+const httpGet = (responseCallback) => {
+  let xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      responseCallback(xhr.responseText, xhr.status)
+    }
+  }
+  xhr.open('GET', 'https://meet.google.com/new', true)
+  xhr.send()
+}
+
+const generateMeets = (numberOfMeets, responseCallback) => {
+  let meets = []
+  let done = 0
+
+  for (let i = 0; i < numberOfMeets; i++) {
+    httpGet(function (response, statusCode) {
+      if (statusCode === 200) {
+        meets.push("https://g.co/meet/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+        if (++done == numberOfMeets) {
+          responseCallback(meets, true)
+        }
+      } else {
+        responseCallback(null, false)
+      }
+    })
+  }
+}
+
+const getShortName = (names, skipFirstName = false) => {
+  function generateSignature(name, numberOfLetters = 1) {
+    let parts = name.split(' ')
+    if (skipFirstName) {
+      if (parts.length <= 2) return name
+      return parts.shift() + ' ' + parts.shift() + ' ' + parts.map(n => n.substring(0, numberOfLetters)).join('.') + '.'
+    } else {
+      if (parts.length <= 1) return name
+      return parts.shift() + ' ' + parts.map(n => n.substring(0, numberOfLetters)).join('.') + '.'
+    }
+  }
+  
+  let nameSignatures = names.map(name => generateSignature(name))
+  
+  for(let j = 2; j < 20; j++) { // 20 letters is the limit for last names
+    let temp = Array.from(nameSignatures)
+    let done = true
+    for (let i = 0; i < names.length; i++) {
+      if (temp.includes(temp.shift())) {
+        done = false
+        let k = i + 1 + temp.indexOf(nameSignatures[i])
+        nameSignatures[i] = generateSignature(names[i], j)
+        nameSignatures[k] = generateSignature(names[k], j)
+      }
+    }
+    if (done) break
+  }
+  
+  return(nameSignatures)
+}
+
+// From: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+const shuffle = (a) => {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]]
+  }
+  return(a)
+}
+
+const groupGenerator = (number, specifyPeople) => {
+  let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+  attendees = getShortName(attendees)
+  
+  if (specifyPeople){
+    number = Math.floor((attendees.length) / number)
+  }
+  
+  let groups = []
+  for(let i = 0; i < number; i++) {
+    groups.push([])
+  }
+
+  for (let i = 0; i < attendees.length; i++) {
+    groups[i % number].push(attendees[i])
+  }
+
+  localStorage.setItem("gma-groups", JSON.stringify(groups))
+  return(groups)
+}
+
+const generateGroups = () => {
+  let number = document.getElementById("group-number-selector").value
+  let groupsByPeople = document.getElementById("group-members").className
+  let groupsByNumber = document.getElementById("group-number").className
+  let groups
+
+  switch("selected") {
+  case groupsByPeople:
+    groups = groupGenerator(number, true)
+    printOutGroups(groups)
+
+    break
+
+  case groupsByNumber:
+    groups = groupGenerator(number, false)
+    printOutGroups(groups)
+    break
+
+  default:
+    console.log("Group switch failed")
+    break
+  }
+}
+
+const printOutGroups = (groups) => {
+  document.getElementById("generated-groups").innerText = ""
+  var meets
+
+  if (localStorage.getItem("gma-group-meets") != null && JSON.parse(localStorage.getItem("gma-group-meets")).length >= groups.length ) {
+    meets = JSON.parse(localStorage.getItem("gma-group-meets"))
+    printOutGroupsPart2(groups,meets)
+  } else {
+    // meets = generateMultipleMeets(groups.length)
+    generateMeets(groups.length, function (meetsArr, successful) {
+      if (successful) {
+        meets = meetsArr
+        localStorage.setItem("gma-group-meets", JSON.stringify(meets))
+        printOutGroupsPart2(groups,meets)
+      }
+    })
+  }
+}
+
+const printOutGroupsPart2 = (groups, meets) => {
+  let table = document.getElementById("generated-groups")
+
+  for (let i = 0; i < groups.length; i += 3) {
+    let tableRow = addElement("tr",table,null,null)
+    for (let j = i; j < Math.min(i + 3,groups.length); j++) {
+      let tableHeader = addElement("th",tableRow,null,null)
+      let meetLink = addElement("a",tableHeader,null,j+1)
+      meetLink.href = meets[j]
+      meetLink.target = "_blank"
+      meetLink.rel = "noopener noreferrer"
+    }
+
+    for (let k = 0; k < groups[i].length; k++) {
+      let tableRowGroupNames = addElement("tr",table,null,null)
+      for (let l = i; l < Math.min(i + 3,groups.length); l++) {
+        addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        // let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        // createTableDataExtras(tableData)
+      }
+    }
+    addElement("tr",table,null,null)
+  }
+}
+
+// const createTableDataExtras = (tableData) => {
+//   // if (tableData.innerText != "") {
+//   tableData.draggable = true
+
+//   tableData.ondragstart = (ev => {
+//     if (ev.target.innerText != "") {
+//       ev.dataTransfer.setData("text", ev.target.innerText)
+//     }
+//   })
+
+//   // ondragend
+
+//   tableData.style.cursor = "grab"
+//   // }
+  
+//   tableData.ondragover = (ev => ev.preventDefault())
+//   tableData.ondrop = (ev => {
+//     ev.preventDefault()
+
+//     let toSwap = ev.target.innerText
+//     let newName = ev.dataTransfer.getData("text")
+//     for (const elem of document.querySelectorAll("td")) {
+//       if (elem.innerText == newName) {
+//         elem.innerText = toSwap
+//         var oldElement = elem
+//         break
+//       }
+//     }
+
+//     console.log(oldElement)
+
+//     let groups = JSON.parse(localStorage.getItem("gma-groups"))
+
+//     console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
+//     console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
+    
+//     // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
+
+//     // console.log(JSON.parse(localStorage.getItem("gma-groups")))
+
+//     ev.target.innerText = newName
+//     // let elem = document.createElement("td")
+//     // elem.innerText = ev.dataTransfer.getData("text")
+//     // ev.target.parentElement.nextSibling.prepend(elem)
+//     // createTableDataExtras(tableData)
+//   })
+  
+// }
+
+const copyGroups = (groups) => {
+  var stringToCopy = ""
+  for (let i = 0; i < groups.length; i++) {
+    stringToCopy += (i+1) + ": " + groups[i].join(" ") + "\n"
+  }
+  navigator.clipboard.writeText(stringToCopy)
+}
+
+const copyMeets = (meets) => {
+  var stringToCopy = ""
+  for (let i = 0; i < meets.length; i++) {
+    stringToCopy += (i+1) + ": " + meets[i] + "\n"
+  }
+  navigator.clipboard.writeText(stringToCopy)
+}
+
 const getAllAttendees = () => {
   /*  This is the function that should be reworked
-      currently it forces grid view and then take
-      all the names which is really inefficent and
-      stupid but I don't know how to do it in a 
-      better way. :( 
-  */
+  currently it forces grid view and then take
+  all the names which is really inefficent and
+  stupid but I don't know how to do it in a 
+  better way. :(                                  */
+
   //  Removes duplicate students in an Array
   function removeDups(names) {
     let unique = {}
@@ -843,28 +1296,33 @@ const getAllAttendees = () => {
     })
     return Object.keys(unique)
   }
-  // START This section turns on grid view for 2 seconds and grabs all the names. Then it turn itself off.
+  // START This section turns on grid view for 3 seconds and grabs all the names. Then it turns itself off.
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
   let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  let buttonChildren = buttons.children
   
-  let position = 2
-  let checkboxes = buttons.children[2].lastElementChild.children
-  if (checkboxes.length == 2) {
-    position = 0
-    checkboxes = buttons.children[0].lastElementChild.children
+  for (let i = 0; i < buttonChildren.length; i++) {
+    if (buttonChildren[i].classList.contains("__gmgv-button")) {
+      var theButton = buttonChildren[i]
+      break
+    } else if (i == buttonChildren.length - 1) {
+      alert("Grid View NOT detected, make sure you have Google Meet Grid View installed")
+    }
   }
-  let showOnlyVideo = checkboxes[0].firstChild.checked
 
+  let checkboxes = theButton.lastElementChild.children
+  let showOnlyVideo = checkboxes[0].firstChild.checked
+  
   let gridtoggle = false
-  if (buttons.children[position].firstElementChild.innerHTML.substring(30, 31) == "1") {
+  if (theButton.firstElementChild.innerHTML.substring(30, 31) == "1") {
     gridtoggle = true
   }
   
   let waitTime = 0
   let toChange = [false, false]
-
+  
   if (!gridtoggle) {
-    buttons.children[position].click()
+    theButton.click()
     toChange[0] = true
     waitTime += 3000
   }
@@ -874,16 +1332,16 @@ const getAllAttendees = () => {
     waitTime += 1000
   }
   // END
-
+  
   setTimeout(() => {
     let nameSelector = "epqixc"
-
+    
     let people = []
     let divList = document.getElementsByClassName(nameSelector)
     for (let item of divList) {
       people.push(item.innerText)
     }
-
+    
     if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
       people = []
     }
@@ -899,7 +1357,7 @@ const getAllAttendees = () => {
         people.push(yourName)
       }
     }
-
+    
     people = people.map((name) => {
       if (/[0-9a-zA-Z ]{1,} \([0-9a-zA-Z ]{1,}\)$/.test(name)) {
         return name.substring(name.indexOf("(") + 1, name.length - 1)
@@ -907,10 +1365,23 @@ const getAllAttendees = () => {
         return name
       }
     })
-
+    
     let attendees = removeDups(people)
     if (localStorage.getItem("gma-sort-by-last-name") === "true") {
-      attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
+      attendees = attendees.sort((a, b) => {
+        if (a.split(" ").concat("")[1] > b.split(" ").concat("")[1]) {
+          return 1
+        } else if (a.split(" ").concat("")[1] < b.split(" ").concat("")[1]){
+          return -1
+        } else if (a.split(" ")[0] > b.split(" ")[0]) {
+          return 1
+        } else if (a.split(" ")[0] < b.split(" ")[0]) {
+          return -1
+        } else {
+          return 0
+        }
+      })
+      // attendees = attendees.sort((a, b) => a.split(" ").pop()[0] < b.split(" ").pop()[0] ? -1 : 1)
     } else {
       attendees = attendees.sort()
     }
@@ -920,7 +1391,7 @@ const getAllAttendees = () => {
     peopleCounter.innerText = attendees.length + " " + T("persons")
     setTimeout(() => {
       if (toChange[0]) {
-        buttons.children[position].click()
+        theButton.click()
       }
       if (toChange[1]) {
         checkboxes[0].firstChild.click()

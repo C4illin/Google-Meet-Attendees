@@ -1,4 +1,5 @@
 DEL chrome-ext.zip
+copy ..\copy.simple.user.js chrome\js\copy.simple.user.js
 powershell Compress-Archive chrome\. chrome-ext.zip
 EXIT
 

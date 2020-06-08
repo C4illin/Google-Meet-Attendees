@@ -34,8 +34,8 @@ Initial Release
 
 // TODO (ordered by difficulty (easiest first))
 /*
-Sort names correctly
 Add better pop-up for random person
+Fix swap in group generator
 Get attendees in a better way
 */
 
@@ -121,14 +121,13 @@ const translations = {
     sv: "► Göm jämföringslista",
     de: "► Vergleichsliste ausblenden"
   },
-  "show group creation": {
-    en: "◄ Show group creation",
+  "show group generator": {
+    en: "◄ Show group generator",
     sv: "◄ Visa grupp skapande",
     de: "◄ Gruppenerstellung anzeigen"
   },
-  // Change name
-  "hide group creation": {
-    en: "► Hide group creation",
+  "hide group generator": {
+    en: "► Hide group generator",
     sv: "► Göm grupp skapande",
     de: "► Gruppenerstellung ausblenden"
   },
@@ -734,16 +733,16 @@ setInterval(() => {
       }
     }
     
-    const showCreateGroups = addElement("a",seeAttendeesDiv,null,T("show group creation"))
+    const showCreateGroups = addElement("a",seeAttendeesDiv,null,T("show group generator"))
     showCreateGroups.onclick = (e) => {
       if (createGroups.style.display === "none") {
         createGroups.style.display = "block"
-        e.target.innerText = T("hide group creation")
+        e.target.innerText = T("hide group generator")
         additionalOptions.style.borderRadius = "8px 0 8px 8px"
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "0"
       } else {
         createGroups.style.display = "none"
-        e.target.innerText = T("show group creation")
+        e.target.innerText = T("show group generator")
         additionalOptions.style.borderRadius = "0 0 8px 8px"
         document.getElementsByClassName("NzPR9b")[0].style.borderBottomLeftRadius = "8px"
       }
@@ -857,7 +856,7 @@ setInterval(() => {
       navigator.clipboard.writeText(toCopy)
     }
 
-    // Group creation
+    // group generator
     const createGroups = addElement("div",additionalOptions,"create-groups-div",null)
     createGroups.style.display = "none"
     
@@ -967,11 +966,9 @@ const compareLists = () => {
       if (current.includes(listItem)) {
         out.push("✔️ " + listItem)
         count += 1
-        
       } else if (current.includes(reverseName(listItem))) {
         out.push("✔️ " + listItem)
         count += 1
-        
       } else {
         out.push("❌ " + listItem)
       }
