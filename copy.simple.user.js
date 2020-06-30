@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.0
+// @version     0.1.1
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -13,9 +13,10 @@
 /*
 
 0.1.1
-Fixed first time bug that occurred if grid view loaded
+Fixed bug that occurred if grid view loaded after and it was the first time using the extension
 Maybe fixed font size
 Added force english option
+Made group display scrollable
 
 0.1.0
 Added breakout/group rooms
