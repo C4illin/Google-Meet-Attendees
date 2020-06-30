@@ -46,14 +46,18 @@ Get attendees in a better way
 */
 
 const T = (untranslatedMsg) => {
-  let languages = navigator.languages
-  for(let i = 0; i < languages.length; i++){
-    let result = translations[untranslatedMsg][languages[i]]
-    if(result != null){
-      return result
+  if (forceEnglish == true) {
+    return translations[untranslatedMsg]["en"]
+  } else {
+    let languages = navigator.languages
+    for(let i = 0; i < languages.length; i++){
+      let result = translations[untranslatedMsg][languages[i]]
+      if(result != null){
+        return result
+      }
     }
+    return translations[untranslatedMsg]["en"] // English is default
   }
-  return translations[untranslatedMsg]["en"] // English is default
 }
 
 /*
@@ -236,6 +240,10 @@ const translations = {
     en: "Copy meets",
     sv: "Kopiera möten",
     de: "Meeting-Links kopieren"
+  },
+  "force english": {
+    en: "Force english",
+    sv: "Tvinga engelska"
   }
 }
 
@@ -252,6 +260,7 @@ if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class
   savedClasses = JSON.parse("{}")
 }
 let pos1, pos2, pos3, pos4 = 0
+let forceEnglish = localStorage.getItem("gma-force-english") === "true"
 
 const icon = "<path fill=\"currentColor\" d=\"M11.41 3.76c-.8.04-1.6.31-2.27.86-1.5 1.22-1.89 3.52-.59 5.06 1.06 1.24 3.02 1.55 4.3.4.98-.88 1.21-2.5.2-3.52a2.05 2.05 0 00-1.34-.6c-.5-.02-1.05.17-1.42.61-.23.29-.35.64-.33 1.01.01.38.23.82.65 1.01.32.14.52.1.78-.01a.7.7 0 00.39-.37.74.74 0 00-.07-.65l-.84.54a.41.41 0 01-.01-.3c.05-.11.12-.13.13-.14l.04.02c-.07-.03-.07-.04-.07-.14s.05-.27.1-.33a.67.67 0 01.6-.25c.24.02.51.13.69.3.56.57.41 1.55-.18 2.08-.82.74-2.14.53-2.85-.3-.92-1.09-.63-2.76.45-3.64 1.34-1.09 3.37-.73 4.42.6 1.25 1.6.82 3.98-.77 5.2l.61.79a4.73 4.73 0 00.94-6.6 4.31 4.31 0 00-3.56-1.63zm.44 9.55c-1.42 0-3.45.34-5.19 1.04-.87.35-1.67.79-2.28 1.35a2.9 2.9 0 00-1.03 2.11v3.5h17v-3.5a2.9 2.9 0 00-1.04-2.11c-.6-.56-1.4-1-2.27-1.35a15.08 15.08 0 00-5.2-1.04zm0 1c1.25 0 3.22.33 4.81.97.8.32 1.5.72 1.97 1.15.48.44.72.89.72 1.38v2.5h-15v-2.5c0-.5.24-.94.71-1.38a6.57 6.57 0 011.97-1.15c1.6-.64 3.57-.97 4.82-.97zm0 1c-1.43 0-2.92.34-4.11.77-.6.21-1.11.45-1.51.7-.4.25-.74.45-.86.9l-.02.08v1.55h13v-1.57l-.02-.06c-.13-.47-.46-.66-.87-.9-.4-.25-.91-.49-1.5-.7a12.56 12.56 0 00-4.11-.77zm0 1c1.27 0 2.68.31 3.77.7.54.2 1 .42 1.32.62.3.19.42.38.4.3v.38h-11v-.37c0 .07.1-.12.41-.3.32-.2.79-.42 1.33-.62 1.09-.4 2.5-.7 3.77-.7z\"></path>"
 
@@ -682,7 +691,17 @@ setInterval(() => {
     addSetting("gma-add-not-on-list",T("include not on list"))
     // addSetting("gma-more-letters",T("maximize letters"))
     addSetting("gma-sort-on-compare",T("sort compare list by status"))
-    
+
+    let forceEnglishParent = addElement("label", settingsMenu, null, T("force english"))
+    let forceEnglishElem = document.createElement("input")
+    forceEnglishElem.type = "checkbox"
+    forceEnglishElem.checked = localStorage.getItem("gma-force-english") === "true"
+    forceEnglishElem.onchange = e => {
+      localStorage.setItem("gma-force-english", e.target.checked)
+      forceEnglish = e.target.checked
+    }
+    forceEnglishParent.prepend(forceEnglishElem)
+
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
     const darkMode = document.createElement("input")
     darkMode.type = "checkbox"
