@@ -488,8 +488,13 @@ s.innerText = `
   height: 300px;
   overflow-y: scroll;
   display: block;
+  border-collapse: collapse;
 }
-
+/*
+#generated-groups tr > *:not(:first-child) {
+  border-left: gainsboro 1px solid;
+}
+*/
 #generated-groups tr th {
   text-align: center;
   font-size: 1.2rem;
