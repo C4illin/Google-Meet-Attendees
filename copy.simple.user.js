@@ -474,6 +474,9 @@ s.innerText = `
 #generated-groups {
   grid-area: generated-groups;
   width: auto;
+  height: 300px;
+  overflow-y: scroll;
+  display: block;
 }
 
 #generated-groups tr th {
