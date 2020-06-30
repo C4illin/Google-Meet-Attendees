@@ -34,6 +34,8 @@ Initial Release
 
 // TODO (ordered by difficulty (easiest first))
 /*
+Better layout on all screen
+Scroll for groups
 Add better pop-up for random person
 Fix swap in group generator
 Get attendees in a better way
@@ -81,11 +83,6 @@ const translations = {
     sv: "Inkludera folk som inte är på jämförelselistan",
     de: "Personen einschließen, die nicht auf der Vergleichsliste stehen"
   },
-  // "maximize letters": {
-  //   en: "Copy for chat maximizes letters",
-  //   sv: "Kopiera för chatten maximerar antalet bokstäver",
-  //   de: "Kopie für Chat maximierte Anzahl von Buchstaben"
-  // },
   "close": {
     en: "Close",
     sv: "Stäng",
@@ -699,7 +696,6 @@ setInterval(() => {
     } else {
       peopleList.value = T("update list")
       peopleCounter.innerText = "0 " + T("persons")
-      getAllAttendees()
     }
     peopleList.style.display = "block"
     seeAttendeesDiv.appendChild(peopleList)
