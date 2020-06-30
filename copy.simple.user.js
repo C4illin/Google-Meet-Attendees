@@ -12,6 +12,10 @@
 // Changelog
 /*
 
+0.1.1
+Fixed first time bug that occurred if grid view loaded
+Maybe fixed font size
+
 0.1.0
 Added breakout/group rooms
 Notice when grid view isn't installed
@@ -504,6 +508,18 @@ s.innerText = `
 
 #attendees-div {
   padding-left: 20px
+}
+
+#attendees-list h1 {
+  font-size: 1.75rem;
+}
+
+#attendees-list h2 {
+  font-size: 1.3rem;
+}
+
+#attendees-list h3 {
+  font-size: 1rem;
 }
 
 h1, h2, h3, #attendees-list p {
