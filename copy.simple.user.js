@@ -15,6 +15,7 @@
 0.1.1
 Fixed first time bug that occurred if grid view loaded
 Maybe fixed font size
+Added force english option
 
 0.1.0
 Added breakout/group rooms
