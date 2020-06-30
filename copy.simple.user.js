@@ -243,8 +243,8 @@ const translations = {
     de: "Meeting-Links kopieren"
   },
   "force english": {
-    en: "Force english",
-    sv: "Tvinga engelska"
+    en: "Force english (reload required)",
+    sv: "Tvinga engelska (omladdning krävs)"
   }
 }
 
