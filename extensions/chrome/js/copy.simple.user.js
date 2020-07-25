@@ -44,6 +44,8 @@ Better layout on all screen
 Scroll for groups
 Add better pop-up for random person
 Fix swap in group generator
+Use comparison list in group generator
+Save and load groups
 Get attendees in a better way
 */
 
@@ -1265,54 +1267,58 @@ const printOutGroupsPart2 = (groups, meets) => {
   }
 }
 
-// const createTableDataExtras = (tableData) => {
-//   // if (tableData.innerText != "") {
-//   tableData.draggable = true
+const createTableDataExtras = (tableData) => {
+  if (tableData.innerText != "") {
+    tableData.draggable = true
+  }
 
-//   tableData.ondragstart = (ev => {
-//     if (ev.target.innerText != "") {
-//       ev.dataTransfer.setData("text", ev.target.innerText)
-//     }
-//   })
+  tableData.ondragstart = (ev => {
+    if (ev.target.innerText != "") {
+      ev.dataTransfer.setData("text", ev.target.innerText)
+    }
+  })
 
-//   // ondragend
-
-//   tableData.style.cursor = "grab"
-//   // }
+  // ondragend
+  tableData.style.cursor = "grab"
   
-//   tableData.ondragover = (ev => ev.preventDefault())
-//   tableData.ondrop = (ev => {
-//     ev.preventDefault()
+  tableData.ondragover = (ev => ev.preventDefault())
+  tableData.ondrop = (ev => {
+    ev.preventDefault()
 
-//     let toSwap = ev.target.innerText
-//     let newName = ev.dataTransfer.getData("text")
-//     for (const elem of document.querySelectorAll("td")) {
-//       if (elem.innerText == newName) {
-//         elem.innerText = toSwap
-//         var oldElement = elem
-//         break
-//       }
-//     }
+    let toSwap = ev.target.innerText
+    let newName = ev.dataTransfer.getData("text")
+    for (const elem of document.querySelectorAll("td")) {
+      if (elem.innerText == newName) {
+        elem.innerText = toSwap
+        if (toSwap == "") {
+          elem.draggable = false
+        } else {
+          elem.draggable = true
+        }
+        var oldElement = elem
+        break
+      }
+    }
 
-//     console.log(oldElement)
+    console.log(oldElement)
 
-//     let groups = JSON.parse(localStorage.getItem("gma-groups"))
+    let groups = JSON.parse(localStorage.getItem("gma-groups"))
 
-//     console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
-//     console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
+    console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
+    console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
     
-//     // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
+    // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
 
-//     // console.log(JSON.parse(localStorage.getItem("gma-groups")))
+    // console.log(JSON.parse(localStorage.getItem("gma-groups")))
 
-//     ev.target.innerText = newName
-//     // let elem = document.createElement("td")
-//     // elem.innerText = ev.dataTransfer.getData("text")
-//     // ev.target.parentElement.nextSibling.prepend(elem)
-//     // createTableDataExtras(tableData)
-//   })
-  
-// }
+    ev.target.innerText = newName
+    ev.target.draggable = true
+    // let elem = document.createElement("td")
+    // elem.innerText = ev.dataTransfer.getData("text")
+    // ev.target.parentElement.nextSibling.prepend(elem)
+    // createTableDataExtras(tableData)
+  })
+}
 
 const copyGroups = (groups) => {
   var stringToCopy = ""

@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.1
+// @version     0.1.2
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,10 @@
 
 // Changelog
 /*
+
+0.1.2
+Added option to use comparison list in group generator
+Fixed bug if you had an incorrect attendees list
 
 0.1.1
 Fixed bug that occurred if grid view loaded after and it was the first time using the extension
@@ -41,9 +45,9 @@ Initial Release
 // TODO (ordered by difficulty (easiest first))
 /*
 Better layout on all screen
-Scroll for groups
 Add better pop-up for random person
-Fix swap in group generator
+Fix swap in group generator (WIP)
+Save and load groups
 Get attendees in a better way
 */
 
@@ -257,7 +261,13 @@ let peopleCounter = null
 let yourName = null
 let savedClasses = null
 if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class-options") != "[object Object]") {
-  savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
+  try {
+    savedClasses = JSON.parse(localStorage.getItem("gma-class-options"))
+  } catch(e) {
+    console.log(e)
+    savedClasses = JSON.parse("{}")
+    localStorage.removeItem("gma-class-options")
+  }
 } else {
   savedClasses = JSON.parse("{}")
 }
@@ -443,6 +453,7 @@ s.innerText = `
   grid-template-columns: repeat(2,1fr);
   grid-template-areas: "type-of-group group-number-selector"
   "make-group-button make-group-button"
+  "use-comp-list use-comp-list"
   "generated-groups generated-groups"
   "copy-generated-groups copy-generated-groups"
   "copy-generated-meets copy-generated-meets";
@@ -511,18 +522,22 @@ s.innerText = `
   height: 2.3rem;
 }
 
-#copy-generated-groups {
-  grid-area: copy-generated-groups;
+#copy-generated-groups, #copy-generated-meets, #use-comp-list {
   text-align: center;
   width: fit-content;
   justify-self: center;
 }
 
+#copy-generated-groups {
+  grid-area: copy-generated-groups;
+}
+
 #copy-generated-meets {
   grid-area: copy-generated-meets;
-  text-align: center;
-  width: fit-content;
-  justify-self: center;
+}
+
+#use-comp-list {
+  grid-area: use-comp-list;
 }
 
 #attendees-div {
@@ -943,6 +958,15 @@ setInterval(() => {
     addElement("a",createGroupsGrid,"copy-generated-meets",T("copy meets")).onclick = () => {
       copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")), JSON.parse(localStorage.getItem("gma-groups")).length)
     }
+
+    let parent = addElement("label", createGroupsGrid, "use-comp-list", "Use comparison list")
+    let elem = document.createElement("input")
+    elem.type = "checkbox"
+    elem.checked = localStorage.getItem("gma-use-comp-list-group") === "true"
+    elem.onchange = e => {
+      localStorage.setItem("gma-use-comp-list-group", e.target.checked)
+    }
+    parent.prepend(elem)
   }
 }, 250)
 
@@ -1165,7 +1189,11 @@ const shuffle = (a) => {
 }
 
 const groupGenerator = (number, specifyPeople) => {
-  let attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+  if (localStorage.getItem("gma-use-comp-list-group") === "true") {
+    var attendees = shuffle(document.getElementById("compare-list").value.split("\n"))
+  } else {
+    var attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+  }
   attendees = getShortName(attendees)
   
   if (specifyPeople){
@@ -1256,63 +1284,67 @@ const printOutGroupsPart2 = (groups, meets) => {
     for (let k = 0; k < groups[i].length; k++) {
       let tableRowGroupNames = addElement("tr",table,null,null)
       for (let l = i; l < Math.min(i + 3,groups.length); l++) {
-        addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
-        // let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
-        // createTableDataExtras(tableData)
+        // addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        createTableDataExtras(tableData)
       }
     }
     addElement("tr",table,null,null)
   }
 }
 
-// const createTableDataExtras = (tableData) => {
-//   // if (tableData.innerText != "") {
-//   tableData.draggable = true
+const createTableDataExtras = (tableData) => {
+  if (tableData.innerText != "") {
+    tableData.draggable = true
+  }
 
-//   tableData.ondragstart = (ev => {
-//     if (ev.target.innerText != "") {
-//       ev.dataTransfer.setData("text", ev.target.innerText)
-//     }
-//   })
+  tableData.ondragstart = (ev => {
+    // if (ev.target.innerText != "") {
+    ev.dataTransfer.setData("text", ev.target.innerText)
+    // }
+  })
 
-//   // ondragend
-
-//   tableData.style.cursor = "grab"
-//   // }
+  // ondragend
+  tableData.style.cursor = "grab"
   
-//   tableData.ondragover = (ev => ev.preventDefault())
-//   tableData.ondrop = (ev => {
-//     ev.preventDefault()
+  tableData.ondragover = (ev => ev.preventDefault())
+  tableData.ondrop = (ev => {
+    ev.preventDefault()
 
-//     let toSwap = ev.target.innerText
-//     let newName = ev.dataTransfer.getData("text")
-//     for (const elem of document.querySelectorAll("td")) {
-//       if (elem.innerText == newName) {
-//         elem.innerText = toSwap
-//         var oldElement = elem
-//         break
-//       }
-//     }
+    let toSwap = ev.target.innerText
+    let newName = ev.dataTransfer.getData("text")
+    for (const elem of document.querySelectorAll("td")) {
+      if (elem.innerText == newName) {
+        elem.innerText = toSwap
+        if (toSwap == "") {
+          elem.draggable = false
+        } else {
+          elem.draggable = true
+        }
+        var oldElement = elem
+        break
+      }
+    }
 
-//     console.log(oldElement)
+    console.log(oldElement)
 
-//     let groups = JSON.parse(localStorage.getItem("gma-groups"))
+    let groups = JSON.parse(localStorage.getItem("gma-groups"))
 
-//     console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
-//     console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
+    console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
+    console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
     
-//     // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
+    // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
 
-//     // console.log(JSON.parse(localStorage.getItem("gma-groups")))
+    // console.log(JSON.parse(localStorage.getItem("gma-groups")))
 
-//     ev.target.innerText = newName
-//     // let elem = document.createElement("td")
-//     // elem.innerText = ev.dataTransfer.getData("text")
-//     // ev.target.parentElement.nextSibling.prepend(elem)
-//     // createTableDataExtras(tableData)
-//   })
-  
-// }
+    ev.target.innerText = newName
+    ev.target.draggable = true
+    // let elem = document.createElement("td")
+    // elem.innerText = ev.dataTransfer.getData("text")
+    // ev.target.parentElement.nextSibling.prepend(elem)
+    // createTableDataExtras(tableData)
+  })
+}
 
 const copyGroups = (groups) => {
   var stringToCopy = ""
