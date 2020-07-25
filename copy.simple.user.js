@@ -14,6 +14,7 @@
 
 0.1.2
 Added option to use comparison list in group generator
+Added swap in group generator
 Fixed bug if you had an incorrect attendees list
 
 0.1.1
@@ -46,7 +47,6 @@ Initial Release
 /*
 Better layout on all screen
 Add better pop-up for random person
-Fix swap in group generator (WIP)
 Save and load groups
 Get attendees in a better way
 */
@@ -1246,13 +1246,11 @@ const printOutGroups = (groups) => {
     printOutGroupsPart2(groups,meets)
   } else {
     let numberOfMeetsToGen = 0
-    console.log(localStorage.getItem("gma-group-meets"))
     if (localStorage.getItem("gma-group-meets") == null) {
       numberOfMeetsToGen = groups.length
     } else {
       numberOfMeetsToGen = groups.length - JSON.parse(localStorage.getItem("gma-group-meets")).length
     }
-    console.log(numberOfMeetsToGen)
     generateMeets(numberOfMeetsToGen, function (meetsArr, successful) {
       if (successful) {
         if (localStorage.getItem("gma-group-meets") == null) {
@@ -1280,12 +1278,14 @@ const printOutGroupsPart2 = (groups, meets) => {
       meetLink.target = "_blank"
       meetLink.rel = "noopener noreferrer"
     }
-
     for (let k = 0; k < groups[i].length; k++) {
       let tableRowGroupNames = addElement("tr",table,null,null)
       for (let l = i; l < Math.min(i + 3,groups.length); l++) {
-        // addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
-        let tableData = addElement("td",tableRowGroupNames,null,(groups[l] ?? [])[k] ?? "" )
+        let tableData = addElement("td", tableRowGroupNames, null, (groups[l] ?? [])[k] ?? "")
+        tableData.dataset.groupnum = l
+        if (tableData.innerText != "") {
+          tableData.draggable = true
+        }
         createTableDataExtras(tableData)
       }
     }
@@ -1294,23 +1294,14 @@ const printOutGroupsPart2 = (groups, meets) => {
 }
 
 const createTableDataExtras = (tableData) => {
-  if (tableData.innerText != "") {
-    tableData.draggable = true
-  }
-
   tableData.ondragstart = (ev => {
-    // if (ev.target.innerText != "") {
     ev.dataTransfer.setData("text", ev.target.innerText)
-    // }
   })
-
-  // ondragend
   tableData.style.cursor = "grab"
-  
   tableData.ondragover = (ev => ev.preventDefault())
   tableData.ondrop = (ev => {
     ev.preventDefault()
-
+    let groups = localStorage.getItem("gma-groups")
     let toSwap = ev.target.innerText
     let newName = ev.dataTransfer.getData("text")
     for (const elem of document.querySelectorAll("td")) {
@@ -1318,31 +1309,21 @@ const createTableDataExtras = (tableData) => {
         elem.innerText = toSwap
         if (toSwap == "") {
           elem.draggable = false
+          let parsedGroup = JSON.parse(groups)
+          parsedGroup[elem.dataset.groupnum] = parsedGroup[elem.dataset.groupnum].filter(e => e != newName)
+          parsedGroup[ev.target.dataset.groupnum].push(newName)
+          localStorage.setItem("gma-groups", JSON.stringify(parsedGroup))
         } else {
           elem.draggable = true
+          // This one should maybe be reworked to look more like then one above
+          localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace(toSwap, "🎗 PENDING SWAP 🎗").replace(newName,toSwap).replace("🎗 PENDING SWAP 🎗", newName))
         }
         var oldElement = elem
         break
       }
     }
-
-    console.log(oldElement)
-
-    let groups = JSON.parse(localStorage.getItem("gma-groups"))
-
-    console.log(groups[ev.target.cellIndex][ev.target.parentElement.rowIndex - 1])
-    console.log(groups[oldElement.cellIndex][oldElement.parentElement.rowIndex - 1])
-    
-    // localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace('"'+toSwap+'"', newName+"🎗 PENDING SWAP 🎗").replace('"'+newName+'"','"'+toSwap+'"').replace(newName+"🎗 PENDING SWAP 🎗", '"'+newName+'"')) // This is quite ugly and I don't like looking at it
-
-    // console.log(JSON.parse(localStorage.getItem("gma-groups")))
-
     ev.target.innerText = newName
     ev.target.draggable = true
-    // let elem = document.createElement("td")
-    // elem.innerText = ev.dataTransfer.getData("text")
-    // ev.target.parentElement.nextSibling.prepend(elem)
-    // createTableDataExtras(tableData)
   })
 }
 
