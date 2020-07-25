@@ -250,6 +250,10 @@ const translations = {
   "force english": {
     en: "Force english (reload required)",
     sv: "Tvinga engelska (omladdning krävs)"
+  },
+  "use comparison list": {
+    en: "Use comparison list",
+    sv: "Använd jämförelselistan"
   }
 }
 
@@ -959,7 +963,7 @@ setInterval(() => {
       copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")), JSON.parse(localStorage.getItem("gma-groups")).length)
     }
 
-    let parent = addElement("label", createGroupsGrid, "use-comp-list", "Use comparison list")
+    let parent = addElement("label", createGroupsGrid, "use-comp-list", T("use comparison list"))
     let elem = document.createElement("input")
     elem.type = "checkbox"
     elem.checked = localStorage.getItem("gma-use-comp-list-group") === "true"
