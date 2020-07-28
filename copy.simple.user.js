@@ -243,8 +243,8 @@ const translations = {
     de: "Gruppen kopieren"
   },
   "copy meets": { 
-    en: "Copy meets",
-    sv: "Kopiera möten",
+    en: "Copy Meets-links",
+    sv: "Kopiera Meet-länkarna",
     de: "Meeting-Links kopieren"
   },
   "force english": {
@@ -254,6 +254,14 @@ const translations = {
   "use comparison list": {
     en: "Use comparison list",
     sv: "Använd jämförelselistan"
+  },
+  "reset meets":{
+    en: "Reset Meet-links",
+    sv: "Nollställ Meet-länkarna"
+  },
+  "new meet link warning":{
+    en: "Press \"Generate groups\" to use the new Meet links",
+    sv: "Tryck på \"Generera grupper\" för att använda de nya Meet-länkarna"
   }
 }
 
@@ -455,12 +463,14 @@ s.innerText = `
 #create-groups-grid {
   display: grid;
   grid-template-columns: repeat(2,1fr);
-  grid-template-areas: "type-of-group group-number-selector"
+  grid-template-areas: 
+  "type-of-group group-number-selector"
   "make-group-button make-group-button"
   "use-comp-list use-comp-list"
   "generated-groups generated-groups"
   "copy-generated-groups copy-generated-groups"
-  "copy-generated-meets copy-generated-meets";
+  "copy-generated-meets copy-generated-meets"
+  "reset-meets reset-meets";
   grid-template-rows: auto auto auto auto;
 }
 
@@ -526,7 +536,7 @@ s.innerText = `
   height: 2.3rem;
 }
 
-#copy-generated-groups, #copy-generated-meets, #use-comp-list {
+#copy-generated-groups, #copy-generated-meets, #use-comp-list, #reset-meets {
   text-align: center;
   width: fit-content;
   justify-self: center;
@@ -542,6 +552,10 @@ s.innerText = `
 
 #use-comp-list {
   grid-area: use-comp-list;
+}
+
+#reset-meets {
+  grid-area: reset-meets;
 }
 
 #attendees-div {
@@ -947,6 +961,15 @@ setInterval(() => {
 
     const generateGroupsButton = addElement("a",createGroupsGrid,"make-group-button",T("generate groups"))
     generateGroupsButton.onclick = generateGroups
+
+    let parent = addElement("label", createGroupsGrid, "use-comp-list", T("use comparison list"))
+    let elem = document.createElement("input")
+    elem.type = "checkbox"
+    elem.checked = localStorage.getItem("gma-use-comp-list-group") === "true"
+    elem.onchange = e => {
+      localStorage.setItem("gma-use-comp-list-group", e.target.checked)
+    }
+    parent.prepend(elem)
     
     // addElement("textarea",createGroupsGrid,"generated-groups",null)
     addElement("table",createGroupsGrid,"generated-groups",null)
@@ -963,14 +986,10 @@ setInterval(() => {
       copyMeets(JSON.parse(localStorage.getItem("gma-group-meets")), JSON.parse(localStorage.getItem("gma-groups")).length)
     }
 
-    let parent = addElement("label", createGroupsGrid, "use-comp-list", T("use comparison list"))
-    let elem = document.createElement("input")
-    elem.type = "checkbox"
-    elem.checked = localStorage.getItem("gma-use-comp-list-group") === "true"
-    elem.onchange = e => {
-      localStorage.setItem("gma-use-comp-list-group", e.target.checked)
+    addElement("a",createGroupsGrid,"reset-meets",T("reset meets")).onclick = () => {
+      localStorage.removeItem("gma-group-meets")
+      alert(T("new meet link warning"))
     }
-    parent.prepend(elem)
   }
 }, 250)
 
