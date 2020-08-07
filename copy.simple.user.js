@@ -13,6 +13,7 @@
 /*
 
 0.1.4
+Fixed layout on 720p monitors
 Fixed not on list bug
 
 0.1.3
@@ -367,6 +368,16 @@ s.innerText = `
   border-radius: 6px
 }
 
+#attendees-list textarea {
+  height: 20vh;
+  max-height: 300px;
+}
+
+#attendees-div textarea {
+  height: 35vh;
+  max-height: 525px;
+}
+
 #classSave, #cleanCompareList {
   float: right;
 }
@@ -449,7 +460,8 @@ s.innerText = `
   right: -232px;
   border-radius: 0 0 8px 8px;
   z-index: 7;
-  top: 48px
+  top: 48px;
+  max-height: 80vh;
 }
 
 #attendees-list > * {
@@ -517,7 +529,8 @@ s.innerText = `
 #generated-groups {
   grid-area: generated-groups;
   width: auto;
-  height: 300px;
+  height: 35vh;
+  max-height: 400px;
   overflow-y: scroll;
   display: block;
   border-collapse: collapse;
@@ -772,7 +785,7 @@ setInterval(() => {
     peopleCounter = document.createElement("p")
     peopleList = document.createElement("textarea")
     peopleList.readOnly = true
-    peopleList.rows = 20
+    // peopleList.rows = 20
     let attendees = localStorage.getItem("gmca-attendees-list")
     if (attendees) {
       peopleList.value = attendees.replace(/,/g, String.fromCharCode(13, 10))
@@ -834,7 +847,7 @@ setInterval(() => {
     addElement("h2",compare,null,T("compare attendees"))
     
     const compareList = addElement("textarea",compare,"compare-list",null)
-    compareList.rows = 10
+    // compareList.rows = 10
     compareList.placeholder = T("Insert comparison list")
     compareList.style.display = "block"
     
@@ -890,7 +903,7 @@ setInterval(() => {
     resultHeader = addElement("h3",compare,"resultHeader",T("result:"))
     
     const compareResultList = addElement("textarea",compare,"compare-result-list",null)
-    compareResultList.rows = 10
+    // compareResultList.rows = 10
     compareResultList.readOnly = true
     compareResultList.value = T("click on compare")
     
