@@ -1047,7 +1047,8 @@ const reverseName = (name) => {
 // Present people are marked by a green checkmark and not present people is marked by a red cross.
 // People that was found in the meet but not in the class list is marked by a questionmark.   
 const compareLists = () => {  
-  let current = localStorage.getItem("gmca-attendees-list").split(",").map(function(x){ return x.toLowerCase() })
+  let current = localStorage.getItem("gmca-attendees-list").split(",")
+  let currentLowerCase = current.map((x) => x.toLowerCase())
   let listToCompare = document.getElementById("compare-list").value.split("\n")
   let count = 0
 
@@ -1055,10 +1056,10 @@ const compareLists = () => {
   if (listToCompare[0] != "") {
     listToCompare.forEach(listItem => {
       let lowercaseName = listItem.toLowerCase()
-      if (current.includes(lowercaseName)) {
+      if (currentLowerCase.includes(lowercaseName)) {
         out.push("✔️ " + listItem)
         count += 1
-      } else if (current.includes(reverseName(lowercaseName))) {
+      } else if (currentLowerCase.includes(reverseName(lowercaseName))) {
         out.push("✔️ " + listItem)
         count += 1
       } else {
