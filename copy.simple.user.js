@@ -1363,7 +1363,7 @@ const createTableDataExtras = (tableData) => {
           // This one should maybe be reworked to look more like then one above
           localStorage.setItem("gma-groups", localStorage.getItem("gma-groups").replace(toSwap, "🎗 PENDING SWAP 🎗").replace(newName,toSwap).replace("🎗 PENDING SWAP 🎗", newName))
         }
-        var oldElement = elem
+        // var oldElement = elem
         break
       }
     }
