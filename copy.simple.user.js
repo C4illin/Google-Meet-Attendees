@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.4
+// @version     0.1.5
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.1.5
+Fixed compatibility with "Meet Attendance"
 
 0.1.4
 Fixed layout on 720p monitors
@@ -309,34 +312,34 @@ s.innerText = `
   overflow: visible
 }
 
-.__gma-button:hover>#attendees-list {
+.__gma-button:hover>#attendees-list-gma {
   display: flex
 }
 
-#attendees-list label {
+#attendees-list-gma label {
   display: block;
   line-height: 24px;
   color: #999
 }
 
-#attendees-list label:not(.disabled) {
+#attendees-list-gma label:not(.disabled) {
   cursor: pointer;
   color: #000
 }
 
-#attendees-list label small {
+#attendees-list-gma label small {
   display: block;
   line-height: 12px;
   font-weight: 400
 }
 
-#attendees-list hr {
+#attendees-list-gma hr {
   border: 0;
   height: 1px;
   background: #f1f3f4
 }
 
-#attendees-list a {
+#attendees-list-gma a {
   box-shadow: -3px -3px 3px 0 rgba(255, 255, 255, 0.384), 3px 3px 3px 0 rgba(0, 0, 0, .09);
   display: inline-block;
   border-radius: 2rem;
@@ -348,7 +351,7 @@ s.innerText = `
   height: 34px
 }
 
-#attendees-list #update {
+#attendees-list-gma #update {
   display: inline-block;
   width: 34px;
   height: 34px;
@@ -359,18 +362,18 @@ s.innerText = `
   background-color: gainsboro
 }
 
-#attendees-list #update:hover, #attendees-list #show-list:hover, #attendees-list a:hover {
+#attendees-list-gma #update:hover, #attendees-list-gma #show-list:hover, #attendees-list-gma a:hover {
   background-color: #f1f3f4
 }
 
-#attendees-list textarea, #generated-groups {
+#attendees-list-gma textarea, #generated-groups {
   width: calc(258px - 15px);
   resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
 }
 
-#attendees-list textarea {
+#attendees-list-gma textarea {
   height: 20vh;
   max-height: 300px;
 }
@@ -398,7 +401,7 @@ s.innerText = `
   margin: 10px 0;
 }
 
-#attendees-list #show-list {
+#attendees-list-gma #show-list {
   display: inline-flex;
   border-radius: 0 2rem 2rem 0;
   height: 34px;
@@ -408,7 +411,7 @@ s.innerText = `
   line-height: 34px
 }
 
-#attendees-list #settingsButton {
+#attendees-list-gma #settingsButton {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 32 32"><path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path><circle cx="12" cy="12" r="3.5"></circle></svg>');
   display: inline-block;
   position: absolute;
@@ -426,7 +429,7 @@ s.innerText = `
   align-items: center
 }
 
-#attendees-list #settingsMenu {
+#attendees-list-gma #settingsMenu {
   position: absolute;
   text-align: center;
   top: 100px;
@@ -437,19 +440,19 @@ s.innerText = `
   border-radius: 8px;
 }
 
-#attendees-list #settingsMenu label {
+#attendees-list-gma #settingsMenu label {
   text-align: left;
   margin: 2px 4px 0 4px;
 }
 
-#attendees-list #settingsHeader {
+#attendees-list-gma #settingsHeader {
   padding: 5px;
   cursor: move;
   background-color: #2196F3;
   color: white
 }
 
-#attendees-list {
+#attendees-list-gma {
   box-sizing: border-box;
   display: none;
   padding: 15px 20px 20px 0;
@@ -466,7 +469,7 @@ s.innerText = `
   max-height: 80vh;
 }
 
-#attendees-list > * {
+#attendees-list-gma > * {
   position: relative;
   width: 258px
 }
@@ -583,71 +586,71 @@ s.innerText = `
   padding-left: 20px
 }
 
-#attendees-list h1 {
+#attendees-list-gma h1 {
   font-size: 1.75rem;
 }
 
-#attendees-list h2 {
+#attendees-list-gma h2 {
   font-size: 1.3rem;
 }
 
-#attendees-list h3 {
+#attendees-list-gma h3 {
   font-size: 1rem;
 }
 
-h1, h2, h3, #attendees-list p {
+h1, h2, h3, #attendees-list-gma p {
   margin: 0
 }
 .rKOYsc {
   z-index: 0 !important;
 }
 
-#attendees-list.dark_mode, #attendees-list.dark_mode #settingsMenu, #attendees-list.dark_mode #settingsMenu label {
+#attendees-list-gma.dark_mode, #attendees-list-gma.dark_mode #settingsMenu, #attendees-list-gma.dark_mode #settingsMenu label {
   background-color: #181e23;
   color: white;
 }
 
-#attendees-list.dark_mode #settingsMenu {
+#attendees-list-gma.dark_mode #settingsMenu {
   border-color: #2196f324;
 }
 
-#attendees-list.dark_mode #settingsHeader {
+#attendees-list-gma.dark_mode #settingsHeader {
   background-color: #2196f324;
 }
 
-#attendees-list.dark_mode #update {
+#attendees-list-gma.dark_mode #update {
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23FFFFFF" xmlns="http://www.w3.org/2000/svg" viewBox="-244 -244 956 956"><path d="M67 288H0v160l47-44a256 256 0 0 0 209 108c131 0 238-98 254-224h-65a192 192 0 0 1-350 73l79-73zM256 0C125 0 18 98 2 224h65a192 192 0 0 1 353-68l-68 68h160V64l-46 46A256 256 0 0 0 256 0zm0 0"/></svg>');
 }
 
-#attendees-list.dark_mode #settingsButton {
+#attendees-list-gma.dark_mode #settingsButton {
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23FFFFFF" xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 32 32"><path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path><circle cx="12" cy="12" r="3.5"></circle></svg>')
 }
 
-#attendees-list.dark_mode > * {
+#attendees-list-gma.dark_mode > * {
   border-color: #0000006b;
 }
 
-#attendees-list.dark_mode a, #attendees-list.dark_mode #update, #attendees-list.dark_mode #show-list {
+#attendees-list-gma.dark_mode a, #attendees-list-gma.dark_mode #update, #attendees-list-gma.dark_mode #show-list {
   background-color: #38393f;
   color: white;
   box-shadow: none;
 }
 
-#attendees-list.dark_mode textarea, #attendees-list.dark_mode input, #attendees-list.dark_mode select, #attendees-list.dark_mode select option {
+#attendees-list-gma.dark_mode textarea, #attendees-list-gma.dark_mode input, #attendees-list-gma.dark_mode select, #attendees-list-gma.dark_mode select option {
   color: white;
   background-color: #181e23;
   border-color: #0000003d;
 }
 
-#attendees-list.dark_mode #type-of-group {
+#attendees-list-gma.dark_mode #type-of-group {
   background-color: #38393f;
 }
 
-#attendees-list.dark_mode #generated-groups {
+#attendees-list-gma.dark_mode #generated-groups {
   border: 3px #0000003d solid;
 }
 
-#attendees-list.dark_mode #create-groups-grid .selected {
+#attendees-list-gma.dark_mode #create-groups-grid .selected {
   background-color: #ffffff70;
 }
 
@@ -674,7 +677,7 @@ setInterval(() => {
     }
     toggleButton.style.display = "flex"
     toggleButton.onclick = () => {
-      let elem = document.getElementById("attendees-list")
+      let elem = document.getElementById("attendees-list-gma")
       if (elem.__pinned) {
         elem.style.display = null
         elem.__pinned = false
@@ -683,7 +686,7 @@ setInterval(() => {
         elem.__pinned = true
         document.firstElementChild.onclick = (event) => {
           if (event.target.innerText == "Hide Participant") {
-            let elem = document.getElementById("attendees-list")
+            let elem = document.getElementById("attendees-list-gma")
             elem.style.display = null
             elem.__pinned = false
             document.firstElementChild.onclick = ""
@@ -703,7 +706,7 @@ setInterval(() => {
     toggleButton.appendChild(toggleButtonSVG)
     
     // Creates the main div for every element
-    const additionalOptions = addElement("div",toggleButton,"attendees-list",null)
+    const additionalOptions = addElement("div",toggleButton,"attendees-list-gma",null)
     additionalOptions.onclick = e => e.stopPropagation()
     
     const seeAttendeesDiv = addElement("div",additionalOptions,"attendees-div",null)
