@@ -58,9 +58,10 @@ Initial Release
 
 // TODO (ordered by difficulty (easiest first))
 /*
+Make sure it work when people have (,) in the name
+Disable link shortener and have alternative for lookup links (g-suite only)
 Show last name in group generator
 Better layout on all screen
-Choose nicknames for groups and use lookup instead
 Add better pop-up for random person
 Save and load groups
 Get attendees in a better way
