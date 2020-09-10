@@ -371,7 +371,7 @@ s.innerText = `
 }
 
 #attendees-list-gma textarea, #generated-groups {
-  width: calc(258px - 15px);
+  width: calc(258px - 15px); /* this seems to break the layout?*/ 
   resize: none;
   border: 3px gainsboro solid;
   border-radius: 6px
