@@ -668,8 +668,7 @@ document.body.append(s)
 setInterval(() => {
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
   let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement.parentElement
-  if ((buttons) && (!buttons.__attendent_ran)) {
-    buttons.__attendent_ran = true
+  if ((buttons) && (document.getElementsByClassName("__gma-button").length == 0)) {
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
     
     buttons.prepend(buttons.children[3].cloneNode())
