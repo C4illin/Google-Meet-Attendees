@@ -670,7 +670,7 @@ document.body.append(s)
 
 setInterval(() => {
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
-  let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement.parentElement
+  let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
   if ((buttons) && (document.getElementsByClassName("__gma-button").length == 0)) {
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
     
