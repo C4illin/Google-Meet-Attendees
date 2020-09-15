@@ -15,6 +15,7 @@
 0.1.9
 Added setting for link shortener
 Fixed to make sure it work when people have (,) in the name
+Fixed save list funciton
 
 0.1.8
 Reversed some 0.1.7 changes
@@ -1135,10 +1136,21 @@ const saveClass = () => {
   let className = document.getElementById("classInput").value
   let chooseClassOptions = document.createElement("option")
   chooseClassOptions.innerText = className
-  document.getElementById("chooseClass").appendChild(chooseClassOptions)
+  let newList = savedClasses[className] == null
+  if (newList) {
+    document.getElementById("chooseClass").appendChild(chooseClassOptions)
+  }
   savedClasses[className] = document.getElementById("compare-list").value.split("\n")
   localStorage.setItem("gma-class-options", JSON.stringify(savedClasses))
-  document.getElementById("chooseClass").lastChild.selected = true
+  if (newList) {
+    document.getElementById("chooseClass").lastChild.selected = true
+  } else {
+    for (const elem of document.getElementById("chooseClass").children) {
+      if (elem.text == className) {
+        elem.selected = true
+      }
+    }
+  }
 }
 
 // Removes a class that you selected in localStorage
