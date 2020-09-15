@@ -20,7 +20,7 @@ Fixed to make sure it work when people have (,) in the name
 Reversed some 0.1.7 changes
 
 0.1.7
-Fixed the 0.1.6 to make it work consistently
+Fixed 0.1.6 to make it work consistently
 
 0.1.6
 Quick fix for Google meet change
@@ -42,7 +42,7 @@ Fixed bug if you had an incorrect attendees list
 
 0.1.1
 Fixed bug that occurred if grid view loaded after and it was the first time using the extension
-Maybe fixed font size
+Fixed font size
 Added force english option
 Made group display scrollable
 
@@ -64,10 +64,8 @@ Fixed Chrome extension localisation
 
 0.0.1
 Initial Release
-*/
 
 // TODO (ordered by difficulty (easiest first))
-/*
 Have alternative for lookup links (g-suite only)
 Show last name in group generator
 Better layout on all screen
@@ -91,11 +89,9 @@ const T = (untranslatedMsg) => {
   }
 }
 
-/*
-Translation guidelines:
+/* Translation guidelines:
 Try to keep the translation short (preferebly not much longer then the english translation).
-Make sure to use correct case if applicable
-*/
+Make sure to use correct case if applicable */
 const translations = {
   "hide list": {
     en: "▲ Hide list",
