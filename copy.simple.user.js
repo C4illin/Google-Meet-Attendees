@@ -188,9 +188,9 @@ const translations = {
     sv: "Ladda lista",
     de: "Liste laden"
   },
-  "remove class": {
-    en: "Remove class",
-    sv: "Ta bort klass",
+  "remove list": {
+    en: "Remove list",
+    sv: "Ta bort lista",
     de: "Gruppe entfernen"
   },
   "result:": {
@@ -911,7 +911,7 @@ setInterval(() => {
       })
     }
     
-    const removeClass = addElement("a",compare,"removeClass",T("remove class"))
+    const removeClass = addElement("a",compare,"removeClass",T("remove list"))
     removeClass.onclick = () => {
       let classElement = document.getElementById("chooseClass")
       let className = classElement.selectedOptions[0].value
@@ -1260,10 +1260,11 @@ const shuffle = (a) => {
 }
 
 const groupGenerator = (number, specifyPeople) => {
+  let attendees
   if (localStorage.getItem("gma-use-comp-list-group") === "true") {
-    var attendees = shuffle(document.getElementById("compare-list").value.split("\n"))
+    attendees = shuffle(document.getElementById("compare-list").value.split("\n"))
   } else {
-    var attendees = shuffle(JSON.parse(localStorage.getItem("gmca-attendees-list")))
+    attendees = shuffle(JSON.parse(localStorage.getItem("gmca-attendees-list")))
   }
   attendees = getShortName(attendees)
   
