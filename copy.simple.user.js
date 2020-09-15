@@ -68,7 +68,7 @@ Initial Release
 // TODO (ordered by difficulty (easiest first))
 /*
 Make sure it work when people have (,) in the name
-Disable link shortener and have alternative for lookup links (g-suite only)
+Have alternative for lookup links (g-suite only)
 Show last name in group generator
 Better layout on all screen
 Add better pop-up for random person
