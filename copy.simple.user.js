@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.8
+// @version     0.1.9
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.1.9
+Added setting for link shortener
 
 0.1.8
 Reversed some 0.1.7 changes
@@ -284,6 +287,10 @@ const translations = {
   "new meet link warning":{
     en: "Press \"Generate groups\" to use the new Meet links",
     sv: "Tryck på \"Generera grupper\" för att använda de nya Meet-länkarna"
+  },
+  "don't shorten link":{
+    en: "Don't shorten link",
+    sv: "Förkorta inte länken"
   }
 }
 
@@ -767,6 +774,7 @@ setInterval(() => {
     addSetting("gma-add-not-on-list",T("include not on list"))
     // addSetting("gma-more-letters",T("maximize letters"))
     addSetting("gma-sort-on-compare",T("sort compare list by status"))
+    addSetting("gma-shorten-link",T("don't shorten link"))
 
     let forceEnglishParent = addElement("label", settingsMenu, null, T("force english"))
     let forceEnglishElem = document.createElement("input")
@@ -1190,11 +1198,16 @@ const httpGet = (responseCallback) => {
 const generateMeets = (numberOfMeets, responseCallback) => {
   let meets = []
   let done = 0
+  let noLinkShortener = localStorage.getItem("gma-shorten-link") === "true"
 
   for (let i = 0; i < numberOfMeets; i++) {
     httpGet(function (response, statusCode) {
       if (statusCode === 200) {
-        meets.push("https://g.co/meet/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+        if(noLinkShortener) {
+          meets.push("https://meet.google.com/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+        } else {
+          meets.push("https://g.co/meet/" + (response.match(/"https:\/\/meet.google.com\/([a-z]*-[a-z]*-[a-z]*)"/)[1]))
+        }
         if (++done == numberOfMeets) {
           responseCallback(meets, true)
         }
