@@ -1086,7 +1086,7 @@ const reverseName = (name) => {
 // Present people are marked by a green checkmark and not present people is marked by a red cross.
 // People that was found in the meet but not in the class list is marked by a questionmark.   
 const compareLists = () => {  
-  let current = localStorage.getItem("gmca-attendees-list").split(",")
+  let current = JSON.parse(localStorage.getItem("gmca-attendees-list"))
   let currentLowerCase = current.map((x) => x.toLowerCase())
   let listToCompare = document.getElementById("compare-list").value.split("\n")
   let count = 0
@@ -1263,7 +1263,7 @@ const groupGenerator = (number, specifyPeople) => {
   if (localStorage.getItem("gma-use-comp-list-group") === "true") {
     var attendees = shuffle(document.getElementById("compare-list").value.split("\n"))
   } else {
-    var attendees = shuffle(localStorage.getItem("gmca-attendees-list").split(","))
+    var attendees = shuffle(JSON.parse(localStorage.getItem("gmca-attendees-list")))
   }
   attendees = getShortName(attendees)
   
