@@ -74,6 +74,7 @@ Initial Release
 Have alternative for lookup links (g-suite only)
 Show last name in group generator
 Better layout on all screen
+Use chrome sync storage instead of localstorage.
 Add better pop-up for random person
 Save and load groups
 Get attendees in a better way
