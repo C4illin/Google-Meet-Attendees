@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.10
+// @version     0.1.11
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.1.11
+Fixed include yourself
 
 0.1.10
 Added donate button
@@ -1502,7 +1505,7 @@ const getAllAttendees = () => {
       if (yourName == null) {
         document.querySelectorAll("#yDmH0d > script").forEach( (elements) => { //Locked id may break later
           let text = elements.innerText
-          if (text.includes('ds:7')) {
+          if (text.includes('ds:8')) {
             people.push(text.split(",")[9].slice(1,-1))
           }
         })
@@ -1539,6 +1542,7 @@ const getAllAttendees = () => {
       attendees = attendees.sort()
     }
     
+    console.log(attendees)
     localStorage.setItem("gmca-attendees-list", JSON.stringify(attendees))
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
     peopleCounter.innerText = attendees.length + " " + T("persons")
