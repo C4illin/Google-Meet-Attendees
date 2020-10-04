@@ -312,7 +312,7 @@ try {
   localStorage.setItem("test", "hello")
   localStorage.removeItem("test")
 } catch(e) {
-  alert("LocalStorage is required for the extension to function correctly")
+  alert("localStorage is required for the extension to function correctly")
 }
 
 // Declare all global variables
