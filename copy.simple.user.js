@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.11
+// @version     0.1.12
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,10 @@
 
 // Changelog
 /*
+
+0.1.12
+Added support for Google's Grid View
+Fixed typo in 0.1.11
 
 0.1.11
 Fixed include yourself
@@ -296,6 +300,10 @@ const translations = {
   "shorten link":{
     en: "Shorten links (g.co)",
     sv: "Förkorta länkar (g.co)"
+  },
+  "use built in grid view":{
+    en: "Use Google's Grid View",
+    sv: "Använd Googles Grid View"
   }
 }
 
@@ -784,6 +792,7 @@ setInterval(() => {
     // addSetting("gma-more-letters",T("maximize letters"))
     addSetting("gma-sort-on-compare",T("sort compare list by status"))
     addSetting("gma-shorten-link",T("shorten link"))
+    addSetting("gma-original-grid-view",T("use built in grid view"))
 
     let forceEnglishParent = addElement("label", settingsMenu, null, T("force english"))
     let forceEnglishElem = document.createElement("input")
@@ -1456,36 +1465,39 @@ const getAllAttendees = () => {
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
   let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
   let buttonChildren = buttons.children
-  
-  for (let i = 0; i < buttonChildren.length; i++) {
-    if (buttonChildren[i].classList.contains("__gmgv-button")) {
-      var theButton = buttonChildren[i]
-      break
-    } else if (i == buttonChildren.length - 1) {
-      alert("Grid View NOT detected, make sure you have Google Meet Grid View installed")
-    }
-  }
 
-  let checkboxes = theButton.lastElementChild.children
-  let showOnlyVideo = checkboxes[0].firstChild.checked
-  
-  let gridtoggle = false
-  if (theButton.firstElementChild.innerHTML.substring(30, 31) == "1") {
-    gridtoggle = true
-  }
-  
   let waitTime = 0
   let toChange = [false, false]
+  let checkboxes
+
+  if (localStorage.getItem("gma-original-grid-view") !== "true") {
+    for (let i = 0; i < buttonChildren.length; i++) {
+      if (buttonChildren[i].classList.contains("__gmgv-button")) {
+        var theButton = buttonChildren[i]
+        break
+      } else if (i == buttonChildren.length - 1) {
+        alert("Grid View NOT detected, make sure you have Google Meet Grid View installed")
+      }
+    }
+
+    checkboxes = theButton.lastElementChild.children
+    let showOnlyVideo = checkboxes[0].firstChild.checked
   
-  if (!gridtoggle) {
-    theButton.click()
-    toChange[0] = true
-    waitTime += 3000
-  }
-  if (showOnlyVideo) {
-    checkboxes[0].firstChild.click()
-    toChange[1] = true
-    waitTime += 1000
+    let gridtoggle = false
+    if (theButton.firstElementChild.innerHTML.substring(30, 31) == "1") {
+      gridtoggle = true
+    }
+
+    if (!gridtoggle) {
+      theButton.click()
+      toChange[0] = true
+      waitTime += 3000
+    }
+    if (showOnlyVideo) {
+      checkboxes[0].firstChild.click()
+      toChange[1] = true
+      waitTime += 1000
+    }
   }
   // END
   
@@ -1541,18 +1553,19 @@ const getAllAttendees = () => {
     } else {
       attendees = attendees.sort()
     }
-    
-    console.log(attendees)
+
     localStorage.setItem("gmca-attendees-list", JSON.stringify(attendees))
     peopleList.value = attendees.join(String.fromCharCode(13, 10))
     peopleCounter.innerText = attendees.length + " " + T("persons")
-    setTimeout(() => {
-      if (toChange[0]) {
-        theButton.click()
-      }
-      if (toChange[1]) {
-        checkboxes[0].firstChild.click()
-      }
-    }, 1000)
+    if (localStorage.getItem("gma-original-grid-view") !== "true") {
+      setTimeout(() => {
+        if (toChange[0]) {
+          theButton.click()
+        }
+        if (toChange[1]) {
+          checkboxes[0].firstChild.click()
+        }
+      }, 1000)
+    }
   }, waitTime)
 }
