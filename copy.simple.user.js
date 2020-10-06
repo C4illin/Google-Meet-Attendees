@@ -14,6 +14,7 @@
 
 0.1.12
 Added support for Google's Grid View
+Fixed clean comparison list
 Fixed typo in 0.1.11
 
 0.1.11
@@ -1088,7 +1089,7 @@ const movableDiv = (even, moveID) => {
 // Removes double spaces, dots, numbers, numbers followed by a letter, empty new row and new row with space.
 // This is used to clean input textarea from unnecessary signs.
 const cleanCompareLists = () => {
-  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}|, /g, " ").replace(/\.|[0-9][a-zA-Z]|[0-9]|\n$| $|^ |\t/g, "").replace(/\n{2,}|\n | \n/g, "\n")
+  document.getElementById("compare-list").value = document.getElementById("compare-list").value.replace(/ {2,}|, /g, " ").replace(/\. {0,}|[0-9][a-zA-Z]|[0-9]|\n$| $|^ |\t/g, "").replace(/\n{2,}|\n | \n/g, "\n")
 }
 
 // Takes an element for input and displays it if its not ready displayed.
@@ -1484,7 +1485,9 @@ const getAllAttendees = () => {
         var theButton = buttonChildren[i]
         break
       } else if (i == buttonChildren.length - 1) {
-        alert("Grid View NOT detected, make sure you have Google Meet Grid View installed")
+        alert("Grid View NOT detected, make sure you have Google Meet Grid View installed if you want to use that function. It will now use the built-in grid view from now on (change this anytime in settings")
+        localStorage.setItem("gma-original-grid-view", true)
+        document.querySelector("#settingsMenu > label:nth-child(7) > input[type=checkbox]").checked = true
       }
     }
 
