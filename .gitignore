@@ -5,3 +5,4 @@ chrome-ext.pem
 .vscode
 extensions/chrome-ext.zip
 extensions/chrome/js/copy.simple.user.js
+.DS_Store
