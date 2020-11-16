@@ -110,201 +110,242 @@ const translations = {
   "hide list": {
     en: "▲ Hide list",
     sv: "▲ Göm lista",
-    de: "▲ Liste ausblenden"
+    de: "▲ Liste ausblenden",
+    it: ""
   },
   "show list": {
     en: "▼ Show list",
     sv: "▼ Visa lista",
-    de: "▼ Liste anzeigen"
+    de: "▼ Liste anzeigen",
+    it: ""
   },
   "include yourself": {
     en: "Include yourself",
     sv: "Inkludera dig själv",
-    de: "Schließen Sie sich ein"
+    de: "Schließen Sie sich ein",
+    it: ""
   },
   "sort by last name": {
     en: "Sort by last name",
     sv: "Sortera efter efternamn",
-    de: "Nach Nachnamen sortieren"
+    de: "Nach Nachnamen sortieren",
+    it: ""
   },
   "include not on list": {
     en: "Include people not on comparison list",
     sv: "Inkludera folk som inte är på jämförelselistan",
-    de: "Personen einschließen, die nicht auf der Vergleichsliste stehen"
+    de: "Personen einschließen, die nicht auf der Vergleichsliste stehen",
+    it: ""
   },
   "close": {
     en: "Close",
     sv: "Stäng",
-    de: "Schließen"
+    de: "Schließen",
+    it: ""
   },
   "persons": {
     en: "persons",
     sv: "personer",
-    de: "Personen"
+    de: "Personen",
+    it: ""
   },
   "update list": {
     en: "Update list",
     sv: "Uppdatera listan",
-    de: "Aktualisieren Liste"
+    de: "Aktualisieren Liste",
+    it: ""
   },
   "copy list": {
     en: "Copy list",
     sv: "Kopiera lista",
-    de: "Kopieren Liste"
+    de: "Kopieren Liste",
+    it: ""
   },
   "randomize person": {
     en: "Randomize person",
     sv: "Slumpa person",
-    de: "Zufällige Person"
+    de: "Zufällige Person",
+    it: ""
   },
   "show comparison list": {
     en: "◄ Show comparison list",
     sv: "◄ Visa jämföringslista",
-    de: "◄ Vergleichsliste anzeigen"
+    de: "◄ Vergleichsliste anzeigen",
+    it: ""
   },
   "hide comparison list": {
     en: "► Hide comparison list",
     sv: "► Göm jämföringslista",
-    de: "► Vergleichsliste ausblenden"
+    de: "► Vergleichsliste ausblenden",
+    it: ""
   },
   "show group generator": {
     en: "◄ Show group generator",
     sv: "◄ Visa grupp skapande",
-    de: "◄ Gruppenerstellung anzeigen"
+    de: "◄ Gruppenerstellung anzeigen",
+    it: ""
   },
   "hide group generator": {
     en: "► Hide group generator",
     sv: "► Göm grupp skapande",
-    de: "► Gruppenerstellung ausblenden"
+    de: "► Gruppenerstellung ausblenden",
+    it: ""
   },
   "Insert comparison list": {
     en: "Insert comparison list",
     sv: "Kopiera in jämföringslista",
-    de: "Vergleichsliste einfügen"
+    de: "Vergleichsliste einfügen",
+    it: ""
   },
   "clean comparison list": {
     en: "Clean comparison list",
     sv: "Städa jämföringslistan",
-    de: "Vergleichsliste reinigen"
+    de: "Vergleichsliste reinigen",
+    it: ""
   },
   "class": {
     en: "Class",
     sv: "Klass",
-    de: "Gruppe"
+    de: "Gruppe",
+    it: ""
   },
   "save list": {
     en: "Save list",
     sv: "Spara lista",
-    de: "Liste speichern"
+    de: "Liste speichern",
+    it: ""
   },
   "load list": {
     en: "Load list",
     sv: "Ladda lista",
-    de: "Liste laden"
+    de: "Liste laden",
+    it: ""
   },
   "remove list": {
     en: "Remove list",
     sv: "Ta bort lista",
-    de: "Gruppe entfernen"
+    de: "Gruppe entfernen",
+    it: ""
   },
   "result:": {
     en: "Result:",
     sv: "Resultat:",
-    de: "Ergebnis:"
+    de: "Ergebnis:",
+    it: ""
   },
   "click on compare": {
     en: "Click on compare",
     sv: "Klicka på jämför",
-    de: "Klicken Sie auf Vergleichen"
+    de: "Klicken Sie auf Vergleichen",
+    it: ""
   },
   "copy for chat": {
     en: "Copy for chat",
     sv: "Kopiera för chatten",
-    de: "Kopie für den Chat"
+    de: "Kopie für den Chat",
+    it: ""
   },
   "compare attendees": {
     en: "Compare Attendees",
     sv: "Jämför deltagare",
-    de: "Teilnehmer vergleichen"
+    de: "Teilnehmer vergleichen",
+    it: ""
   },
   "compare": {
     en: "Compare",
     sv: "Jämför",
-    de: "Vergleichen"
+    de: "Vergleichen",
+    it: ""
   },
   "attendance": {
     en: "Attendance",
     sv: "Närvaro",
-    de: "Anwesenheit"
+    de: "Anwesenheit",
+    it: ""
   },
   "settings": {
     en: "Settings",
     sv: "Inställningar",
-    de: "Einstellung"
+    de: "Einstellung",
+    it: ""
   },
   "dark mode": {
     en: "Dark mode",
     sv: "Mörkt läge",
-    de: "Dunkles Design"
+    de: "Dunkles Design",
+    it: ""
   },
   "sort compare list by status": {
     en: "Sort compare list by status",
     sv: "Sortera jämföringslistan efter status",
-    de: "Sortierliste nach Status sortieren"
+    de: "Sortierliste nach Status sortieren",
+    it: ""
   },
   "create groups": {
     en: "Create groups",
     sv: "Skapa grupper",
-    de: "Gruppen erstellen"
+    de: "Gruppen erstellen",
+    it: ""
   },
   "users per group": { 
     en: "Users / group",
     sv: "Användare / grupp",
-    de: "Benutzer / Gruppe"
+    de: "Benutzer / Gruppe",
+    it: ""
   },
   "number of groups": { 
     en: "Number of groups",
     sv: "Antal grupper",
-    de: "Anzahl der Gruppen"
+    de: "Anzahl der Gruppen",
+    it: ""
   },
   "generate groups": { 
     en: "Generate groups",
     sv: "Generera grupper",
-    de: "Gruppen generieren"
+    de: "Gruppen generieren",
+    it: ""
   },
   "copy groups": { 
     en: "Copy groups",
     sv: "Kopiera grupper",
-    de: "Gruppen kopieren"
+    de: "Gruppen kopieren",
+    it: ""
   },
   "copy meets": { 
     en: "Copy Meets-links",
     sv: "Kopiera Meet-länkarna",
-    de: "Meeting-Links kopieren"
+    de: "Meeting-Links kopieren",
+    it: ""
   },
   "force english": {
     en: "Force english (reload required)",
-    sv: "Tvinga engelska (omladdning krävs)"
+    sv: "Tvinga engelska (omladdning krävs)",
+    it: ""
   },
   "use comparison list": {
     en: "Use comparison list",
-    sv: "Använd jämförelselistan"
+    sv: "Använd jämförelselistan",
+    it: ""
   },
   "reset meets":{
     en: "Reset Meet-links",
-    sv: "Nollställ Meet-länkarna"
+    sv: "Nollställ Meet-länkarna",
+    it: ""
   },
   "new meet link warning":{
     en: "Press \"Generate groups\" to use the new Meet links",
-    sv: "Tryck på \"Generera grupper\" för att använda de nya Meet-länkarna"
+    sv: "Tryck på \"Generera grupper\" för att använda de nya Meet-länkarna",
+    it: ""
   },
   "shorten link":{
     en: "Shorten links (g.co)",
-    sv: "Förkorta länkar (g.co)"
+    sv: "Förkorta länkar (g.co)",
+    it: ""
   },
   "use built in grid view":{
     en: "Use Google's Grid View",
-    sv: "Använd Googles Grid View"
+    sv: "Använd Googles Grid View",
+    it: ""
   }
 }
 
