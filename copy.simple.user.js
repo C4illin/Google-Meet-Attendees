@@ -88,6 +88,7 @@ Better layout on all screen
 Use chrome sync storage instead of localstorage.
 Add better pop-up for random person
 Save and load groups
+Aliases for names
 Get attendees in a better way
 */
 
