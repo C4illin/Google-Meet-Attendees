@@ -212,7 +212,7 @@ const translations = {
     en: "Clean comparison list",
     sv: "Städa jämföringslistan",
     de: "Vergleichsliste reinigen",
-    it: "Pulisci lista di confronto"
+    it: "Pulisci lista"
   },
   "class": {
     en: "Class",
