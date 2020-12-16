@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.13
+// @version     0.1.14
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.1.14
+Fixed Italian and German 
 
 0.1.13
 Italian translation by Lorenzo Fabbri
@@ -211,7 +214,7 @@ const translations = {
   "clean comparison list": {
     en: "Clean comparison list",
     sv: "Städa jämföringslistan",
-    de: "Vergleichsliste reinigen",
+    de: "Liste reinigen",
     it: "Pulisci lista"
   },
   "class": {
