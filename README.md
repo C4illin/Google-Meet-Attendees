@@ -4,7 +4,7 @@
 
 # Google Meet Attendees
 This script is currently far from finished but the current prototype is working and open for installation.
-Check chrome wbstore for more information.
+Check chrome webstore for more information.
 
 ## Install
 * Chrome: https://chrome.google.com/webstore/detail/olmgpgbhojeoalaimckcpgkadjkejacl/
