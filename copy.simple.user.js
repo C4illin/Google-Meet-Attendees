@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        Google Meet Attendees
-// @namespace   Google Meet Attendees by Daniel & C4illin
+// @namespace   Google Meet Attendees by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
 // @version     0.1.15
-// @author      Daniel & C4illin <gmeet.attendees@gmail.com>
+// @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
 // ==/UserScript==
