@@ -4,7 +4,7 @@
       "default_title": "Google Meet Attendees"
    },
    "background": {
-      "scripts": ["background.js"],
+      "scripts": ["js/background.js"],
       "persistent": true
     },
    "content_scripts": [ {
