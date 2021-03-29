@@ -3,6 +3,10 @@
       "default_popup": "html/popup.html",
       "default_title": "Google Meet Attendees"
    },
+   "background": {
+      "scripts": ["background.js"],
+      "persistent": true
+    },
    "content_scripts": [ {
       "all_frames": false,
       "js": [ "js/inject.js" ],
