@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & C4illin
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.14
+// @version     0.1.15
 // @author      Daniel & C4illin <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.1.15
+Added better language selector
 
 0.1.14
 Fixed Italian and German 
@@ -96,8 +99,12 @@ Get attendees in a better way
 */
 
 const T = (untranslatedMsg) => {
-  if (forceEnglish == true) {
-    return translations[untranslatedMsg]["en"]
+  if (forceLanguage && forceLanguage != "auto") {
+    if (translations[untranslatedMsg][forceLanguage]) {
+      return translations[untranslatedMsg][forceLanguage]
+    } else {
+      return translations[untranslatedMsg]["en"]
+    }
   } else {
     let languages = navigator.languages
     for(let i = 0; i < languages.length; i++){
@@ -331,10 +338,10 @@ const translations = {
     de: "Meeting-Links kopieren",
     it: "Copia i link-Meet"
   },
-  "force english": {
-    en: "Force english (reload required)",
-    sv: "Tvinga engelska (omladdning krävs)",
-    it: "Forza inglese (richiede riavvio)"
+  "force language ": {
+    en: "Force language (reload required)",
+    sv: "Tvinga språk (omladdning krävs)",
+    it: "Forza lingua (richiede riavvio)"
   },
   "use comparison list": {
     en: "Use comparison list",
@@ -390,7 +397,12 @@ if (localStorage.getItem("gma-class-options") && localStorage.getItem("gma-class
   savedClasses = JSON.parse("{}")
 }
 let pos1, pos2, pos3, pos4 = 0
-let forceEnglish = localStorage.getItem("gma-force-english") === "true"
+
+let forceLanguage = "auto"
+if (localStorage.getItem("gma-force-language") !== null) {
+  forceLanguage = localStorage.getItem("gma-force-language")
+}
+
 
 if (localStorage.getItem("gmca-attendees-list") && (localStorage.getItem("gmca-attendees-list")[0] != "[")) {
   localStorage.setItem("gmca-attendees-list", JSON.stringify(localStorage.getItem("gmca-attendees-list").split(",")))
@@ -858,15 +870,25 @@ setInterval(() => {
     addSetting("gma-shorten-link",T("shorten link"))
     addSetting("gma-original-grid-view",T("use built in grid view"))
 
-    let forceEnglishParent = addElement("label", settingsMenu, null, T("force english"))
-    let forceEnglishElem = document.createElement("input")
-    forceEnglishElem.type = "checkbox"
-    forceEnglishElem.checked = localStorage.getItem("gma-force-english") === "true"
-    forceEnglishElem.onchange = e => {
-      localStorage.setItem("gma-force-english", e.target.checked)
-      forceEnglish = e.target.checked
+    let forceLanguageParent = addElement("label", settingsMenu, null, T("force language "))
+    let forceLanguageElem = document.createElement("select")
+
+    let forceLanguageOptions = ["Auto","English","Swedish","Italian","German"]
+    let forceLanguageValue = ["auto","en","sv","it","de"]
+
+    for(let i = 0; i < forceLanguageOptions.length; i++) {
+      let el = document.createElement("option")
+      el.textContent = forceLanguageOptions[i]
+      el.value = forceLanguageValue[i]
+      forceLanguageElem.appendChild(el)
     }
-    forceEnglishParent.prepend(forceEnglishElem)
+    forceLanguageElem.value = forceLanguage
+
+    forceLanguageElem.onchange = e => {
+      localStorage.setItem("gma-force-language", e.target.value)
+      forceLanguage = e.target.value
+    }
+    forceLanguageParent.prepend(forceLanguageElem)
 
     const darkModeParent = addElement("label", settingsMenu, null,T("dark mode"))
     const darkMode = document.createElement("input")
