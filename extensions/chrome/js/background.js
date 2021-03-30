@@ -10,25 +10,25 @@ const getChromeStorage = async function (keys) {
   return new Promise((resolve, reject) => {
     try {
       chrome.storage.local.get(keys, function (value) {
-        resolve(value);
-      });
+        resolve(value)
+      })
     } catch (ex) {
-      resolve({});
+      resolve({})
     }
-  });
-};
+  })
+}
 
 const setChromeStorage = async function (obj) {
   return new Promise((resolve, reject) => {
     try {
       chrome.storage.local.set(obj, function () {
-        resolve();
-      });
+        resolve()
+      })
     } catch (ex) {
-      reject(ex);
+      reject(ex)
     }
-  });
-};
+  })
+}
 
 const log = (obj) => console.log("mutesync-integration", obj)
 
