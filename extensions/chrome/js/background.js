@@ -2,7 +2,33 @@
 // - storage
 // - tabs
 // - alarms
-import { getChromeStorage, setChromeStorage } from "./storage"
+
+
+//import { getChromeStorage, setChromeStorage } from "./storage"
+// Didn't get import to work. Putting the functions here instead
+const getChromeStorage = async function (keys) {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.local.get(keys, function (value) {
+        resolve(value);
+      });
+    } catch (ex) {
+      resolve({});
+    }
+  });
+};
+
+const setChromeStorage = async function (obj) {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.local.set(obj, function () {
+        resolve();
+      });
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+};
 
 const log = (obj) => console.log("mutesync-integration", obj)
 
