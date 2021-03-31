@@ -1,7 +1,6 @@
 // Need to have the following permissions enabled
 // - storage
 // - tabs
-// - alarms
 
 
 //import { getChromeStorage, setChromeStorage } from "./storage"

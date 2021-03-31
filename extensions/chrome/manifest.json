@@ -29,7 +29,6 @@
    "version": "0.1.15",
    "permissions": [ 
       "storage",
-      "tabs",
       "alarms"
     ],
    "web_accessible_resources": [ "js/copy.simple.user.js" ]
