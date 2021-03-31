@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.15
+// @version     0.1.16
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,8 @@
 
 // Changelog
 /*
+0.1.16
+Removed unnecessary premission: tabs
 
 0.1.15
 Added better language selector
