@@ -1,0 +1,11 @@
+{
+  "appName": {
+    "message": "Google Meet Attendees"
+  },
+  "extName": {
+    "message": "Google Meet Attendees & Breakout Rooms"
+  },
+  "extDesc": {
+    "message": "Få enkelt alla deltagare i en Google Meet och jämför de med en lista, skapa grupprum med mera."
+  }
+}

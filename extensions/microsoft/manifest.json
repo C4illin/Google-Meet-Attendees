@@ -13,7 +13,6 @@
       "matches": [ "https://meet.google.com/*" ],
       "run_at": "document_idle"
    } ],
-   "default_locale": "en",
    "description": "Easily get everyone attending a Google Meet and compare them to a list, create groups and more",
    "icons": {
       "128": "icons/icon128.png",
@@ -24,7 +23,7 @@
    },
    "manifest_version": 2,
    "name": "Google Meet Attendees & Breakout Rooms",
-   "short_name": "Google Meet Attendees",
+   "short_name": "GM Attendees",
    "update_url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx",
    "version": "0.1.16",
    "permissions": [ 

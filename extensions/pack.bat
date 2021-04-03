@@ -1,6 +1,15 @@
 DEL chrome-ext.zip
 copy ..\copy.simple.user.js chrome\js\copy.simple.user.js
 powershell Compress-Archive chrome\. chrome-ext.zip
+
+REM Ugly copying but it works
+xcopy chrome\_locales microsoft\_locales\ /E /Y
+xcopy chrome\html microsoft\html\ /Y
+xcopy chrome\icons microsoft\icons\ /Y
+xcopy chrome\js microsoft\js\ /Y
+
+DEL microsoft-ext.zip
+powershell Compress-Archive microsoft\. microsoft-ext.zip
 EXIT
 
 REM cat chrome-ext.zip | crx3 -p chrome-ext.pem

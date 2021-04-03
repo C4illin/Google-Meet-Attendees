@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "Google Meet Attendees",
+    "description": "Short name"
+  },
+  "extName": {
+    "message": "Google Meet Attendees & Breakout Rooms",
+    "description": "Extension name (46 characters)"
+  },
+  "extDesc": {
+    "message": "Easily get everyone attending a Google Meet and compare them to a list, create groups and more", 
+    "description": "Extension description"
+  }
+}
