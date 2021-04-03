@@ -1,0 +1,35 @@
+{
+   "browser_action": {
+      "default_popup": "html/popup.html",
+      "default_title": "Google Meet Attendees"
+   },
+   "background": {
+      "scripts": ["js/background.js"],
+      "persistent": true
+    },
+   "content_scripts": [ {
+      "all_frames": false,
+      "js": [ "js/inject.js" ],
+      "matches": [ "https://meet.google.com/*" ],
+      "run_at": "document_idle"
+   } ],
+   "default_locale": "en",
+   "description": "Easily get everyone attending a Google Meet and compare them to a list, create groups and more",
+   "icons": {
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "96": "icons/icon96.png"
+   },
+   "manifest_version": 2,
+   "name": "Google Meet Attendees & Breakout Rooms",
+   "short_name": "Google Meet Attendees",
+   "update_url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx",
+   "version": "0.1.16",
+   "permissions": [ 
+      "storage",
+      "alarms"
+    ],
+   "web_accessible_resources": [ "js/copy.simple.user.js" ]
+}
