@@ -7,3 +7,4 @@ extensions/chrome-ext.zip
 extensions/microsoft-ext.zip
 extensions/chrome/js/copy.simple.user.js
 .DS_Store
+extensions/microsoft/js/copy.simple.user.js
