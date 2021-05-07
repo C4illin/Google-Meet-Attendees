@@ -774,12 +774,25 @@ h1, h2, h3, #attendees-list-gma p {
 document.body.append(s)
 
 setInterval(() => {
+  var useOldClassSelector = true
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
-  let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  if (!(screencast.length == 0)){
+    var buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  } else {
+    screencast = document.getElementsByClassName("NzPR9b")
+    var buttons = screencast[0]
+    useOldClassSelector = false
+  }
+  
   if ((buttons) && (document.getElementsByClassName("__gma-button").length == 0)) {
     console.log("%c Initialized Attendees Script", "background: #FFFFFF; color: #242424")
     
-    buttons.prepend(buttons.children[3].cloneNode())
+    if (useOldClassSelector) {
+      buttons.prepend(buttons.children[3].cloneNode())
+    } else {
+      buttons.prepend(buttons.children[1].cloneNode())
+    }
+    
     const toggleButton = document.createElement("div")
     toggleButton.classList = buttons.children[3].classList
     toggleButton.classList.add("__gma-button")
