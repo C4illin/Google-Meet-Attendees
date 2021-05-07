@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.16
+// @version     0.1.17
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
