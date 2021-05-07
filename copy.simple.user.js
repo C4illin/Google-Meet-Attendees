@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+0.1.17
+Fixed button not appearing
+
 0.1.16
 Removed unnecessary premission: tabs
 
