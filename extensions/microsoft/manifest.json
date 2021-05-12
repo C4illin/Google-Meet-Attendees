@@ -25,7 +25,7 @@
    "name": "Google Meet Attendees & Breakout Rooms",
    "short_name": "GM Attendees",
    "update_url": "https://edge.microsoft.com/extensionwebstorebase/v1/crx",
-   "version": "0.1.17",
+   "version": "0.1.18",
    "permissions": [ 
       "storage",
       "alarms"
