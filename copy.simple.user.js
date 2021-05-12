@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.17
+// @version     0.1.18
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+0.1.18
+Fixed attendees not refreshing
+
 0.1.17
 Fixed button not appearing
 
@@ -1566,8 +1569,14 @@ const getAllAttendees = () => {
     return Object.keys(unique)
   }
   // START This section turns on grid view for 3 seconds and grabs all the names. Then it turns itself off.
-  let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
-  let buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")                                                                  
+  if (!(screencast.length == 0)){
+    var buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  } else {
+    screencast = document.getElementsByClassName("NzPR9b")
+    var buttons = screencast[0]
+    useOldClassSelector = false
+  }
   let buttonChildren = buttons.children
 
   let waitTime = 0
