@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        Google Meet Attendees
-// @namespace   Google Meet Attendees by Daniel & Emrik
+// @name        Google Meet Attendees & Breakout Rooms
+// @namespace   Google Meet Attendees & Breakout Rooms by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.1.18
+// @version     0.2.0
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+0.2.0
+Now works in the new google meet layout
+
 0.1.18
 Fixed attendees not refreshing
 
@@ -378,6 +381,9 @@ const translations = {
   }
 }
 
+// Add you in your language
+let youArray = ["You","Du"]
+
 // localstorage test
 try {
   localStorage.setItem("test", "hello")
@@ -421,7 +427,7 @@ const icon = "<path fill=\"currentColor\" d=\"M11.41 3.76c-.8.04-1.6.31-2.27.86-
 // Css for our project because we couldn't use a seperate css file.
 const s = document.createElement("style")
 s.innerText = `
-.__gma-button:hover {
+.__gma-old-meet:hover {
   z-index: 8;
   background-color: var(--gm-neutral-highlight-color)
 }
@@ -430,8 +436,17 @@ s.innerText = `
   overflow: visible
 }
 
-.__gma-button:hover>#attendees-list-gma {
+.__gma-old-meet:hover>#attendees-list-gma {
   display: flex
+}
+
+.__gma-new-meet {
+  padding: 12px;
+}
+
+.__gma-new-meet:hover {
+  z-index: 8;
+  background-color: #28292C
 }
 
 #attendees-list-gma label {
@@ -585,11 +600,19 @@ s.innerText = `
   z-index: 7;
   top: 48px;
   max-height: 80vh;
+  white-space: pre-wrap;
 }
 
 #attendees-list-gma > * {
   position: relative;
   width: 258px
+}
+
+.__gma-new-meet > div#attendees-list-gma {
+  top: -850px;
+  right: -210px;
+  color: black;
+  border-radius: 8px 0 0 8px;
 }
 
 #compare-div, #create-groups-div {
@@ -778,16 +801,21 @@ h1, h2, h3, #attendees-list-gma p {
 }
 `
 document.body.append(s)
+var newmeet = false
+var useOldClassSelector = true
 
 setInterval(() => {
-  var useOldClassSelector = true
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
+  var buttons
   if (!(screencast.length == 0)){
-    var buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
-  } else {
+    buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+  } else if(document.getElementsByClassName("NzPR9b").length != 0) {
     screencast = document.getElementsByClassName("NzPR9b")
-    var buttons = screencast[0]
+    buttons = screencast[0]
     useOldClassSelector = false
+  } else {
+    newmeet = true
+    buttons = document.querySelector("div.SGP0hd.kunNie")
   }
   
   if ((buttons) && (document.getElementsByClassName("__gma-button").length == 0)) {
@@ -802,6 +830,13 @@ setInterval(() => {
     const toggleButton = document.createElement("div")
     toggleButton.classList = buttons.children[3].classList
     toggleButton.classList.add("__gma-button")
+
+    if (newmeet) {
+      toggleButton.classList.add("__gma-new-meet")
+    } else {
+      toggleButton.classList.add("__gma-old-meet")
+    }
+
     if (toggleButton.classList.contains("__gmgv-button")) {
       toggleButton.classList.remove("__gmgv-button")
     }
@@ -1568,61 +1603,72 @@ const getAllAttendees = () => {
     })
     return Object.keys(unique)
   }
+  
   // START This section turns on grid view for 3 seconds and grabs all the names. Then it turns itself off.
-  let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")                                                                  
-  if (!(screencast.length == 0)){
-    var buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
-  } else {
-    screencast = document.getElementsByClassName("NzPR9b")
-    var buttons = screencast[0]
-    useOldClassSelector = false
-  }
-  let buttonChildren = buttons.children
-
   let waitTime = 0
   let toChange = [false, false]
   let checkboxes
-
-  if (localStorage.getItem("gma-original-grid-view") !== "true") {
-    for (let i = 0; i < buttonChildren.length; i++) {
-      if (buttonChildren[i].classList.contains("__gmgv-button")) {
-        var theButton = buttonChildren[i]
-        break
-      } else if (i == buttonChildren.length - 1) {
-        alert("Grid View NOT detected, make sure you have Google Meet Grid View installed if you want to use that function. It will now use the built-in grid view from now on (change this anytime in settings")
-        localStorage.setItem("gma-original-grid-view", true)
-        document.querySelector("#settingsMenu > label:nth-child(7) > input[type=checkbox]").checked = true
+  if (!newmeet) {
+    let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")                                                           
+    if (!(screencast.length == 0)){
+      var buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+    } else {
+      screencast = document.getElementsByClassName("NzPR9b")
+      var buttons = screencast[0]
+      useOldClassSelector = false
+    }
+    let buttonChildren = buttons.children
+    if (localStorage.getItem("gma-original-grid-view") !== "true") {
+      for (let i = 0; i < buttonChildren.length; i++) {
+        if (buttonChildren[i].classList.contains("__gmgv-button")) {
+          var theButton = buttonChildren[i]
+          break
+        } else if (i == buttonChildren.length - 1) {
+          alert("Grid View NOT detected, make sure you have Google Meet Grid View installed if you want to use that function. It will now use the built-in grid view from now on (change this anytime in settings)")
+          localStorage.setItem("gma-original-grid-view", true)
+          document.querySelector("#settingsMenu > label:nth-child(7) > input[type=checkbox]").checked = true
+        }
       }
-    }
 
-    checkboxes = theButton.lastElementChild.children
-    let showOnlyVideo = checkboxes[0].firstChild.checked
+      checkboxes = theButton.lastElementChild.children
+      let showOnlyVideo = checkboxes[0].firstChild.checked
   
-    let gridtoggle = false
-    if (theButton.firstElementChild.innerHTML.substring(30, 31) == "1") {
-      gridtoggle = true
-    }
+      let gridtoggle = false
+      if (theButton.firstElementChild.innerHTML.substring(30, 31) == "1") {
+        gridtoggle = true
+      }
 
-    if (!gridtoggle) {
-      theButton.click()
-      toChange[0] = true
-      waitTime += 3000
-    }
-    if (showOnlyVideo) {
-      checkboxes[0].firstChild.click()
-      toChange[1] = true
-      waitTime += 1000
+      if (!gridtoggle) {
+        theButton.click()
+        toChange[0] = true
+        waitTime += 3000
+      }
+      if (showOnlyVideo) {
+        checkboxes[0].firstChild.click()
+        toChange[1] = true
+        waitTime += 1000
+      }
     }
   }
   // END
   
+  
   setTimeout(() => {
     let nameSelector = "epqixc"
-    
+    let divList
     let people = []
-    let divList = document.getElementsByClassName(nameSelector)
+
+    if (newmeet) {
+      divList = document.querySelector("div[style='inset: 16px 16px 80px;']").children
+    } else {
+      divList = document.getElementsByClassName(nameSelector)
+    }
+
     for (let item of divList) {
-      people.push(item.innerText)
+      var ppl = item.innerText
+      if (!ppl.endsWith("close_fullscreen") && !youArray.includes(ppl) && ppl != "") {
+        people.push(ppl)
+      }
     }
     
     if (people.length == 1 && people[0] == buttons.lastChild.firstChild.children[2].innerText) {
