@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees & Breakout Rooms by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.2.0
+// @version     0.2.1
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -1609,12 +1609,13 @@ const getAllAttendees = () => {
   let toChange = [false, false]
   let checkboxes
   if (!newmeet) {
-    let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")                                                           
+    let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
+    var buttons                                                     
     if (!(screencast.length == 0)){
-      var buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
+      buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
     } else {
       screencast = document.getElementsByClassName("NzPR9b")
-      var buttons = screencast[0]
+      buttons = screencast[0]
       useOldClassSelector = false
     }
     let buttonChildren = buttons.children
