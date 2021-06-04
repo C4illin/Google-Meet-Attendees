@@ -3,8 +3,7 @@ demo.mp4
 extra info.txt
 chrome-ext.pem
 .vscode
-extensions/chrome-ext.zip
-extensions/microsoft-ext.zip
+*.zip
 extensions/chrome/js/copy.simple.user.js
 .DS_Store
 extensions/microsoft/js/copy.simple.user.js
@@ -12,3 +11,7 @@ extensions/microsoft/js/copy.simple.user.js
 /extensions/microsoft/html
 /extensions/microsoft/icons
 /extensions/microsoft/js
+/extensions/firefox/_locales
+/extensions/firefox/html
+/extensions/firefox/icons
+/extensions/firefox/js

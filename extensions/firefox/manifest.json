@@ -1,0 +1,31 @@
+{
+   "browser_action": {
+      "default_popup": "html/popup.html",
+      "default_title": "Google Meet Attendees"
+   },
+   "content_scripts": [
+      {
+         "all_frames": false,
+         "matches": [
+            "https://meet.google.com/*"
+         ],
+         "js": [
+            "js/copy.simple.user.js"
+         ],
+         "run_at": "document_idle"
+      }
+   ],
+   "default_locale": "en",
+   "description": "__MSG_extDesc__",
+   "icons": {
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "96": "icons/icon96.png"
+   },
+   "manifest_version": 2,
+   "name": "Google Meet Attendees & Breakout Rooms",
+   "short_name": "Gmeet Attendees",
+   "version": "0.2.1"
+}

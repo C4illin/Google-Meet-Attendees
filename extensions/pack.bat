@@ -8,8 +8,16 @@ xcopy chrome\html microsoft\html\ /Y
 xcopy chrome\icons microsoft\icons\ /Y
 xcopy chrome\js microsoft\js\ /Y
 
+xcopy chrome\_locales firefox\_locales\ /E /Y
+xcopy chrome\html firefox\html\ /Y
+xcopy chrome\icons firefox\icons\ /Y
+xcopy chrome\js firefox\js\ /Y
+
 DEL microsoft-ext.zip
 powershell Compress-Archive microsoft\. microsoft-ext.zip
+
+DEL firefox-ext.zip
+powershell Compress-Archive firefox\* firefox-ext.zip
 EXIT
 
 REM cat chrome-ext.zip | crx3 -p chrome-ext.pem
