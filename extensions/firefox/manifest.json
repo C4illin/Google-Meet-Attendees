@@ -27,5 +27,5 @@
    "manifest_version": 2,
    "name": "Google Meet Attendees & Breakout Rooms",
    "short_name": "Gmeet Attendees",
-   "version": "0.2.1"
+   "version": "0.2.2"
 }

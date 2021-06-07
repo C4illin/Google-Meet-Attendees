@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees & Breakout Rooms by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.2.1
+// @version     0.2.2
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,13 @@
 
 // Changelog
 /*
+
+0.2.2
+Fixed bug in old meet
+
+0.2.1
+Small bugfix
+
 0.2.0
 Now works in the new google meet layout
 
