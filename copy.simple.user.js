@@ -803,6 +803,8 @@ var newmeet = false
 var useOldClassSelector = true
 
 setInterval(() => {
+  newmeet = false
+  useOldClassSelector = true
   let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
   var buttons
   if (!(screencast.length == 0)){
