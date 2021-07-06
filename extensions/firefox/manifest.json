@@ -3,20 +3,14 @@
       "default_popup": "html/popup.html",
       "default_title": "Google Meet Attendees"
    },
-   "content_scripts": [
-      {
-         "all_frames": false,
-         "matches": [
-            "https://meet.google.com/*"
-         ],
-         "js": [
-            "js/copy.simple.user.js"
-         ],
-         "run_at": "document_idle"
-      }
-   ],
+   "content_scripts": [ {
+      "all_frames": false,
+      "js": [ "js/copy.simple.user.js" ],
+      "matches": [ "https://meet.google.com/*" ],
+      "run_at": "document_idle"
+   } ],
    "default_locale": "en",
-   "description": "__MSG_extDesc__",
+   "description": "Get all attendees in google meet and generate groups",
    "icons": {
       "128": "icons/icon128.png",
       "16": "icons/icon16.png",
@@ -27,5 +21,5 @@
    "manifest_version": 2,
    "name": "Google Meet Attendees & Breakout Rooms",
    "short_name": "Gmeet Attendees",
-   "version": "0.2.2"
+   "version": "0.2.3"
 }

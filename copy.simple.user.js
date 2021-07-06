@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees & Breakout Rooms by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.2.2
+// @version     0.2.3
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.2.3
+Fixed top margin
 
 0.2.2
 Fixed bug in old meet
@@ -614,7 +617,7 @@ s.innerText = `
 }
 
 .__gma-new-meet > div#attendees-list-gma {
-  top: -850px;
+  top: calc(-40vh - 300px);
   right: -210px;
   color: black;
   border-radius: 8px 0 0 8px;
