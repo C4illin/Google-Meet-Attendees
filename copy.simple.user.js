@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees & Breakout Rooms by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.2.3
+// @version     0.2.4
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.2.4
+Fixed attendees not refreshing and added failsafe for attendees div
 
 0.2.3
 Fixed top margin
@@ -1618,9 +1621,9 @@ const getAllAttendees = () => {
   let waitTime = 0
   let toChange = [false, false]
   let checkboxes
+  var buttons
   if (!newmeet) {
-    let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")
-    var buttons                                                     
+    let screencast = document.querySelectorAll("[data-fps-request-screencast-cap]")                                        
     if (!(screencast.length == 0)){
       buttons = screencast[screencast.length-1].parentElement.parentElement.parentElement
     } else {
@@ -1670,7 +1673,11 @@ const getAllAttendees = () => {
     let people = []
 
     if (newmeet) {
-      divList = document.querySelector("div[style='inset: 16px 16px 80px;']").children
+      divList = document.querySelector("div[style='inset: 72px 16px 80px;']")
+      if (divList == null) {
+        divList = document.querySelector("#ow3 > div.T4LgNb > div > div:nth-child(9) > div.crqnQb > div.OKJMXc.xYDeBf > div.zWfAib.c32Trc.eFmLfc.nrxduf.a1pVef")
+      }
+      divList = divList.children
     } else {
       divList = document.getElementsByClassName(nameSelector)
     }
