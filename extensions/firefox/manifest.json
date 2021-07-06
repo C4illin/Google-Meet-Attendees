@@ -9,7 +9,6 @@
       "matches": [ "https://meet.google.com/*" ],
       "run_at": "document_idle"
    } ],
-   "default_locale": "en",
    "description": "Get all attendees in google meet and generate groups",
    "icons": {
       "128": "icons/icon128.png",
