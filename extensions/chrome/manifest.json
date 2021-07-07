@@ -22,6 +22,6 @@
    "name": "__MSG_extName__",
    "short_name": "__MSG_appName__",
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.2.3",
+   "version": "0.2.4",
    "web_accessible_resources": [ "js/copy.simple.user.js" ]
 }
