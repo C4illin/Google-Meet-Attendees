@@ -3,7 +3,7 @@
 // @namespace   Google Meet Attendees & Breakout Rooms by Daniel & Emrik
 // @include     https://meet.google.com/*
 // @grant       none
-// @version     0.2.4
+// @version     0.2.5
 // @author      Daniel & Emrik <gmeet.attendees@gmail.com>
 // @description Get attendees at a google meet and do different things.
 // @run-at      document-idle
@@ -11,6 +11,9 @@
 
 // Changelog
 /*
+
+0.2.5
+Fixed attendees in sidebar mode
 
 0.2.4
 Fixed attendees not refreshing and added failsafe for attendees div
@@ -1676,6 +1679,9 @@ const getAllAttendees = () => {
       divList = document.querySelector("div[style='inset: 72px 16px 80px;']")
       if (divList == null) {
         divList = document.querySelector("#ow3 > div.T4LgNb > div > div:nth-child(9) > div.crqnQb > div.OKJMXc.xYDeBf > div.zWfAib.c32Trc.eFmLfc.nrxduf.a1pVef")
+      }
+      if (divList == null) {
+        divList = document.querySelector("div[style='inset: 16px 16px 80px;']")
       }
       divList = divList.children
     } else {
