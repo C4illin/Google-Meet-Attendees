@@ -17,7 +17,7 @@
 
 [![Chrome](https://img.shields.io/chrome-web-store/users/olmgpgbhojeoalaimckcpgkadjkejacl.svg?style=for-the-badge&label=Chrome&logo=google%20chrome&logoColor=white)](https://chrome.google.com/webstore/detail/olmgpgbhojeoalaimckcpgkadjkejacl/)
 
-[![Firefox](https://img.shields.io/amo/users/gmeet-attendees?label=Firefox&logo=firefox&logoColor=white&style=for-the-badge)](https://addons.mozilla.org/firefox/addon/gmeet-attendees/reviews/)
+[![Firefox](https://img.shields.io/amo/users/gmeet-attendees?label=Firefox&logo=firefox&logoColor=white&style=for-the-badge)](https://addons.mozilla.org/firefox/addon/gmeet-attendees/)
 
 
 [![Userscript](https://img.shields.io/badge/dynamic/json?query=total_installs&url=https%3A%2F%2Fgreasyfork.org%2Fscripts%2F429217.json&label=Userscript&logo=javascript&logoColor=white&style=for-the-badge)](https://greasyfork.org/scripts/429217-google-meet-attendees-breakout-rooms/code/Google%20Meet%20Attendees%20%20Breakout%20Rooms.user.js)
