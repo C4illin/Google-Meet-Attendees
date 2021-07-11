@@ -3,7 +3,7 @@
 </p>
 
 [![Chrome](https://img.shields.io/chrome-web-store/users/olmgpgbhojeoalaimckcpgkadjkejacl.svg?style=for-the-badge&label=Chrome&logo=google%20chrome&logoColor=white)](https://chrome.google.com/webstore/detail/olmgpgbhojeoalaimckcpgkadjkejacl/)
-[![Chrome](https://img.shields.io/chrome-web-store/v/olmgpgbhojeoalaimckcpgkadjkejacl.svg?style=for-the-badge&label=Version&logo=google%20meet&logoColor=white)](https://chrome.google.com/webstore/detail/olmgpgbhojeoalaimckcpgkadjkejacl/)
+[![Changelog](https://img.shields.io/chrome-web-store/v/olmgpgbhojeoalaimckcpgkadjkejacl.svg?style=for-the-badge&label=Changelog&logo=google%20meet&logoColor=white)](https://github.com/C4illin/Google-Meet-Attendees/blob/master/copy.simple.user.js#L12)
 [![Github](https://img.shields.io/github/stars/C4illin/Google-Meet-Attendees?logo=github&logoColor=white&style=for-the-badge)](https://github.com/C4illin/Google-Meet-Attendees/stargazers/)
 
 
