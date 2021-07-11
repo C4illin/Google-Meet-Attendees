@@ -623,7 +623,7 @@ s.innerText = `
 }
 
 .__gma-new-meet > div#attendees-list-gma {
-  top: calc(-40vh - 300px);
+  top: calc(-40vh - 320px);
   right: -210px;
   color: black;
   border-radius: 8px 0 0 8px;

@@ -1,24 +1,32 @@
 {
-   "browser_action": {
-      "default_popup": "html/popup.html",
-      "default_title": "Google Meet Attendees"
-   },
-   "content_scripts": [ {
+  "browser_action": {
+    "default_popup": "html/popup.html",
+    "default_title": "Google Meet Attendees"
+  },
+  "content_scripts": [
+    {
       "all_frames": false,
-      "js": [ "js/copy.simple.user.js" ],
-      "matches": [ "https://meet.google.com/*" ],
+      "js": ["js/copy.simple.user.js"],
+      "matches": ["https://meet.google.com/*"],
       "run_at": "document_idle"
-   } ],
-   "description": "Get all attendees in google meet and generate groups",
-   "icons": {
-      "128": "icons/icon128.png",
-      "16": "icons/icon16.png",
-      "32": "icons/icon32.png",
-      "48": "icons/icon48.png",
-      "96": "icons/icon96.png"
-   },
-   "manifest_version": 2,
-   "name": "Google Meet Attendees & Breakout Rooms",
-   "short_name": "Gmeet Attendees",
-   "version": "0.2.5"
+    }
+  ],
+  "description": "Get all attendees in google meet and generate groups",
+  "icons": {
+    "128": "icons/icon128.png",
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "96": "icons/icon96.png"
+  },
+  "manifest_version": 2,
+  "homepage_url": "https://github.com/C4illin/Google-Meet-Attendees",
+  "name": "Google Meet Attendees & Breakout Rooms",
+  "short_name": "Gmeet Attendees",
+  "version": "0.2.5",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{1f04d08e-a980-449d-8008-dd7d8c211565}"
+    }
+  }
 }
